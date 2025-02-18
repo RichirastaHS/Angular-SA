@@ -1,0 +1,65 @@
+<section class="container">
+    <div class="form-container">
+        <h2>Nuevo Documento...</h2>
+        
+        <form action="/ruta-de-agregar-documento" method="POST">
+            
+            <!-- Titulo del Documento -->
+            <fieldset class="form-group title">
+                <label for="title">Título del Documento</label>
+                <input type="text" id="title" name="title" placeholder="Ingrese el título del documento" required="">
+            </fieldset>
+
+            <!-- Tipo de Documento -->
+            <fieldset class="form-group type">
+                <label for="documentType">Tipo de Documento</label>
+                <select id="documentType" name="documentType" required="">
+                    <option value="">Seleccione un tipo</option>
+                    <option value="oficio">Oficio</option>
+                    <option value="acta">Acta</option>
+                    <option value="expediente">Expediente</option>
+                    <option value="informe">Informe</option>
+                </select>
+            </fieldset>
+            <!-- Estado -->
+            <fieldset class="form-group status">
+                <label for="status">Estado</label>
+                <select id="status" name="status" required="">
+                    <option value="">Seleccione el estado</option>
+                    <option value="en_proceso">En Proceso</option>
+                    <option value="pendiente_firma">Pendiente de Firma</option>
+                    <option value="firmado">Firmado</option>
+                    <option value="entregado">Entregado</option>
+                </select>
+           </fieldset>
+
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Descripción</label>
+                <textarea id="description" name="description" rows="4" placeholder="Descripción del documento" required=""></textarea>
+            </fieldset>
+
+            <fieldset class="form-group date_registration">
+                <label for="registrationDate">Fecha de Registro</label>
+                <input type="date" id="registrationDate" name="registrationDate" disabled>
+            </fieldset>
+
+            <!-- Fecha de Recepción -->
+            <fieldset class="form-group date_reecepcion">
+                <label for="receivedDate">Fecha de Recepción</label>
+                <input type="date" id="receivedDate" name="receivedDate" required="">
+            </fieldset>
+
+            <!-- Comentarios -->
+            <fieldset class="form-group comments">
+                <label for="comments">Comentarios</label>
+                <textarea id="comments" name="comments" rows="4" placeholder="Agregue comentarios adicionales (opcional)"></textarea>
+            </fieldset>
+            <!-- Botón para guardar -->
+            <fieldset class="form-group submit">
+                <button type="submit">Guardar Documento</button>
+            </fieldset>
+
+        </form>
+    </div>
+</section>

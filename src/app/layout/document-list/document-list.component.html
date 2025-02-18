@@ -1,0 +1,115 @@
+<section>
+    <h2>Documentos</h2>
+    <div class="filter-container">
+      <span class="filter-label">🔍 Filtrar Por</span>
+      <div class="filter-options">
+          <div class="checkbox-container">
+              Tipo de Documento
+              <label for="Paco">
+                <input type="checkbox" name="Paco" id="Paco">
+                Documento 1
+              </label>
+              <label for="Paco1">
+                <input type="checkbox" name="Paco1" id="Paco1">
+                Documento 2
+              </label>
+              <label for="Paco2">
+                <input type="checkbox" name="Paco2" id="Paco2">
+                Documento 3
+              </label>
+          </div>
+          <div class="checkbox-container">
+            Estatus
+              <label for="Paco3">
+                <input type="checkbox" name="Paco3" id="Paco3">
+                Firmado
+              </label>
+              <label for="Paco4">
+                <input type="checkbox" name="Paco4" id="Paco4">
+                En proceso
+              </label>
+              <label for="Paco5">
+                <input type="checkbox" name="Paco5" id="Paco5">
+                Faltan datos
+              </label>
+          </div>
+          <div class="name-filtre" for="">
+              Rango de fechas
+              <div>
+                <input type="date">
+                a
+                <input type="date">
+              </div>
+          </div>
+        </div>  
+        <div class="button-container">
+          <button class="ef">
+            Eliminar filtro
+          </button>
+          <button class="btn-aceeptar">
+            Aceptar
+          </button>
+        </div>
+    </div> 
+  
+    <div class="border-container">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="Nombre">
+                <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
+                <td mat-cell *matCellDef="let doc"> <button class="button-name" [routerLink]="['/main/detalles', doc.id.toString()]"> {{doc.title}} </button> </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef> TIPO </th>
+                <td mat-cell *matCellDef="let element"> {{element.category?.name}} </td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="Fecha de recepción">
+                <th mat-header-cell *matHeaderCellDef> FECHA DE RECEPCIÓN </th>
+                <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="Fecha de registro">
+                <th mat-header-cell *matHeaderCellDef> FECHA DE REGISTRO </th>
+                <td mat-cell *matCellDef="let element"> {{element.received_date | date}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Estatus">
+                <th mat-header-cell *matHeaderCellDef> ESTATUS </th>
+                <td mat-cell *matCellDef="let element" > <span class="estatus estatus_{{element.status?.id}}">{{element.status?.name}}</span> </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="Acciones">
+                <th mat-header-cell *matHeaderCellDef> ACCIONES</th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button [routerLink]="['/main/editar', element.id.toString()]" >
+                        <mat-icon class="edit">edit</mat-icon>
+                    </button>  
+                    <button >
+                        <mat-icon class="delete">delete</mat-icon>
+                    </button>  
+                </td>
+              </ng-container>
+
+              <tr  mat-header-row *matHeaderRowDef="columnsToDisplay "></tr>
+              <tr mat-row *matRowDef="let row; columns: columnsToDisplay ;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[15]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+        
+    </div>
+    <div class="pagination">
+        <button class="prev-page"><</button>
+        <button class="next-page">></button>
+    </div>
+</section>

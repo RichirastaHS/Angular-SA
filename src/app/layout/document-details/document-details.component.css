@@ -1,0 +1,97 @@
+section {
+    display: grid;
+    padding: 2em;
+    gap: 1em;
+    max-width: 1200px;
+}
+
+.document-details__actions{
+    display: flex;
+    justify-self: end;
+}
+
+.document-details{
+    border: 1px solid #dddddd;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-radius: 15px;
+    padding: 1em 4em 4em 4em;
+    background: white;
+}
+
+h2 {
+    font-family: 'Nunito Sans', Courier, monospace;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.2rem;
+}
+
+h4{
+    font-family: 'Inter', Courier, monospace;
+    font-weight: 600;
+    color: #000;
+    margin: 2em 0 0 0;
+    line-height: 1.2rem;
+    font-size: large;
+}
+p{
+    font-family: 'Roboto Flex', Courier, monospace;
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: #000;
+    line-height: 1.2rem;
+}
+time{
+    font-family: 'Roboto Flex', Courier, monospace;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.2rem;
+}	
+
+.document-details__info{
+    display: flex;
+    padding: 0;
+    gap: 20em;
+}
+
+.estatus {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.aprobado {
+    color: #4caf50;
+}
+.proceso {
+    color: #ff9800;
+}
+.rechazado {
+    color: #EF3826;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #a0a0a0;
+    font-family: 'Roboto Flex', Courier, monospace;
+    margin-left: 1em; 
+    font-size: small;
+    background: none;
+    border: none;
+}
+
+svg{
+    fill: currentColor;
+}
+
+.edit:hover{
+    color: #fca311;
+}
+
+.delete:hover{
+    color: #ef4565;
+}
+button:hover{
+    background: none;
+    border: none;
+}

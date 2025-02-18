@@ -1,0 +1,59 @@
+[
+    {
+        "id": 1,
+        "category": {
+            "id": 1,
+            "name": "Oficio"
+        },
+        "category_id": 1,
+        "created_at": "2025-02-09T08:18:10.000000Z",
+        "created_by": 1,
+        "description": "Descripción de Documento 1",
+        "received_date": "2025-02-09",
+        "status": {
+            "id": 1,
+            "name": "En proceso"
+        },
+        "status_id": 1,
+        "title": "Nombre de Documento 1",
+        "updated_at": "2025-02-09T08:18:10.000000Z"
+    },
+    {
+        "id": 2,
+        "category": {
+            "id": 2,
+            "name": "Acta"
+        },
+        "category_id": 2,
+        "created_at": "2025-02-09T08:18:10.000000Z",
+        "created_by": 1,
+        "description": "Descripción de Documento 2",
+        "received_date": "2025-02-09",
+        "status": {
+            "id": 2,
+            "name": "Firmado"
+        },
+        "status_id": 2,
+        "title": "Nombre de Documento 2",
+        "updated_at": "2025-02-09T08:18:10.000000Z"
+    },
+    {
+        "id": 3,
+        "category": {
+            "id": 3,
+            "name": "Expediente"
+        },
+        "category_id": 3,
+        "created_at": "2025-02-09T08:18:10.000000Z",
+        "created_by": 1,
+        "description": "Descripción de Documento 3",
+        "received_date": "2025-02-09",
+        "status": {
+            "id": 3,
+            "name": "Entregado"
+        },
+        "status_id": 3,
+        "title": "Nombre de Documento 3",
+        "updated_at": "2025-02-09T08:18:10.000000Z"
+    }
+]

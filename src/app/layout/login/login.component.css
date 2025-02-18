@@ -1,0 +1,114 @@
+.s{
+  margin: auto;
+  position: inherit;
+  width: 100%;
+}
+
+.login_container{
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 2em 1em;
+    margin: 20px auto;
+    width: 30rem;
+    border-radius: 10px;
+    background: white;
+    font-family: 'Nunito Sans', sans-serif;
+    position: relative;
+}
+
+  .login_container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555555;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.25);
+  }
+  
+  button[type="submit"] {
+    width: 10rem;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: var(--azul-escuro);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--azul-escuro);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+  }
+
+  button:disabled, button:disabled:hover {
+    color: white;
+    background-color: white;
+    cursor: not-allowed;
+  }
+  .message_container{
+    font-family: 'Nunito Sans', sans-serif;
+    padding: 10px;
+    color: white;
+    background: #ff2b2b5d;
+    border: red 1px solid;
+    border-radius: 7px;
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%) ;
+    margin: auto;
+  }
+
+  .loading_container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translatex(-50%) translatey(-50%);
+    height: fit-content;
+    aspect-ratio: 1/1;
+  }
+  

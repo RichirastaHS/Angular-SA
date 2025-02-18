@@ -1,0 +1,117 @@
+.profile_container{
+    font-family: 'Nunito Sans', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 400px;
+    height: 100%;
+    max-height: 100px;
+    gap: .5em;
+  }
+img{
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+  .name-user{
+    font-weight: 700;
+  }
+  .sesion{ 
+      outline: none;
+      text-decoration: none;
+      color: #f1f1f1;
+  }
+  .sesion:hover{
+    color: #31a85f;
+    transition: ease-out .2s;
+  }
+  .sesion{
+    font-weight: 300;
+  }
+  .img_container{
+      border-radius: 50%;
+      background-color: #f1f1f1;
+      cursor: pointer;
+      aspect-ratio: 1/1;
+      height: 65%;
+      overflow: hidden;
+  }
+  svg{
+      width: 25px;
+      fill: #f1f1f1;
+      aspect-ratio: 1/1;
+  }
+  
+  .new-notification{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ff0000;
+    border-radius: 50%;
+    width: .8rem;
+    aspect-ratio: 1/1;
+  }
+  
+  nav{
+    height: 100%;
+  }
+  .notification{
+    position: relative;
+  }
+  
+  button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }
+  button:focus{
+    outline: none;
+  }
+  button:hover{
+    svg{
+      fill: #ffbe56;
+      transition: ease-out .1s;
+    }
+  }
+.ressaltar{
+  color: #31a85f;
+  font-weight: 700;
+}
+
+.ressaltar1{
+  color: var(--rojo);
+  font-weight: 700;
+}
+
+.div-menu-item{
+  display: flex;
+  align-items: center;
+}
+
+.momento-de-actualizacion{
+  font-size:small;
+  color: gray;
+}
+
+h5{
+  font-weight: 500;
+  font-family:'Inter', Courier, monospace;
+  font-size: 1.1em;
+}
+
+.edit{
+  color: rgb(12, 113, 207);
+}
+
+.btb-dropdown{
+  padding: .7em .5em;
+}
+.customize{
+  width: 300px;
+}
+.mat-mdc-menu-panel{
+  max-width: 320px;
+}
