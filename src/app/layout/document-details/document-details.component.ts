@@ -13,6 +13,8 @@ indexedDB
 })
 export class DocumentDetailsComponent {
   
+  dtfEs = new Intl.DateTimeFormat('es');
+
   document!: Document ;
 
   constructor(
@@ -25,7 +27,7 @@ export class DocumentDetailsComponent {
     if(id){
       this.dataService.getDocumentbyId(+id).subscribe({  
         next: (response: ApiResponse) => {
-          this.document = response.document; // ✅ Ahora `document` solo contiene la información necesaria
+          this.document = response.document; 
           console.log(this.document);
         },
         error: (error) => {

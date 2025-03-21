@@ -35,7 +35,7 @@ th{
 }
 
 .button-name:hover{
-    color: #31a85f;
+    color: var(--color-theme-light-green);
     transition: ease-out .2s;
 }
 td {
@@ -134,15 +134,16 @@ span {
 }
 
 .estatus_1 {
-    color: #4caf50;
+    color: var(--color-theme-green);
     background: #d4ffde;
 }
 .estatus_2 {
-    color: #ff9800;
+    color: var(--color-theme-orange);
     background: #ffe9cf;
 }
+
 .estatus_3 {
-    color: #EF3826;
+    color: var(--color-theme-red);
     background: #ffc9c9;
 }
 button{
@@ -156,22 +157,22 @@ mat-icon {
 
 .edit, .delete{
     margin: 0 10px;
-    color: var(--gris-claro);
+    color: var(--color-theme-light-gray);
 }
 
 .edit:hover{
-    color: var(--amarillo);
+    color: var(--color-theme-yellow);
 }
 
 
 .delete:hover{
-    color: var(--rojo);
+    color: var(--color-theme-red);
 }
 
 
 .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{
     background: red;
-    background-color: #4caf50;
+    background-color: var(--color-theme-green);
 }
 
 select {
@@ -196,7 +197,7 @@ select {
       color: inherit;
     }
     .filter-options:hover{
-        background: #4bc3ff;
+        background: var(--color-theme-light-blue);
     }
   }
   .name-filtre{

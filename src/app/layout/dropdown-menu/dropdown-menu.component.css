@@ -24,7 +24,7 @@ img{
       color: #f1f1f1;
   }
   .sesion:hover{
-    color: #31a85f;
+    color: var(--color-theme-light-green);
     transition: ease-out .2s;
   }
   .sesion{
@@ -72,12 +72,12 @@ img{
   }
   button:hover{
     svg{
-      fill: #ffbe56;
+      fill: var(--color-theme-yellow);
       transition: ease-out .1s;
     }
   }
 .ressaltar{
-  color: #31a85f;
+  color: var(--color-theme-light-green);
   font-weight: 700;
 }
 
@@ -103,7 +103,7 @@ h5{
 }
 
 .edit{
-  color: rgb(12, 113, 207);
+  color: #0c71cf;
 }
 
 .btb-dropdown{

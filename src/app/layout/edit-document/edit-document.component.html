@@ -6,13 +6,13 @@
             <!-- Titulo del Documento -->
             <fieldset class="form-group title">
                 <label for="title">Título del Documento</label>
-                <input type="text" id="title" [value]="document.title"  required="">
+                <input class="input-form" type="text" id="title" [value]="document.title"  required="">
             </fieldset>
 
             <!-- Tipo de Documento -->
             <fieldset class="form-group type">
                 <label for="documentType">Tipo de Documento</label>
-                <select id="documentType" name="documentType" required="">
+                <select class="input-form" id="documentType" name="documentType" required="">
                     @for (category of categories; track $index) {
                         <option value="{{category.id}}">{{category.name}}</option>
                     }
@@ -21,7 +21,7 @@
             <!-- Estado -->
             <fieldset class="form-group status">
                 <label for="status">Estado</label>
-                <select id="status" name="status" required="">
+                <select class="input-form" id="status" name="status" required="">
                     @for (status of statuses; track $index) {
                         <option value="{{status.id}}">{{status.name}}</option>
                     }
@@ -31,18 +31,18 @@
             <!-- Descripción -->
             <fieldset class="form-group description">
                 <label for="description">Descripción</label>
-                <textarea id="description" name="description" rows="3" [value]="document.description" required=""></textarea>
+                <textarea class="input-form" id="description" name="description" rows="3" [value]="document.description" required=""></textarea>
             </fieldset>
 
             <fieldset class="form-group date_registration">
                 <label for="registrationDate">Fecha de Registro</label>
-                <input type="date" id="registrationDate" name="registrationDate" [value]="document.created_at" disabled>
+                <input class="input-form" type="date" id="registrationDate" name="registrationDate" [value]="document.created_at" disabled>
             </fieldset>
 
             <!-- Fecha de Recepción -->
             <fieldset class="form-group date_reecepcion">
                 <label for="receivedDate">Fecha de Recepción</label>
-                <input type="date" id="receivedDate" name="receivedDate" [value]="document.received_date" required="">
+                <input class="input-form" type="date" id="receivedDate" name="receivedDate" [value]="document.received_date" required="">
             </fieldset>
 
             <!-- Botón para guardar -->

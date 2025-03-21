@@ -21,14 +21,12 @@ section {
 h2 {
     font-family: 'Nunito Sans', Courier, monospace;
     font-weight: 600;
-    color: #000;
     line-height: 1.2rem;
 }
 
 h4{
     font-family: 'Inter', Courier, monospace;
     font-weight: 600;
-    color: #000;
     margin: 2em 0 0 0;
     line-height: 1.2rem;
     font-size: large;
@@ -37,13 +35,11 @@ p{
     font-family: 'Roboto Flex', Courier, monospace;
     font-weight: 400;
     font-size: 1.1rem;
-    color: #000;
     line-height: 1.2rem;
 }
 time{
     font-family: 'Roboto Flex', Courier, monospace;
     font-weight: 400;
-    color: #000;
     line-height: 1.2rem;
 }	
 
@@ -59,10 +55,10 @@ time{
 }
 
 .aprobado {
-    color: #4caf50;
+    color: var(--color-theme-green);
 }
 .proceso {
-    color: #ff9800;
+    color:  var(--color-theme-orange);
 }
 .rechazado {
     color: #EF3826;
@@ -85,11 +81,11 @@ svg{
 }
 
 .edit:hover{
-    color: #fca311;
+    color: var(--color-theme-yellow);
 }
 
 .delete:hover{
-    color: #ef4565;
+    color: var(--color-theme-red);
 }
 button:hover{
     background: none;

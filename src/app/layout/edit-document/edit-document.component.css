@@ -31,7 +31,10 @@ form {
     font-weight: 600;
 }
 
-.title, .description, .comments, .submit {
+.title, 
+.description, 
+.comments, 
+.submit {
     grid-column: span 2;
 }
 textarea {
@@ -39,13 +42,13 @@ textarea {
     field-sizing: content;
     resize: vertical;
 }
-textarea, input, textarea::placeholder, input::placeholder, select, input[type='date']{
-    color: #718EBF;
-    font-family: 'Inter', Courier, monospace;
+.submit button{
+    color: white;
+    background-color: var(--color-theme-blue);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) .3s;
 }
-
-button:hover {
-    background-color: #0056b3; 
+.submit button:hover {
+    background-color: var(--color-theme-light-blue); 
 }
 
 .form-group {
@@ -79,24 +82,11 @@ label{
     cursor: pointer;
 }
 .form-group button {
-    background-color: #007bff;
-    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: auto;
-    
-}
-.form-group button:hover {
-    background-color: #0056b3;
-}
-textarea:focus, select:focus{
-    outline:  2px #718EBF solid;
-}
-
-input:focus{
-    outline:  nne;
 }
 
 fieldset {

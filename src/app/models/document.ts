@@ -16,9 +16,9 @@ export interface Document {
   category: Category; //este 2 tipo de doc 
   status_id: number;
   status: Status; //5 estatus
-  received_date: string; //este 4 fecha de recepcion
-  created_at: string; //este 3 fecha de creacion
-  updated_at: string; 
+  received_date: Date; //este 4 fecha de recepcion
+  created_at: Date; //este 3 fecha de creacion
+  updated_at: Date; 
   created_by: number;
 }
 

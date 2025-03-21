@@ -11,15 +11,25 @@ body{
     box-sizing: border-box;
 }
 :root{
-    --azul-escuro: #002849;
-    --amarillo: #FCA311;
-    --gris-claro: #d6d6d6;
-    --rojo: #ef4565;
+    --color-theme-dark-blue: #002849;
+    --color-theme-blue: #0056b3;
+    --color-theme-light-blue: #007bff;
+    --color-theme-yellow: #FCA311;
+    --color-theme-light-gray: #d6d6d6;
+    --color-theme-red: #ef4565;
+    --color-theme-green: #4caf50;
+    --color-theme-light-green: #31a85f;
+    --color-theme-orange: #ff9800;
+
+    --color-theme-form-text-input: #718EBF;
+
     --mat-sys-surface-container: #ffff;
     --mat-sys-on-surface: #000;
     --mat-sys-surface-variant: #ffffff;
     --mat-sys-primary: #31a85f;
 }
+
+
 
 p{
     font-family: 'Nunito Sans', sans-serif;
@@ -37,14 +47,14 @@ app-main{
 app-header {
     display: flow;
     height: 4.5rem;
-    background: var(--azul-escuro);
+    background: var(--color-theme-dark-blue);
     position: sticky;
     top: 0px;
 }
 app-menu {
     width: 17rem;
     height: 100vh;
-    background: var(--azul-escuro);
+    background: var(--color-theme-dark-blue);
     position: sticky;
     top: 0px;
 }
@@ -63,7 +73,7 @@ app-dropdown-menu {
 }
 
 menu-overrides {
-    background-color: var(--azul-escuro);
+    background-color: var(--color-theme-dark-blue);
 }
 .mat-menu-item {
     color: blue !important;
@@ -92,3 +102,16 @@ app-login{
 .mat-mdc-menu-panel{
     background-color: #ff0000;
   }
+
+
+/* Form estilos */
+.input-form{
+    color: #718EBF;
+    font-family: 'Inter', Courier, monospace;
+}
+.input-form:focus{
+    outline:  2px #718EBF solid;
+}
+.input-form::placeholder{
+    color: #718EBF;
+}
