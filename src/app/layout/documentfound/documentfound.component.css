@@ -11,8 +11,8 @@ li{
 
 .item-button{
     padding: 20px;
-    width: 50%;
-    max-width: 1000px;
+    width: 75%;
+    max-width: 900px;
     height: 7em;
     text-align: left;
     overflow: hidden;
@@ -66,4 +66,8 @@ svg {
 .nomatch{
     font-style: italic;
     color: #1150da;
+}
+
+.reference_number{
+    font-weight:500;
 }

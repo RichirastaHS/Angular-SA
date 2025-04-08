@@ -5,7 +5,7 @@
                 <ng-container matColumnDef="Nombre">
                     <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
                     <td mat-cell *matCellDef="let doc">
-                        <button class="button-name" [routerLink]="['/main/detalles', doc.id.toString()]">
+                        <button class="button-name" [routerLink]="['/main/detalles', doc.id]">
                             {{doc.title}}
                         </button>
                     </td>

@@ -16,7 +16,12 @@ form {
     align-items: center;
     justify-content: center;
 }
-
+@media screen and (max-width: 1300px) {
+    form {
+        margin-left: 4.7rem;
+    }
+    
+}
 input {
     border-radius: 2rem 0 0 2rem;
     height: 2.5rem;

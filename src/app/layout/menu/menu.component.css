@@ -1,85 +1,133 @@
 .logosecretaria{
-    padding: .4rem;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      height: 3.5rem;
-      gap: .5rem;
-      margin: 0 auto;
-      justify-content: center;
-      translate: -5px;
-  }
-  
-  img {
-      max-height: 2.5em;
-  }
-  
-  h3 {
-      font-family: "Open Sans", sans-serif;
-      color: #fff;
-      line-height: 1.2rem;
-      & span {
-          color: var(--color-theme-yellow);
-      }
-  }
-  li:hover .decorador{
-    width: 10px;
-    background: var(--color-theme-yellow);
-    border-radius: 0 50% 50% 0;
-  }
-  li:hover {
-    a {
-      color: var(--color-theme-yellow);
+  padding: .4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 3.5rem;
+    gap: .5rem;
+    margin: 0 auto;
+    justify-content: center;
+    translate: -5px;
+}
+
+img {
+    max-height: 2.5em;
+}
+
+h3 {
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+    line-height: 1.2rem;
+    & span {
+        color: var(--color-theme-yellow);
     }
-    svg {
-      color: var(--color-theme-yellow);
-    }
-  }
-  a{
-      display: flex;
-      align-items: center;
-      font-family: 'Inter', Courier, monospace;
-      font-size: medium;
-      color: currentColor;
-      gap: 1em;
-      width: 100%;
-  }
-  a:hover{
-      transition: cubic-bezier(0.075, 0.82, 0.165, 1), .3s;
-  }
-  
-  ul {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-    }
-  
-  li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      color: var(--color-theme-light-gray);
-      gap: 1.1rem;
-    }
-  
-  .decorador {
-      width: .2em;
-      height: 1.8em;
-      background-color: var(--color-theme-light-gray);
-      border-radius: 0 20px 20px 0;
-      transition: width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
-      margin: 0; 
-      padding: 0;     
-  }
-    
-  svg{
-    height: auto;
-    color: var(--color-theme-light-gray);
-    aspect-ratio: 1/1;
-    width: 20px;
-  }
-  svg:hover{
+}
+li:hover .decorador{
+  width: 10px;
+  background: var(--color-theme-yellow);
+  border-radius: 0 50% 50% 0;
+}
+li:hover {
+  a {
     color: var(--color-theme-yellow);
   }
+  svg {
+    color: var(--color-theme-yellow);
+  }
+}
+a{
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', Courier, monospace;
+    font-size: medium;
+    color: currentColor;
+    gap: 1em;
+    width: 100%;
+}
+a:hover{
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1), .3s;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--color-theme-light-gray);
+    gap: 1.1rem;
+  }
+
+.decorador {
+    width: .2em;
+    height: 1.8em;
+    background-color: var(--color-theme-light-gray);
+    border-radius: 0 20px 20px 0;
+    transition: width 0.3s ease, height 0.3s ease, margin-right 0.3s ease;
+    margin: 0; 
+    padding: 0;     
+}
   
-  
+svg{
+  height: auto;
+  color: var(--color-theme-light-gray);
+  aspect-ratio: 1/1;
+  width: 20px;
+}
+svg:hover{
+  color: var(--color-theme-yellow);
+}
+
+.flex1{
+  flex: 1;
+}
+
+.notification-container{
+  display: grid;
+  gap: 5px;
+  position: absolute;
+  bottom: 10px;
+  right: 40px;
+  width: fit-content;
+  justify-self: flex-end;
+}
+
+.open {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.close{
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.side-menu{
+  background: var(--color-theme-dark-blue);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  width: 17rem;
+}
+.menu-hamburguesa{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  width: 4.5rem;
+  aspect-ratio: 1/1;
+}
+.btn-hamburguesa{
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: none;
+  border: none;
+}
+.b{
+  width: 2rem;
+  height: 2rem;
+}

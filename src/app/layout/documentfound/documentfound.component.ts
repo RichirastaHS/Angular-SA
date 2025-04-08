@@ -15,8 +15,8 @@ import { Document } from '../../models/document';
 export class DocumentfoundComponent {
   document: Document[] = [];
   busqueda: string = '';
-  
-  constructor(
+  isempty: boolean = true;
+  constructor( 
     private router: Router,
     private route: ActivatedRoute,
     private udaService: UdaService,
@@ -29,8 +29,13 @@ export class DocumentfoundComponent {
         this.busqueda = query;
         this.udaService.searchDocuments(query).subscribe({
           next: (response) => {
-            this.document = response.documentsSearch 
-            console.log(this.document);
+            if(response.documentsSearch.length>0){
+              this.isempty = false;
+              this.document = response.documentsSearch 
+            }
+            else{
+              this.isempty = true;
+            }
           },
           error: (error) => {
             console.error('Error fetching documents:', error);
@@ -41,6 +46,6 @@ export class DocumentfoundComponent {
   }
 
   openDocument(id: string): void {
-    
+    this.router.navigate(['/main/detalles', id]);
   }
 }

@@ -52,13 +52,16 @@ app-header {
     top: 0px;
 }
 app-menu {
-    width: 17rem;
     height: 100vh;
-    background: var(--color-theme-dark-blue);
     position: sticky;
     top: 0px;
 }
-
+@media screen and (max-width: 1300px) {
+    app-menu {
+        position: absolute;
+    }
+    
+}
 app-icon-search {
     height: 45%;
     aspect-ratio: 1/1;
