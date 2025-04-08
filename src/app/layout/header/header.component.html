@@ -1,1 +1,9 @@
-<p>header works!</p>
+<header>
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <input type="search"  formControlName="busqueda" name="busqueda" id="busqueda" placeholder="Buscar"> 
+      <button type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+      <app-dropdown-menu></app-dropdown-menu>
+  </header>

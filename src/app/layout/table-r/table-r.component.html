@@ -1,0 +1,63 @@
+@if(isLoading){
+    <div class="border-container">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="Nombre">
+                    <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
+                    <td mat-cell *matCellDef="let doc">
+                        <button class="button-name" [routerLink]="['/main/detalles', doc.id.toString()]">
+                            {{doc.title}}
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Tipo">
+                    <th mat-header-cell *matHeaderCellDef> TIPO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category?.name}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Fecha de recepción">
+                    <th mat-header-cell *matHeaderCellDef> FECHA DE RECEPCIÓN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Fecha de registro">
+                    <th mat-header-cell *matHeaderCellDef> FECHA DE REGISTRO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.received_date | date}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Estatus">
+                    <th mat-header-cell *matHeaderCellDef> ESTATUS </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="estatus estatus_{{element.status?.id}}">
+                            {{element.status?.name}}
+                        </span>
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Acciones">
+                    <th mat-header-cell *matHeaderCellDef> ACCIONES</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button [routerLink]="['/main/editar', element.id.toString()]">
+                            <mat-icon class="edit">edit</mat-icon>
+                        </button>
+                        <button (click)="deletedoc(element.id)">
+                            <mat-icon class="delete">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            </table>
+    
+            <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
+        </div>
+    
+    </div>
+} 
+@if (!isLoading) {
+    <div class="loading-container">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+}

@@ -9,6 +9,7 @@ import { EditDocumentComponent } from './layout/edit-document/edit-document.comp
 import { LoginComponent } from './layout/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ConfigurationComponent } from './layout/configuration/configuration.component';
+import { DocumentfoundComponent } from './layout/documentfound/documentfound.component';
 
 export const routes: Routes = [
     {
@@ -52,6 +53,10 @@ export const routes: Routes = [
             {
                 path: 'configuracion',
                 component: ConfigurationComponent,
+            },
+            {
+                path: 'busqueda',
+                component: DocumentfoundComponent,
             },
         ]
     },

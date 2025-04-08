@@ -4,62 +4,51 @@ export interface Category {
 }
 
 export interface Status {
-  id: number;
+  id: string;
   name: string; //este es el estatus
 }
 
-export interface Document {
+export interface Department {
   id: number;
-  title: string; //este 1 nombre
-  description: string;
-  category_id: number;
-  category: Category; //este 2 tipo de doc 
-  status_id: number;
-  status: Status; //5 estatus
-  received_date: Date; //este 4 fecha de recepcion
-  created_at: Date; //este 3 fecha de creacion
-  updated_at: Date; 
-  created_by: number;
+  name: string;
 }
 
-export interface Comment {
+export interface User {
   id: number;
-  text: string;
-  created_at: string;
+  name: string;
+}
+
+export interface sender_department {
+  id: number,
+  name: string,
+}
+export interface receiver_department {
+  id: number,
+  name: string,
+}
+
+export interface Document {
+  id: string; // UUID en formato string
+  title: string;
+  reference_number: string;
+  description: string;
+  created_by: number;
+  category_id: number;
+  status_id: number;
+  sender_department_id: number;
+  receiver_department_id: number;
+  issue_date: string; // Formato YYYY-MM-DD
+  received_date: string; // Formato YYYY-MM-DD
+  priority: string; // Puede ser "Low", "Medium", etc.
+  created_at: string; // Formato ISO con zona horaria
+  updated_at: string | null;
+  category: Category; // Relación con categoría
+  status: Status; // Relación con estado
+  sender_department: Department; // Relación con el departamento remitente
+  receiver_department: Department; // Relación con el departamento receptor
+  user: User; // Relación con el usuario creador del documento
 }
 
 export interface ApiResponse {
   document: Document;
-  comments: any[];
 }
-
-  /*
-  export interface Document {
-    id: number;
-    category: Category;
-    category_id: number;
-    created_at: string;
-    created_by: number;
-    description: string;
-    received_date: string;
-    status: Status;
-    status_id: number;
-    title: string;
-    updated_at: string;
-  }
-*/
-  /*
-  export interface Document {
-    id: number;
-    category: Category;
-    category_id: number;
-    created_at: string;
-    created_by: number;
-    description: string;
-    received_date: string;
-    status: Status;
-    status_id: number;
-    title: string;
-    updated_at: string;
-  }
-*/

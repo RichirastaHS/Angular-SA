@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResponse, Document } from '../models/document';
+import { DocumentCreate } from '../models/newDocData';
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +18,31 @@ export class DataService{
   }
 
   createDocument(): Observable<any> {
-    return this.http.get(this.API_URL);  
+    return this.http.get(`${this.API_URL}/create`);  
   }
 
-  storeDocument(document: Document): Observable<any> {
+  storeDocument(document: any): Observable<any> {
     return this.http.post(this.API_URL, document);
   }
 
-  getDocumentbyId(id: number): Observable<ApiResponse> {
+  getDocumentbyId(id: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.API_URL}/${id}`);
   }
 
-  editDocument(id: number): Observable<any> {
+  editDocument(id: string): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}/edit`);
   }
 
-  updateDocument(id: number, document:Document): Observable<any> {
+  updateDocument(id: string, document:Document): Observable<any> {
     return this.http.patch(`${this.API_URL}/${id}`, document);
   }
 
-  deleteDocument(id: number): Observable<any> {
+  deleteDocument(id: string): Observable<any> {
     return this.http.delete(`${this.API_URL}/${id}`);
+  }
+
+  searchDocuments(query: string): Observable<Document[]> {
+    return this.http.get<Document[]>(`${this.API_URL}/search`);
   }
 
 }

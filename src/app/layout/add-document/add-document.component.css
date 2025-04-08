@@ -39,6 +39,7 @@ form {
 }
 textarea {
     min-width: 100%;
+    max-width: 300px;
     field-sizing: content;
     resize: vertical;
 }
@@ -96,3 +97,9 @@ fieldset {
     box-sizing: border-box;
     border: none;
 }   
+
+.msg_error{
+    color: var(--color-theme-red);
+    font-size: .8rem;
+    font-weight: 400;
+}

@@ -1,0 +1,69 @@
+.item{
+    padding: 1rem;
+}
+ul{
+    list-style: none;
+}
+
+li{
+    margin: 20px;
+}
+
+.item-button{
+    padding: 20px;
+    width: 50%;
+    max-width: 1000px;
+    height: 7em;
+    text-align: left;
+    overflow: hidden;
+    border: none;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    border-radius: 10px;
+    background-color: #ffffff;    
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s;
+}
+
+.item-button:hover{
+    transform: translateY(-1px);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.item-button:active{
+    transform: translateY(0px);
+    background: #cedeff;
+}
+
+h4{
+    font-size: 1em;
+    color: #333;
+    margin: 0;
+}
+p{
+    font-size: 1em;
+    font-weight: bold;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-document{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    color: #333;
+}
+svg {
+    width: 20rem;
+    height: 20rem;
+}
+
+.nomatch{
+    font-style: italic;
+    color: #1150da;
+}

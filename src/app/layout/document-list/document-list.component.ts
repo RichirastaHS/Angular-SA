@@ -9,41 +9,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../../service/data.service';
 import { AuthService } from '../../service/auth.service';
 import { Document } from '../../models/document';
+import { TableRComponent } from "../table-r/table-r.component";
 
 
 @Component({
   selector: 'app-document-list',
-  imports: [RouterLink, MatSelectModule, CommonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule],
+  imports: [RouterLink, MatSelectModule, CommonModule, MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, TableRComponent],
   templateUrl: './document-list.component.html',
   styleUrl: './document-list.component.css'
 })
 
 
-export class DocumentListComponent implements AfterViewInit{
-  columnsToDisplay  = ['Nombre', 'Tipo', 'Fecha de recepción', 'Fecha de registro', 'Estatus', 'Acciones'];
-  document: Document[] = [];
-  dataSource = new MatTableDataSource<Document>();
-  
+export class DocumentListComponent{
+  statusId: number = 0;
 
-  constructor(private dataService: DataService, private authService: AuthService) { }
-  
-  ngOnInit(): void {
-      
-    this.dataService.getDocuments().subscribe({  
-      next: (document: Document[]) => {
-        this.document = document;
-        this.dataSource.data = document;
-      },
-      error: (error) => {
-      }
-    });
-  }
-  
-
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator = new MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  setid(number: number){
+    this.statusId = number;
   }
 }

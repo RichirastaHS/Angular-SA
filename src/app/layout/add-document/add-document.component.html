@@ -2,62 +2,146 @@
     <div class="form-container">
         <h2>Nuevo Documento...</h2>
         
-        <form action="/ruta-de-agregar-documento" method="POST">
-            
+        <form [formGroup]="datosDocumento" (ngSubmit)="onSubmit()">
             <!-- Titulo del Documento -->
             <fieldset class="form-group title">
                 <label for="title">Título del Documento</label>
-                <input class="input-form" type="text" id="title" name="title" placeholder="Ingrese el título del documento" required="">
+                <input formControlName="title" class="input-form" type="text" id="title" name="title"  maxlength="255" placeholder="Ingrese el título del documento"/>
+                @if (datosDocumento.get("title")?.invalid && datosDocumento.get("title")?.touched) {
+                    @if (datosDocumento.get("title")?.hasError("required")) {
+                        <span class="msg_error">El titulo es obligatorio</span>
+                    }
+                    @if (datosDocumento.get("title")?.hasError("maxlength")) {
+                        <span class="msg_error">El titulo no puede tener más de 255 caracteres</span>
+                    }
+                }
             </fieldset>
 
-            <!-- Tipo de Documento -->
-            <fieldset class="form-group type">
-                <label for="documentType">Tipo de Documento</label>
-                <select class="input-form" id="documentType" name="documentType" required="">
-                    <option value="oficio">Oficio</option>
-                    <option value="acta">Acta</option>
-                    <option value="expediente">Expediente</option>
-                    <option value="informe">Informe</option>
-                </select>
+            <!-- Referencia de Documento -->
+            <fieldset class="form-group title">
+                <label for="reference_number">Numero de referencia</label>
+                <input formControlName="reference_number" class="input-form" type="text" id="reference_number" name="reference_number" placeholder="Numero de referencia" required="">
+                @if (datosDocumento.get("reference_number")?.invalid && datosDocumento.get("reference_number")?.touched) {
+                    @if (datosDocumento.get("reference_number")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                    @if (datosDocumento.get("reference_number")?.hasError("maxlength")) {
+                        <span class="msg_error">El campo no puede tener más de 255 caracteres</span>
+                    }
+                }
             </fieldset>
-            
+
+            <!-- Categoria-->
+            <fieldset class="form-group type">
+                <label for="documentCategory">Tipo de Documento</label>
+                <select formControlName="category" class="input-form" id="documentCategory" name="documentCategory" required="" placeholder="Seleccione una categoria">
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    @for (cat of formData.categories; track $index) {
+                        <option value="{{cat.id}}">{{cat.name}}</option>
+                    }
+                </select>
+                @if (datosDocumento.get("category")?.invalid && datosDocumento.get("category")?.touched) {
+                    @if (datosDocumento.get("category")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
+            </fieldset>
+
             <!-- Estado -->
             <fieldset class="form-group status">
                 <label for="status">Estado</label>
-                <select class="input-form" id="status" name="status" required="">
-                    <option value="en_proceso">En Proceso</option>
-                    <option value="pendiente_firma">Pendiente de Firma</option>
-                    <option value="firmado">Firmado</option>
-                    <option value="entregado">Entregado</option>
+                <select formControlName="status" class="input-form" id="status" name="status" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                    @for (status of formData.statuses; track $index) {
+                        <option value="{{status.id}}">{{status.name}}</option>
+                    }
                 </select>
+                @if (datosDocumento.get("status")?.invalid && datosDocumento.get("status")?.touched) {
+                    @if (datosDocumento.get("status")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
            </fieldset>
 
+            <!-- Departamento de envio -->
+            <fieldset class="form-group type">
+                <label for="senders_department">Departamento Remitente</label>
+                <select formControlName="sender_department" class="input-form" id="senders_department" name="senders_department" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    @for (sd of formData.senders_department; track $index) {
+                        <option value="{{sd.id}}">{{sd.name}}</option>
+                    }
+                </select>
+                @if (datosDocumento.get("sender_department")?.invalid && datosDocumento.get("sender_department")?.touched) {
+                    @if (datosDocumento.get("sender_department")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
+            </fieldset>
+
+            <!-- Departamento de entrega -->
+            <fieldset class="form-group type">
+                <label for="receiver_department">Departamento Receptor</label>
+                <select formControlName="receiver_department" class="input-form" id="receiver_department" name="receiver_department" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    @for (rd of formData.receivers_department; track $index) {
+                        <option value="{{rd.id}}">{{rd.name}}</option>
+                    }
+                </select>
+                @if (datosDocumento.get("receiver_department")?.invalid && datosDocumento.get("receiver_department")?.touched) {
+                    @if (datosDocumento.get("receiver_department")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
+            </fieldset>
+            
             <!-- Descripción -->
             <fieldset class="form-group description">
                 <label for="description">Descripción</label>
-                <textarea class="input-form" id="description" name="description" rows="4" placeholder="Descripción del documento" required=""></textarea>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4" placeholder="Descripción del documento" required=""></textarea>
             </fieldset>
 
             <!-- Fecha de Registro -->
             <fieldset class="form-group date_registration">
-                <label for="registrationDate">Fecha de Registro</label>
-                <input class="input-form" type="date" id="registrationDate" name="registrationDate" disabled>
+                <label for="issue_date">Fecha de Registro</label>
+                <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date">
+                @if (datosDocumento.get("issue_date")?.invalid && datosDocumento.get("issue_date")?.touched) {
+                    @if (datosDocumento.get("issue_date")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
             </fieldset>
 
             <!-- Fecha de Recepción -->
             <fieldset class="form-group date_reecepcion">
                 <label for="receivedDate">Fecha de Recepción</label>
-                <input class="input-form" type="date" id="receivedDate" name="receivedDate" required="">
+                <input formControlName="received_date" class="input-form" type="date" id="receivedDate" name="receivedDate" required="">
+                @if (datosDocumento.get("received_date")?.invalid && datosDocumento.get("received_date")?.touched) {
+                    @if (datosDocumento.get("received_date")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
+            </fieldset>
+            <!-- Prioridad -->
+            <fieldset class="form-group type">
+                <label for="priority">Prioridad</label>
+                <select formControlName="priority" class="input-form" id="priority" name="priority" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="1" selected>Baja</option>
+                    <option value="2">Media</option>
+                    <option value="3">Alta</option>
+                </select>
+                @if (datosDocumento.get("priority")?.invalid && datosDocumento.get("priority")?.touched) {
+                    @if (datosDocumento.get("priority")?.hasError("required")) {
+                        <span class="msg_error">Campo obligatorio</span>
+                    }
+                }
             </fieldset>
 
-            <!-- Comentarios -->
-            <fieldset class="form-group comments">
-                <label for="comments">Comentarios</label>
-                <textarea class="input-form" id="comments" name="comments" rows="4" placeholder="Agregue comentarios adicionales (opcional)"></textarea>
-            </fieldset>
             <!-- Botón para guardar -->
             <fieldset class="form-group submit">
-                <button type="submit">Guardar Documento</button>
+                <button type="submit" >Guardar Documento</button>
             </fieldset>
 
         </form>

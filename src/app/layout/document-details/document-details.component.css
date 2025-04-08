@@ -45,8 +45,11 @@ time{
 
 .document-details__info{
     display: flex;
+    width: 100%;
     padding: 0;
-    gap: 20em;
+    div{
+        width: 50%;
+    }
 }
 
 .estatus {
@@ -90,4 +93,10 @@ svg{
 button:hover{
     background: none;
     border: none;
+}
+
+.span_id{
+    font-size: small;
+    color: rgb(160, 160, 160);
+    font-weight: lighter;
 }
