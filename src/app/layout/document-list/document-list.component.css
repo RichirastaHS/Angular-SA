@@ -22,6 +22,7 @@ section {
 .filter-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: fit-content;
     background-color: #ffffff;
     border-radius: 8px;
@@ -36,8 +37,10 @@ section {
     align-content: center;
     justify-content: center;
     justify-items: center;
-    width: 9rem;
-    height: 5rem;
+    aspect-ratio: 16/9;
+    width: 11vw;
+    max-width: 9rem;
+    min-width: 5em;
     border-radius: 5px;
     font-weight: 800;
     font-family: 'Nunito Sans', Courier, monospace;

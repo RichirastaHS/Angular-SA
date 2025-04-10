@@ -15,7 +15,7 @@ import { Document } from '../../models/document';
 export class DocumentfoundComponent {
   document: Document[] = [];
   busqueda: string = '';
-  isempty: boolean = true;
+  isempty: boolean = false;
   constructor( 
     private router: Router,
     private route: ActivatedRoute,
@@ -30,8 +30,8 @@ export class DocumentfoundComponent {
         this.udaService.searchDocuments(query).subscribe({
           next: (response) => {
             if(response.documentsSearch.length>0){
-              this.isempty = false;
               this.document = response.documentsSearch 
+              this.isempty = false;
             }
             else{
               this.isempty = true;

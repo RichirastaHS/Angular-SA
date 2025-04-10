@@ -5,7 +5,12 @@ h2 {
     color: #000;
     line-height: 1.2rem;
 }
-
+table {
+    font-weight: 600 ;
+    border-collapse: collapse;
+    width: 100%;
+    background: #ffffff;
+}
 
 tbody {
     padding: 8px;
@@ -42,17 +47,13 @@ td {
     padding: 1em 0;
     border-bottom: 1px solid #dddddd;
 }
-table {
-    font-weight: 600 ;
-    border-collapse: collapse;
-    width: 100%;
-    background: #ffffff;
-}
+
 .border-container{
     border: 1px solid #dddddd;
     box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
     border-radius: 15px;
     overflow: hidden;
+    width: min(200px 100%);
 }
 section {
     display: grid;
@@ -77,79 +78,6 @@ section {
 }
 td:first-child, th:first-child{
     text-align: center;
-}
-
-
-.filter-container {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    font-family: 'Nunito Sans', Courier, monospace;
-    padding: 10px 15px;
-    gap: 1em;
-}
-
-
-.btn-filter{
-    display: grid;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    width: 9rem;
-    height: 5rem;
-    border-radius: 5px;
-    font-weight: 800;
-    font-family: 'Nunito Sans', Courier, monospace;
-}
-
-.btn-filter:hover{
-    background: #f0f8ff;
-}
-
-.todos{
-}
-.en_proceso{
-    color: var(--color-theme-orange);
-}
-.firmado{
-    color: var(--color-theme-light-blue);
-}
-.concluido  {
-    color: var(--color-theme-green);
-}
-
-.filter-options{
-    display: inline-flex;
-    gap: 1em;
-}
-
-.filter-label {
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.filter-select {
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    padding: 5px;
-    font-size: 14px;
-}
-
-.reset-filter {
-    color: #ff4d4f;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.reset-filter:hover {
-    text-decoration: underline;
 }
 
 span {
