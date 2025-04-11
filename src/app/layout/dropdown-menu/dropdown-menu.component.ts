@@ -4,7 +4,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-dropdown-menu',

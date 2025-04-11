@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { documentFormData, DocumentFormModel } from '../../models/trackingDocs';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from '../../service/data.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';

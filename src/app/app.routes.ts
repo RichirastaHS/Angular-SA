@@ -10,6 +10,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ConfigurationComponent } from './layout/configuration/configuration.component';
 import { DocumentfoundComponent } from './layout/documentfound/documentfound.component';
+import { CreateNewUserComponent } from './layout/create-new-user/create-new-user.component';
 
 export const routes: Routes = [
     {
@@ -57,6 +58,10 @@ export const routes: Routes = [
             {
                 path: 'busqueda',
                 component: DocumentfoundComponent,
+            },
+            {
+                path: 'nuevo_usuario',
+                component: CreateNewUserComponent,
             },
         ]
     },

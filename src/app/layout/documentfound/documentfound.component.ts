@@ -1,8 +1,6 @@
-import { query } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UdaService } from '../../service/uda.service';
-import { SearchService } from '../../service/search.service';
 import { CommonModule } from '@angular/common';
 import { Document } from '../../models/document';
 

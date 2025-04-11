@@ -70,11 +70,7 @@ app-header {
     position: sticky;
     top: 0px;
 }
-app-menu {
-    height: 100vh;
-    position: sticky;
-    top: 0px;
-}
+
 @media screen and (max-width: 1300px) {
     app-menu {
         position: absolute;

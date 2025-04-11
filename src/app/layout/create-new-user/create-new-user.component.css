@@ -1,0 +1,131 @@
+section{
+    width: 100%;
+    max-width: 1200px;
+}
+
+h2 {
+    font-family: 'Inter', Courier, monospace;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.2rem;
+}
+.form-container {
+    display: flex;
+    padding: 2em;
+    gap: 1em;
+    flex-direction: column;
+    max-width: 1200px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .5em;
+    grid-template-rows: auto;
+    font-family: 'Inter', Courier, monospace;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 2em 15%;
+    border-radius: 20px;
+    max-width: 1200px;
+    font-weight: 600;
+}
+
+.title, 
+.description, 
+.comments, 
+.submit,
+.picture-select-container {
+    grid-column: span 2;
+}
+textarea {
+    min-width: 100%;
+    max-width: 300px;
+    field-sizing: content;
+    resize: vertical;
+}
+.submit button{
+    color: white;
+    background-color: var(--color-theme-blue);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) .3s;
+}
+.submit button:hover {
+    background-color: var(--color-theme-light-blue); 
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group {
+    display: block;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.form-group.description textarea,
+.form-group.comments textarea {
+    grid-column: 1 / -1; /* Asegura que ocupe toda la fila pero sin forzar ancho extra */
+}
+
+label{
+    font-size: .9rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+.date_reecepcion input{
+    cursor: pointer;
+}
+.form-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+}
+
+fieldset {
+    width: 100%; 
+    max-width: 100%; 
+    resize: vertical;
+    box-sizing: border-box;
+    border: none;
+}   
+
+.msg_error{
+    color: var(--color-theme-red);
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+.imgprofileselect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    width: 100px;
+    border-radius: 50%;
+    border: var(--color-theme-light-gray) 5px solid;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    
+}
+
+.picture-select {
+    display: flex;
+    gap: 1rem;
+  }
+
+  
+  .picture-option input[type="radio"]:checked + .imgprofileselect,
+  .picture-option input[type="radio"]:checked ~ .imgprofileselect {
+    border-color: #007bff;
+  }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, input, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, SimpleChanges, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';

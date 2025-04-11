@@ -95,39 +95,3 @@ svg:hover{
   width: fit-content;
   justify-self: flex-end;
 }
-
-.open {
-  transform: translateX(0);
-  transition: transform 0.3s ease-in-out;
-}
-
-.close{
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.side-menu{
-  background: var(--color-theme-dark-blue);
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  width: 17rem;
-}
-.menu-hamburguesa{
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1001;
-  width: 4.5rem;
-  aspect-ratio: 1/1;
-}
-.btn-hamburguesa{
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: none;
-  border: none;
-}
-.b{
-  width: 2rem;
-  height: 2rem;
-}

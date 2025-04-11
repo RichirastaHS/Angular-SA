@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../../service/data.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiResponse, Document } from '../../models/document';

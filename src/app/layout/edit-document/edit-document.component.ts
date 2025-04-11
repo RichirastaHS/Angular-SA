@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../service/data.service';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { documentFormData, DocumentFormModel } from '../../models/trackingDocs';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
