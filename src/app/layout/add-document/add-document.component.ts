@@ -58,16 +58,16 @@ export class AddDocumentComponent {
         this.dataService.storeDocument(this.datosDocumento.value).subscribe({
           next: (response) => {
           this.router.navigate(['/main']);
-            this.notificationService.showSuccess('Documento creado con éxito');
+            this.notificationService.showSuccess('Eso tilin', 'Documento creado con éxito');
           },
           error: (error) => {
             this.router.navigate(['/main']);
-            this.notificationService.showError(error);
+            this.notificationService.showError('Eso tilin', error);
           }
         });
       } else {
         this.datosDocumento.markAllAsTouched(); 
-        this.notificationService.showError('Los Campos obligatorios no pueden estar vacíos');
+        this.notificationService.showError('Eso tilin','Los Campos obligatorios no pueden estar vacíos');
       }
     }
 }

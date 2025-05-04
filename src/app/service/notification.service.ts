@@ -1,26 +1,63 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export interface Notification {
+  id: number;
+  title: string;
+  message: string;
+  duration: number; // duración en milisegundos
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private successMessageSubject = new BehaviorSubject<string | null>(null);
-  private errorMessageSubject = new BehaviorSubject<string | null>(null);
+  private successMessagesSubject = new BehaviorSubject<Notification[]>([]);
+  private errorMessagesSubject = new BehaviorSubject<Notification[]>([]);
 
-  successMessage$ = this.successMessageSubject.asObservable();
-  errorMessage$ = this.errorMessageSubject.asObservable();
+  successMessages$ = this.successMessagesSubject.asObservable();
+  errorMessages$ = this.errorMessagesSubject.asObservable();
 
-  showSuccess(message: string) {
-    this.successMessageSubject.next(message);
+  private nextId = 0;
+
+  showSuccess(message: string, title: string, duration: number = 5000) {
+    const notification: Notification = {
+      id: this.nextId++,
+      title,
+      message,
+      duration
+    };
+    this.successMessagesSubject.next([...this.successMessagesSubject.value, notification]);
+    
+    setTimeout(() => this.removeSuccess(notification.id), duration);
   }
 
-  showError(message: string) {
-    this.errorMessageSubject.next(message);
+  showError(message: string, title: string, duration: number = 5000) {
+    const notification: Notification = {
+      id: this.nextId++,
+      title,
+      message,
+      duration
+    };
+    this.errorMessagesSubject.next([...this.errorMessagesSubject.value, notification]);
+
+    setTimeout(() => this.removeError(notification.id), duration);
   }
 
-  clearMessages() {
-    this.successMessageSubject.next(null);
-    this.errorMessageSubject.next(null);
+  removeSuccess(id: number) {
+    this.successMessagesSubject.next(
+      this.successMessagesSubject.value.filter(n => n.id !== id)
+    );
+  }
+
+  removeError(id: number) {
+    this.errorMessagesSubject.next(
+      this.errorMessagesSubject.value.filter(n => n.id !== id)
+    );
+  }
+
+  clearAll() {
+    this.successMessagesSubject.next([]);
+    this.errorMessagesSubject.next([]);
   }
 }

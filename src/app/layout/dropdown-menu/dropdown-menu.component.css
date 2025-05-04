@@ -115,3 +115,27 @@ h5{
 .mat-mdc-menu-panel{
   max-width: 320px;
 }
+
+.profile-logout{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  a{
+    color: #f1f1f1; 
+  }
+  a:hover{
+    color: rgb(190, 250, 198);
+  }
+}
+.no-not{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #5a5a5a;
+  width: 250px;
+  text-align: center;
+  svg{
+    width: 70px;
+    height: 70px;
+  }
+}

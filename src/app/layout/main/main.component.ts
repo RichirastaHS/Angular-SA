@@ -19,16 +19,28 @@ export class MainComponent {
   isMenuOpen = false;
 
   constructor(private eRef: ElementRef) {}
+
   @HostListener('window:resize', [])
   onWindowResize() {
     this.onResize();
   }
-  onClickOutside(event: MouseEvent) {
-    const clickedInsideMenu = this.menuNav?.nativeElement.contains(event.target);
-    if (this.screenWidth < 1300 && this.isMenuOpen && !clickedInsideMenu) {
+
+  @HostListener('document:click', ['$event'])
+onClickOutside(event: MouseEvent) {
+  const targetElement = event.target as HTMLElement;
+  const clickedInsideMenu = this.menuNav?.nativeElement.contains(targetElement);
+  const clickedHamburgerButton = targetElement.closest('.menu-hamburguesa');
+  const clickedLink = targetElement.closest('a');
+
+  if (this.screenWidth < 1300 && this.isMenuOpen) {
+    if (!clickedInsideMenu && !clickedHamburgerButton) {
+      this.isMenuOpen = false;
+    } else if (clickedLink) {
       this.isMenuOpen = false;
     }
   }
+}
+
 
   ngOnInit() {
     this.onResize();

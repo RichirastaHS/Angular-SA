@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../service/data.service';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { documentFormData, DocumentFormModel } from '../../models/trackingDocs';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { ApiResponse, Document } from '../../models/document';
+import { NotificationService } from '../../service/notification.service';
 
 
 @Component({
@@ -28,13 +29,16 @@ export class EditDocumentComponent {
     description: new FormControl<string | null>(null),
     priority: new FormControl<string | null>(null, [Validators.required])
   });
+
   newDocData = this.datosDocumento.value;
 
   formData: DocumentFormModel = documentFormData;
 
   constructor(
     private dataService: DataService, 
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -42,19 +46,22 @@ export class EditDocumentComponent {
     if(id){
       this.dataService.editDocument(id).subscribe({
         next: (response) => {
+          console.log(response);
           this.formData.categories = response.categories || [];
           this.formData.statuses = response.statuses || [];
           this.formData.senders_department = response.senders_department || [];
           this.formData.receivers_department = response.receivers_department || [];
+          this.formData.priority = response.priority || [];
         },
         error: (error) => {
-          console.log(error);
+          this.router.navigate(['/main']);
+          this.notificationService.showError(error.statusText, '¡Oh no! Ocurrio un error inesperado');
+
         }
       });
       this.dataService.getDocumentbyId(id).subscribe({  
         next: (response: ApiResponse) => {
           this.document = response.document; 
-          console.log(this.document);
           this.datosDocumento.patchValue({
             title: this.document.title,
             reference_number: this.document.reference_number,
@@ -65,13 +72,35 @@ export class EditDocumentComponent {
             issue_date: this.document.issue_date,
             received_date: this.document.received_date,
             description: this.document.description,
-            priority: this.document.priority  // si también es un objeto
+            priority: this.document.priority
           });
         },
         error: (error) => {
-          
+          this.router.navigate(['/main']);
+          this.notificationService.showError(error.statusText, '¡Oh no! Ocurrio un error inesperado');
         }
       });
     } 
   }
+  
+  onSubmit() {
+    console.log(this.datosDocumento.value);
+    if (this.datosDocumento.valid) {
+      this.dataService.updateDocument(this.document.id, this.datosDocumento.value).subscribe({
+        next: (response) => {
+          this.router.navigate(['/main']);
+          this.notificationService.showSuccess('Eso tilin', 'Documento actualizado con éxito');
+        },
+        error: (error) => {
+          console.log(error)
+          this.router.navigate(['/main']);
+          this.notificationService.showError('Error en la actualizacion', error.statusText);
+        }
+      });
+    } else {
+      this.datosDocumento.markAllAsTouched(); 
+      this.notificationService.showError('Eso tilin', 'Los Campos obligatorios no pueden estar vacíos');
+    }
+  }
 }
+

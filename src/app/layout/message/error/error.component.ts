@@ -1,32 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { NotificationService } from '../../../service/notification.service';
-
+import { Component, OnInit } from '@angular/core';
+import { NotificationService, Notification } from '../../../service/notification.service';
 
 @Component({
   selector: 'app-error',
-  imports: [],
   templateUrl: './error.component.html',
-  styleUrl: './error.component.css'
+  styleUrl: './error.component.css',
 })
+export class ErrorComponent implements OnInit {
+  errorMessages: Notification[] = [];
 
-export class ErrorComponent {
-  message: string | null = null;
-  isVisible = false;
+  constructor(private notificationService: NotificationService) {}
 
-  constructor(private notificationService: NotificationService) { }
-
-  ngOnInit():void{
-    this.notificationService.errorMessage$.subscribe((msg) => {
-      if (msg) {
-        this.message = msg;
-        this.isVisible = true;
-        setTimeout(() => this.isVisible = false, 3000);
-      }
+  ngOnInit(): void {
+    this.notificationService.errorMessages$.subscribe((msgs) => {
+      this.errorMessages = msgs;
     });
   }
 
-  closeMessage() {
-    this.isVisible = false;
+  closeMessage(id: number) {
+    this.notificationService.removeError(id);
   }
 }
-

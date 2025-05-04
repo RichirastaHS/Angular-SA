@@ -46,6 +46,8 @@ body{
     --mat-sys-on-surface: #000;
     --mat-sys-surface-variant: #ffffff;
     --mat-sys-primary: #31a85f;
+    
+    --mat-sys-corner-extra-large:15px;
 }
 
 

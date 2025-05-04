@@ -1,56 +1,90 @@
 <section>
     <h2>Panel de Control</h2>
-    <div class="control-panel-grid">
-        <div class="control-panel-list-users">
-            <h3>Lista de Usuarios</h3>
-            <ul>
-                @for (user of users; track $index) {
-                    <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="8" r="5" fill="currentColor"/><path d="M20 21a8 8 0 1 0-16 0"/><path fill="currentColor" d="M12 13a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8"/></g>
+    <div>
+        <div class="control-panel-grid">
+            <div class="parent">
+                <div class="div1">
+                    <h3>Informacion General</h3>
+                    <aside>
+                        <p>{{totalDocuments}}</p>
+                        <h4>Documentos Registrados</h4>
+                    </aside>
+                    <aside  class="control-panel-status">
+                        @for (status of statusCounts; track $index) {
+                        <article>
+                            <p>{{status.total}}</p>
+                            <h4>{{ getStatusLabel(status.status.name) }}</h4>
+                        </article>
+                        }
+                    </aside>
+                </div>
+                <div class="div2">
+                    <h3>Lista de Usuarios</h3>
+                    <ul class="listusers"> 
+                        @for (user of users; track $index) {
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="8" r="5" fill="currentColor"/><path d="M20 21a8 8 0 1 0-16 0"/><path fill="currentColor" d="M12 13a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8"/></g>
+                                </svg>
+                                <p>{{ user.name }}</p>
+                            </li>
+                        }@empty {
+                            no hay Usuarios
+                        }
+                        <a href="">Ver mas</a>
+                    </ul>
+                </div>
+                <div class="div3">
+                    <button class="btnusers" (click)="showdetails()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd" d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8m4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a3 3 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533zm9.032-5a2.9 2.9 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.9 2.9 0 0 0 18.092 8" clip-rule="evenodd"/>
                         </svg>
-                        <p>{{ user.name }}</p>
-                    </li>
-                }
-                <a href="">Ver mas</a>
-            </ul>
-        </div> 
+                        <h3>Gestionar Usuarios</h3>
+                    </button>   
+                    <button class="btnusers btnaddusers" (click)="addNewUser()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd" d="M18.75 10.75V8h1.5v2.75H23v1.5h-2.75V15h-1.5v-2.75H16v-1.5zm-10.918 1.6C7.096 11.478 6.5 9.85 6.5 8.71V7a4 4 0 0 1 8 0v1.71c0 1.14-.6 2.773-1.332 3.642l-.361.428c-.59.699-.406 1.588.419 1.99l5.66 2.762c.615.3 1.114 1.093 1.114 1.783v.687a1 1 0 0 1-1.001.998H2a1 1 0 0 1-1-.998v-.687c0-.685.498-1.483 1.114-1.784l5.66-2.762c.821-.4 1.012-1.288.42-1.99z"/>
+                        </svg>
+                        <h3>Agregar Usuario</h3>
+                    </button>
+                </div>
+                <div class="div4">4</div>
+                <div class="div5">
+                    <h3>Actividad Reciente</h3>
+                    <hr>
 
-        <section class="control-panel-active-u users">
-            <div class="activity-users">
-                <p class="number">3</p>
-                <h3>Usuarios Activos</h3>
-            </div>
-            <div class="control-panel-control-user-gestion users">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24">
-                    <path fill="currentColor" fill-rule="evenodd" d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8m4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a3 3 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533zm9.032-5a2.9 2.9 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.9 2.9 0 0 0 18.092 8" clip-rule="evenodd"/>
-                </svg>
-                <h3>Gestionar Usuarios</h3>
-            </div>   
-        </section>
+                    <ul class="activity-list">
+                        @for (activity of activities; track $index) {
+                            @switch (activity.action) {
+                                @case ("update") {
+                                    <li class="activity">
+                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
+                                        <p><span class="Usuario">{{activity.user_name}}</span> actualizo el documento: <span class="document_name">{{activity.document_name}}</span></p>
+                                    </li>
+                                }
+                                @case ("delete") {
 
-        <div class="control-panel-recent-activity">
-            <h3>Actividad Reciente</h3>
-            <hr>
-            <ul class="activity-list">
-                <a href="">Ver mas</a>
-            </ul>
-        </div>
+                                }
+                                @case ("create") {
 
-        <div class="control-panel-generl-info">
-            <h3>Informacion General</h3>
-            <aside>
-                <p>{{totalDocuments}}</p>
-                <h4>Documentos Registrados</h4>
-            </aside>
-            <aside  class="control-panel-status">
-                @for (status of statusCounts; track $index) {
-                <article>
-                    <p>{{status.total}}</p>
-                    <h4>{{ getStatusLabel(status.status.name) }}</h4>
-                </article>
-                }
-            </aside>
+                                }
+                                @default {
+                                    <li class="activity">
+                                        <p>{{activity.user_name}} <span class="fecha">{{activity.updated_at}}</span></p>
+                                        <p>{{activity.description}} {{activity.document_name}}</p>
+                                    </li>
+                                }
+                            }
+                            
+                            <hr>
+                        }
+                        @empty {
+                            No hay actividades recientes
+                        }
+                        <a href="">Ver mas</a>
+                    </ul>
+                </div>
+            </div>            
         </div>
     </div>
 </section>

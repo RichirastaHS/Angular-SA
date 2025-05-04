@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   logoutUser(): Observable<any> {
-    return this.http.get(`${this.API_URL}logout`, {}).pipe(
+    return this.http.post(`${this.API_URL}logout`, {}).pipe(
       map((response) => {
         localStorage.clear(); // Eliminar token
         return response;

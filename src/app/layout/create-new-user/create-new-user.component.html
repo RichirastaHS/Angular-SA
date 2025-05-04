@@ -30,67 +30,46 @@
               </script>
             <!-- Titulo del Documento -->
             <fieldset class="form-group title">
-                <label for="title">Nombre</label>
-                <input formControlName="title" class="input-form" type="text" id="title" name="title"  maxlength="255" placeholder="Ingrese el título del documento"/>
+                <label for="name">Nombre</label>
+                <input formControlName="name" class="input-form" type="text" id="name" name="name"  maxlength="255" placeholder="Nombre"/>
             </fieldset>
 
+             <!-- Username -->
+             <label for="username">Alias (Username)</label>
+             <fieldset class="form-group title">
+                 <input formControlName="username" class="input-form" type="text" id="username" name="username" placeholder="Username" required="">
+             </fieldset>
+
             <!-- Referencia de Documento -->
-            <label for="reference_number">Correo</label>
+            <label for="Correo">Correo</label>
             <fieldset class="form-group title">
-                <input formControlName="reference_number" class="input-form" type="text" id="reference_number" name="reference_number" placeholder="Numero de referencia" required="">
+                <input formControlName="Correo" class="input-form" type="text" id="Correo" name="Correo" placeholder="Correo" required="">
+            </fieldset>
+
+            <label for="Password">Contraseña</label>
+            <fieldset class="form-group title">
+                <input formControlName="Password" class="input-form" type="text" id="Password" name="Password" placeholder="Contraseña" required="">
             </fieldset>
 
             <!-- Departamento de envio -->
             <fieldset class="form-group type">
-                <label for="senders_department">Departamento Remitente</label>
+                <label for="senders_department">Rol</label>
                 <select formControlName="sender_department" class="input-form" id="senders_department" name="senders_department" required="">
                     <option value="" disabled selected>Selecciona una opción</option>
                 </select>
             </fieldset>
-
-            <!-- Departamento de entrega -->
             <fieldset class="form-group type">
-                <label for="receiver_department">Departamento Receptor</label>
-                <select formControlName="receiver_department" class="input-form" id="receiver_department" name="receiver_department" required="">
+                <label for="senders_department">Permisos</label>
+                <select formControlName="sender_department" class="input-form" id="senders_department" name="senders_department" required="">
                     <option value="" disabled selected>Selecciona una opción</option>
                 </select>
-            </fieldset>
-            
-            <!-- Descripción -->
-            <fieldset class="form-group description">
-                <label for="description">Descripción</label>
-                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4" placeholder="Descripción del documento" required=""></textarea>
-            </fieldset>
-
-            <!-- Fecha de Registro -->
-            <fieldset class="form-group date_registration">
-                <label for="issue_date">Fecha de Registro</label>
-                <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date">
-
-            </fieldset>
-
-            <!-- Fecha de Recepción -->
-            <fieldset class="form-group date_reecepcion">
-                <label for="receivedDate">Fecha de Recepción</label>
-                <input formControlName="received_date" class="input-form" type="date" id="receivedDate" name="receivedDate" required="">
-
-            </fieldset>
-            <!-- Prioridad -->
-            <fieldset class="form-group type">
-                <label for="priority">Prioridad</label>
-                <select formControlName="priority" class="input-form" id="priority" name="priority" required="">
-                    <option value="" disabled selected>Selecciona una opción</option>
-                    <option value="1" selected>Baja</option>
-                    <option value="2">Media</option>
-                    <option value="3">Alta</option>
-                </select>
-
             </fieldset>
 
             <!-- Botón para guardar -->
             <fieldset class="form-group submit">
                 <button type="submit" >Guardar Documento</button>
             </fieldset>
+            
 
         </form>
     </div>

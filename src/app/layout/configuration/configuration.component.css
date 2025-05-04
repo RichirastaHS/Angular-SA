@@ -9,6 +9,7 @@ h2 {
     color: #000;
     line-height: 1.2rem;
 }
+
 .date-container {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     margin: 2em;
@@ -23,7 +24,6 @@ h2 {
 .picture{
     border: 10px solid rgb(199, 169, 113);
 }
-
 
 .picture{
     width: 200px;
@@ -75,4 +75,29 @@ h2 {
   }
   .info-card h4 {
     margin-top: 0;
+  }
+  button{
+    display: flex;
+    margin: 0 auto;
+    align-items: flex-end;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    transition: ease-out .1s;
+    color: #888;
+    svg{
+    fill: #888;
+    }
+  }
+  button:focus{
+    outline: none;
+  }
+  button:hover{
+    svg{
+      fill: var(--color-theme-yellow);
+    }
+  }
+  .edit:hover{
+    color: var(--color-theme-yellow);
   }

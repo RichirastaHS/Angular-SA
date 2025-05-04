@@ -14,16 +14,16 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 })
 export class LoginComponent {
   userForm: FormGroup;
-  email: FormControl;
+  username: FormControl;
   password: FormControl;
   errorMessage = '';
   loading = false;
 
   constructor( private authsService: AuthService, private router: Router, private authGuard: AuthGuard) {
-    this.email = new FormControl('');
+    this.username = new FormControl('');
     this.password = new FormControl('');
     this.userForm = new FormGroup({
-      email: this.email,
+      username: this.username,
       password: this.password
     });
   }
@@ -34,6 +34,7 @@ export class LoginComponent {
       next: (response)=> {
         this.authsService.getUserData().subscribe({
           next: (user: any) => {
+            console.log(user)
             const userData = { name: user.name, email: user.email };
             this.authsService.setUser(userData);
           },

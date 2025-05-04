@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResponse, Document } from '../models/document';
-import { DocumentCreate } from '../models/newDocData';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,8 @@ export class DataService{
 
   constructor (private http: HttpClient) { }
 
-  getDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(this.API_URL, {}); 
+  getDocuments(): Observable<any> {
+    return this.http.get<any>(this.API_URL); 
   }
 
   createDocument(): Observable<any> {
@@ -33,7 +32,7 @@ export class DataService{
     return this.http.get(`${this.API_URL}/${id}/edit`);
   }
 
-  updateDocument(id: string, document:Document): Observable<any> {
+  updateDocument(id: string, document:any): Observable<any> {
     return this.http.patch(`${this.API_URL}/${id}`, document);
   }
 

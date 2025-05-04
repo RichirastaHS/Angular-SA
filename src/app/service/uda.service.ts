@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/document';
 
-
+export interface filter {
+  type: string,
+  id: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +20,23 @@ export class UdaService {
     return this.http.get<any>(`${this.API_URL}Users`);
   }
 
+  profile(): Observable<any>{
+    return this.http.get<any>(`${this.API_URL}profile`);
+  }
+
   dashboard(): Observable<any>{
     return this.http.get<any>(`${this.API_URL}dashboard`);
   }
 
   getActivities(): Observable<any>{
     return this.http.get<any>(`${this.API_URL}activities`);
+  }
+
+  filters(params: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}filters`, params);
+  }
+  notification(): Observable<any>{
+    return this.http.get<any>(`${this.API_URL}notifications`)
   }
 
   searchDocuments(query: string): Observable<any> {

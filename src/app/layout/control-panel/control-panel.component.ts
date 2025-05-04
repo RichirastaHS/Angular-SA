@@ -1,6 +1,26 @@
 import { Component } from '@angular/core';
 import { UdaService } from '../../service/uda.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
+
+export interface activities{
+  id: number;
+  action: string;
+  changes: string; // JSON en formato string doblemente escapado
+  created_at: string;
+  updated_at: string;
+  description: string;
+  document_id: string;
+  document_name: string;
+  model_type: string;
+  read_by_admin: number;
+  user_id: number;
+  user_name: string;
+  parsedChanges?: {
+    title: string;
+    status_id: number;
+  };
+}
 
 @Component({
   selector: 'app-control-panel',
@@ -11,6 +31,7 @@ import { User } from '../../models/user';
 export class ControlPanelComponent {
   totalDocuments: number = 0;
   users: User[] = [];
+  activities: activities[] = [];
   statusCounts: {
     status_id: number;
     total: number;
@@ -21,7 +42,8 @@ export class ControlPanelComponent {
   }[] = [];
 
   constructor(
-    private udaService: UdaService
+    private udaService: UdaService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +52,8 @@ export class ControlPanelComponent {
         this.totalDocuments = response.totalDocuments;
         this.users = response.users;
         this.statusCounts = response.statusCounts;
-        console.log(this.totalDocuments, this.users, this.statusCounts)
+        this.activities = response.activities;
+        console.log(this.users)
       }, 
       error: (error) => {
       }
@@ -48,5 +71,12 @@ export class ControlPanelComponent {
   
     return labels[statusName] || statusName;
   }
-  // Add any methods or properties needed for the control panel functionality
+
+  showdetails(){
+    this.router.navigate(['/main/mas_detalles']);
+  }
+
+  addNewUser(){
+    this.router.navigate(['/main/nuevo_usuario']);
+  }
 }

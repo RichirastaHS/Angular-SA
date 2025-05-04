@@ -24,8 +24,12 @@ export class HeaderComponent {
 
   onSearch(): void {
     const query = this.searchForm.value.busqueda || '';
-    this.searchService.setSearchQuery(query);
-    this.router.navigate(['/main/busqueda'], { queryParams: { query } });
+    if (query) {
+      this.searchService.setSearchQuery(query);
+      this.router.navigate(['/main/busqueda'], { queryParams: { query } });
+    }else{
+      console.log("No hay nada que buscar")
+    }
   }
 
 }

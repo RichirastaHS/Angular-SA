@@ -1,29 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { NotificationService } from '../../../service/notification.service';
+import { Component } from '@angular/core';
+import { NotificationService, Notification } from '../../../service/notification.service';
 
 @Component({
   selector: 'app-successful',
-  imports: [],
   templateUrl: './successful.component.html',
-  styleUrl: './successful.component.css'
+  styleUrls: ['./successful.component.css']
 })
 export class SuccessfulComponent {
-  message: string | null = null;
-  isVisible = false;
+  messages: Notification[] = [];
 
   constructor(private notificationService: NotificationService) { }
-  ngOnInit():void{
-    this.notificationService.successMessage$.subscribe((msg) => {
-      if( msg) {
-        this.message = msg;
-        this.isVisible = true;
-        setTimeout(() => this.isVisible = false, 3000);
-      }
+
+  ngOnInit(): void {
+    this.notificationService.successMessages$.subscribe((msgs) => {
+      this.messages = msgs;
     });
   }
 
-  closeMessage() {
-    this.isVisible = false;
+  closeMessage(id: number) {
+    this.notificationService.removeSuccess(id);
   }
 }
-

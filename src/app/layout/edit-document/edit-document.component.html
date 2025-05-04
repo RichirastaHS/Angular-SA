@@ -1,9 +1,9 @@
 @if (document) {
     <section class="container">
         <div class="form-container">
-            <h2>Editar Documento #{{document?.id}}</h2>
+            <h2>Editar Documento #{{document.id}}</h2>
             
-            <form [formGroup]="datosDocumento">
+            <form [formGroup]="datosDocumento" (ngSubmit)="onSubmit()">
                 <fieldset class="form-group title">
                     <label for="title">Título del Documento</label>
                     <input formControlName="title" class="input-form" type="text" id="title" name="title"  maxlength="255" placeholder="Ingrese el título del documento"/>
@@ -63,8 +63,8 @@
     
                 <!-- Departamento de envio -->
                 <fieldset class="form-group type">
-                    <label for="senders_department">Departamento Remitente</label>
-                    <select formControlName="sender_department" class="input-form" id="senders_department" name="senders_department" required="">
+                    <label for="sender_department">Departamento Remitente</label>
+                    <select formControlName="sender_department" class="input-form" id="sender_department" name="senders_department" required="">
                         @for (sd of formData.senders_department; track $index) {
                             <option value="{{sd.id}}">{{sd.name}}</option>
                         }

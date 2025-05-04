@@ -11,6 +11,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { ConfigurationComponent } from './layout/configuration/configuration.component';
 import { DocumentfoundComponent } from './layout/documentfound/documentfound.component';
 import { CreateNewUserComponent } from './layout/create-new-user/create-new-user.component';
+import { TableUsersComponent } from './layout/table-users/table-users.component';
 
 export const routes: Routes = [
     {
@@ -62,6 +63,10 @@ export const routes: Routes = [
             {
                 path: 'nuevo_usuario',
                 component: CreateNewUserComponent,
+            },
+            {
+                path: 'mas_detalles',
+                component: TableUsersComponent,
             },
         ]
     },
