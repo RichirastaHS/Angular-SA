@@ -18,11 +18,9 @@
         @for (item of unreadNot; track $index) {
         <button mat-menu-item class="btb-dropdown">
             <div class="div-menu-item">
-                <mat-icon class="edit">edit</mat-icon>
                 <section>
-                    <h5>Sin notificaciones</h5>
-                    <p><span class="ressaltar">Miguel</span> actualizó el documento #17339</p>
-                    <p class="momento-de-actualizacion">Hace 20 minutos</p>
+                    <h5>actualización nueva</h5>
+                    <p>{{item[$index]}}</p>
                 </section>
             </div>
         </button>

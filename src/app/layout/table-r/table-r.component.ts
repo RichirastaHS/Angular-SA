@@ -81,7 +81,6 @@ export class TableRComponent {
     this.isLoading = true;
     this.dataService.getDocuments().subscribe({ 
       next: (document) => {
-        this.document = document.documents;
         this.dataSource.data = document.documents;
         console.log(this.dataSource.data);
         this.isLoading = true;

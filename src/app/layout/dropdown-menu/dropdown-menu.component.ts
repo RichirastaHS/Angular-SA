@@ -29,7 +29,7 @@ export class DropdownMenuComponent {
     });
     this.udaService.notification().subscribe({
       next: (response) =>{
-
+        this.unreadNot = response.message;
       },
       error: (error) =>{
 

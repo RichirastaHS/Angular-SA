@@ -77,3 +77,20 @@ button:hover{
 		transform: translateX(50px);
 	}
 }
+
+.toast-succces h5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Máximo 1 línea */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+  }
+  
+  .toast-succces p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Máximo 2 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

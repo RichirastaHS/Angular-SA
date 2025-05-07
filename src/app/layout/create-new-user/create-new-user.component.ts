@@ -1,13 +1,41 @@
 import { Component } from '@angular/core';
+import { UdaService } from '../../service/uda.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NotificationService } from '../../service/notification.service';
+
+export interface User{
+  name: string,
+  username: string,
+  password: string,
+  role: string,
+  permissions: Array<string>
+}
 
 @Component({
   selector: 'app-create-new-user',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './create-new-user.component.html',
   styleUrl: './create-new-user.component.css'
 })
 export class CreateNewUserComponent {
-  selectedPhoto: string = '';
+  constructor(      
+    private router: Router,
+    private notificationService: NotificationService,
+    private udaService: UdaService,
+  ){}
+  
+userForm= new FormGroup({
+  name: new FormControl('', [Validators.required, Validators.maxLength(255)]), 
+  username: new FormControl('', [Validators.required,  Validators.maxLength(255)]),
+  password: new FormControl('',[Validators.required, Validators.maxLength(255)]), 
+  role: new FormControl('', [Validators.required, Validators.maxLength(255)]),//
+  permissions: new FormArray([], [Validators.required])
+});
+
+newU = this.userForm.value;
+user = [];
+selectedPhoto: string = '';
 profilePictures = [
   { value: 'woman', src: '/business-woman.png' },
   { value: 'man', src: '/businessman.png' }
@@ -16,4 +44,41 @@ profilePictures = [
 selectPhoto(value: string) {
   this.selectedPhoto = value;
 }
+
+onCheckboxChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const permissionsArray = this.userForm.get('permissions') as FormArray;
+
+  if (checkbox.checked) {
+    permissionsArray.push(new FormControl(checkbox.value));
+  } else {
+    const index = permissionsArray.controls.findIndex(x => x.value === checkbox.value);
+    if (index >= 0) {
+      permissionsArray.removeAt(index);
+    }
+  }
+}
+
+onSubmit(){
+  this.newUser();
+}
+
+newUser(){
+  if(this.userForm.valid){
+    this.udaService.createUser(this.userForm.value).subscribe({
+      next: () =>{
+        this.router.navigate(['/panel']);
+        this.notificationService.showSuccess('Acutalización exitosa', 'Nuevo usuario agregado');
+      },
+      error: (error) =>{
+        this.router.navigate(['/main']);
+        this.notificationService.showError('¡Algo fallo!', error);
+      }
+    });
+  }else {
+    this.userForm.markAllAsTouched(); 
+    this.notificationService.showError('Datos incompletos','Los Campos obligatorios no pueden estar vacíos');
+  }
+}
+
 }

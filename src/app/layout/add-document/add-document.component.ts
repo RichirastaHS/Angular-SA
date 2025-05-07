@@ -25,9 +25,7 @@ export class AddDocumentComponent {
     description: new FormControl(''), //
     priority: new FormControl('',[Validators.required])
   });
-
-  newDocData = this.datosDocumento.value;
-  
+ 
   formData: DocumentFormModel = documentFormData;
 
 
@@ -57,17 +55,17 @@ export class AddDocumentComponent {
       if (this.datosDocumento.valid) {
         this.dataService.storeDocument(this.datosDocumento.value).subscribe({
           next: (response) => {
-          this.router.navigate(['/main']);
-            this.notificationService.showSuccess('Eso tilin', 'Documento creado con éxito');
+            this.router.navigate(['/main']);
+            this.notificationService.showSuccess('Acutalización exitosa', 'Documento creado con éxito');
           },
           error: (error) => {
             this.router.navigate(['/main']);
-            this.notificationService.showError('Eso tilin', error);
+            this.notificationService.showError('¡Algo fallo!', error);
           }
         });
       } else {
         this.datosDocumento.markAllAsTouched(); 
-        this.notificationService.showError('Eso tilin','Los Campos obligatorios no pueden estar vacíos');
+        this.notificationService.showError('Datos incompletos','Los Campos obligatorios no pueden estar vacíos');
       }
     }
 }
