@@ -39,8 +39,8 @@ export class AuthService {
     return localStorage.getItem('access_token') || '';
   }
 
-  getUserData(): Observable<User> {
-    return this.http.get<User>(`${this.API_URL}user`, {});
+  getUserData(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}user`);
   }
 
   setUser(user: any) {

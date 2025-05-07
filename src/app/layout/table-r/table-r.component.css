@@ -127,10 +127,6 @@ button{
     border: none;
 }
 
-mat-icon {
-    cursor: pointer;
-}
-
 .edit, .delete{
     margin: 0 10px;
     color: var(--color-theme-light-gray);

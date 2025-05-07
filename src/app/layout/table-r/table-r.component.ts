@@ -69,10 +69,11 @@ export class TableRComponent {
     private uda : UdaService,
     private dataService: DataService, 
     private NotificationService: NotificationService,
-    private router: Router,) { }
+    ) { }
   
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['id_status'] && this.document.length > 0) {
+    console.log(this.id_status);
+    if (changes['id_status'] && changes['id_status'].currentValue != null) {
       this.applyFilter();
     }
   }
@@ -82,7 +83,6 @@ export class TableRComponent {
     this.dataService.getDocuments().subscribe({ 
       next: (document) => {
         this.dataSource.data = document.documents;
-        console.log(this.dataSource.data);
         this.isLoading = true;
       },
       error: (error) => {
@@ -91,16 +91,16 @@ export class TableRComponent {
   }
 
   applyFilter(): void {
+    console.log(this.id_status);
     if (this.id_status) {
       const params = {
         status: this.id_status
       };
-      console.log(this.id_status);
+
       this.uda.filters(params).subscribe({
         next: (response) => {
           console.log(response);
           this.dataSource.data = response.documents;
-          // Puedes actualizar this.document o this.dataSource aquí si quieres
         },
         error: (error) => {
           console.error(error);

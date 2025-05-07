@@ -6,6 +6,11 @@ import { AuthService } from '../../service/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { UdaService } from '../../service/uda.service';
 
+export interface user{
+  name:string
+  role:string
+}
+
 @Component({
   selector: 'app-dropdown-menu',
   imports: [MatButtonModule, MatMenuModule, MatIconModule, RouterLink],
@@ -15,6 +20,7 @@ import { UdaService } from '../../service/uda.service';
 
 export class DropdownMenuComponent {
   name: string = '';
+  role: string = '';
   constructor( 
     private authsService: AuthService, 
     private router: Router,
@@ -22,9 +28,10 @@ export class DropdownMenuComponent {
   ) {}
   unreadNot: []=[];
   ngOnInit(): void {
-    this.authsService.user$.subscribe((user) => {
+    this.authsService.getUserData().subscribe((user) => {
       if (user) {
         this.name = user.name;
+        this.role = user.role;
       }
     });
     this.udaService.notification().subscribe({

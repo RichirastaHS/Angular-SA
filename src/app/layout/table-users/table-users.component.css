@@ -1,0 +1,74 @@
+table {
+    font-weight: 600 ;
+    border-collapse: collapse;
+    width: 100%;
+    background: #ffffff;
+}
+
+tbody {
+    padding: 8px;
+}
+
+a{
+    color: #000;
+}
+
+
+th, td, .button-name{
+    font-family: 'Nunito Sans', sans-serif;
+    width: fit-content;
+}
+
+td, .button-name {
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+}
+th{
+    font-weight: 800;
+}
+
+.button-name{
+    cursor: pointer;
+}
+
+.button-name:hover{
+    color: var(--color-theme-light-green);
+    transition: ease-out .2s;
+}
+td {
+    padding: 1em 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+button{
+    background: none;
+    border: none;
+} 
+.border-container{
+    border: 1px solid #dddddd;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    border-radius: 15px;
+    overflow: hidden;
+    width: min(200px 100%);
+}
+.btn{
+    cursor: pointer;
+  }
+  
+  .deletebtn{
+    color: #ff4d4f;
+  }
+  
+  .deletebtn:hover{
+    color: #bd191b;
+  }
+  
+  .editbtn{
+    color: rgb(231, 176, 72);
+  }
+  
+  .editbtn:hover{
+    color: rgb(177, 122, 19);
+  
+  }

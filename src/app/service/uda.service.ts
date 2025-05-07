@@ -16,10 +16,18 @@ export class UdaService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}Users`);
+  getUser(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}user`);
   }
 
+
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}users`);
+  }
+
+  deleteUser(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.API_URL}users/${id}`);
+  }
   profile(): Observable<any>{
     return this.http.get<any>(`${this.API_URL}profile`);
   }

@@ -9,87 +9,37 @@
         <button (click)="logout()" class="sesion">Cerrar sesion</button>
     </section>
     
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path fill="#currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64m215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29c0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29c-6 6.45-8.66 14.16-8.61 21.71c.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32c.05-7.55-2.61-15.27-8.61-21.71"/>
-        </svg>
-    </button>
-    <mat-menu #menu="matMenu" class="customize">
-        @for (item of unreadNot; track $index) {
-        <button mat-menu-item class="btb-dropdown">
-            <div class="div-menu-item">
-                <section>
-                    <h5>actualización nueva</h5>
-                    <p>{{item[$index]}}</p>
-                </section>
-            </div>
+    @if (role==="admin") {
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64m215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29c0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29c-6 6.45-8.66 14.16-8.61 21.71c.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32c.05-7.55-2.61-15.27-8.61-21.71"/>
+            </svg>
         </button>
-        }@empty {
-            <div class="btb-dropdown">
-                <section class="no-not">
-                    <p>Sin notificaciones nuevas</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g fill="none" fill-rule="evenodd">
-                            <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/>
-                            <path fill="currentColor" d="M11.084 3.244a3 3 0 0 1 1.607-.063l.225.063L19.45 5.34c.19.063.361.181.486.346l.07.105l2.75 4.747a1 1 0 0 1-.44 1.407l-.12.047l-2.051.658v4.33a2 2 0 0 1-1.237 1.848l-.152.056l-5.84 1.872a3 3 0 0 1-1.607.063l-.225-.062l-5.84-1.873a2 2 0 0 1-1.382-1.743l-.007-.162V12.65l-2.051-.658a1 1 0 0 1-.617-1.338l.057-.116l2.75-4.747a1 1 0 0 1 .445-.406l.11-.045zM13 12.305v6.324l5.145-1.65v-3.687l-3.09.991a1 1 0 0 1-1.106-.353l-.064-.098zm-2 0l-.885 1.527a1 1 0 0 1-1.17.451l-3.09-.991v3.687L11 18.63zM5.32 7.49l-1.723 2.977l5.191 1.666l1.725-2.977zm13.36 0l-5.193 1.666l1.724 2.977l5.192-1.666zm-6.375-2.342a1 1 0 0 0-.49-.03l-.12.03L8.13 6.292L12 7.533l3.87-1.241z"/>
-                        </g>
-                    </svg>
-                </section>
-            </div>
-        }
-       <!--
-        <button mat-menu-item class="btb-dropdown">
+        <mat-menu #menu="matMenu" class="customize">
+            @for (item of unreadNot; track $index) {
+            <button mat-menu-item class="btb-dropdown">
                 <div class="div-menu-item">
-                    <mat-icon class="edit">edit</mat-icon>
                     <section>
-                        <h5>Sin notificaciones</h5>
-                        <p><span class="ressaltar">Miguel</span> actualizó el documento #17339</p>
-                        <p class="momento-de-actualizacion">Hace 20 minutos</p>
+                        <h5>actualización nueva</h5>
+                        <p>{{item[$index]}}</p>
                     </section>
                 </div>
-        </button>
-         <button mat-menu-item class="btb-dropdown">
-            <div class="div-menu-item">
-                <mat-icon class="edit">edit</mat-icon>
-                <section>
-                    <h5>Nueva actualización</h5>
-                    <p><span class="ressaltar">Miguel</span> actualizó el documento #17339</p>
-                    <p class="momento-de-actualizacion">Hace 20 minutos</p>
-                </section>
-            </div>
-        </button>
-        <button mat-menu-item class="btb-dropdown">
-            <div class="div-menu-item">
-                <mat-icon>delete_sweep</mat-icon>
-                <section>
-                    <h5>Nueva actualización</h5>
-                    <p><span class="ressaltar">Homero</span> eliminó el documento #1988</p>
-                    <p class="momento-de-actualizacion">Hace 20 minutos</p>
-                </section>
-            </div>
-        </button>       
-        <button mat-menu-item class="btb-dropdown">
-            <div class="div-menu-item">
-                <mat-icon>note_add</mat-icon>
-                <section>
-                    <h5>Nueva actualización</h5>
-                    <p><span class="ressaltar">Vegetta</span> agregó un nuevo documento #1988</p>
-                    <p class="momento-de-actualizacion">Hace 15 minutos</p>
-                </section>
-            </div>
-        </button>
-        <button mat-menu-item class="btb-dropdown">
-            <div class="div-menu-item">
-                <mat-icon>portrait</mat-icon>
-                <section>
-                    <h5>Nueva actualización</h5>
-                    <p><span class="ressaltar">Mariana</span> agregó un comentario en el documento #1988</p>
-                    <p class="momento-de-actualizacion">Hace 20 minutos</p>
-                </section>
-            </div>
-        </button>
-        -->
+            </button>
+            }@empty {
+                <div class="btb-dropdown">
+                    <section class="no-not">
+                        <p>Sin notificaciones nuevas</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g fill="none" fill-rule="evenodd">
+                                <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/>
+                                <path fill="currentColor" d="M11.084 3.244a3 3 0 0 1 1.607-.063l.225.063L19.45 5.34c.19.063.361.181.486.346l.07.105l2.75 4.747a1 1 0 0 1-.44 1.407l-.12.047l-2.051.658v4.33a2 2 0 0 1-1.237 1.848l-.152.056l-5.84 1.872a3 3 0 0 1-1.607.063l-.225-.062l-5.84-1.873a2 2 0 0 1-1.382-1.743l-.007-.162V12.65l-2.051-.658a1 1 0 0 1-.617-1.338l.057-.116l2.75-4.747a1 1 0 0 1 .445-.406l.11-.045zM13 12.305v6.324l5.145-1.65v-3.687l-3.09.991a1 1 0 0 1-1.106-.353l-.064-.098zm-2 0l-.885 1.527a1 1 0 0 1-1.17.451l-3.09-.991v3.687L11 18.63zM5.32 7.49l-1.723 2.977l5.191 1.666l1.725-2.977zm13.36 0l-5.193 1.666l1.724 2.977l5.192-1.666zm-6.375-2.342a1 1 0 0 0-.49-.03l-.12.03L8.13 6.292L12 7.533l3.87-1.241z"/>
+                            </g>
+                        </svg>
+                    </section>
+                </div>
+            }
     </mat-menu>
+    }
 
 </div>
     
