@@ -50,7 +50,8 @@ button{
     box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
     border-radius: 15px;
     overflow: hidden;
-    width: min(200px 100%);
+    width: min(100%, 700px);
+    margin: 2rem;
 }
 .btn{
     cursor: pointer;
@@ -72,3 +73,29 @@ button{
     color: rgb(177, 122, 19);
   
   }
+
+  .btns-container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+  }
+
+.ellipsis-cell {
+    width: 220px;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+    .ellipsis-cell {
+        width: 130px;
+        max-width: 130px;
+    }
+    .border-container{
+        width: min(50%, 700px);
+        margin: 2rem;
+    }
+}

@@ -7,6 +7,7 @@ interface profileUser{
   username: string,
   email: string,
   created_ad: string,
+  pitcure: string,
 }
 @Component({
   selector: 'app-configuration',
@@ -25,8 +26,7 @@ export class ConfigurationComponent {
   ngOnInit(): void{
     this.udaService.profile().subscribe({
       next: (response)=>{
-        this.profile = response.user;
-        console.log( this.profile);
+        this.profile = response;
       }
     })
   }

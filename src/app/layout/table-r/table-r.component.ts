@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, SimpleChanges, ViewChild, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, ViewChild, inject, signal} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -14,6 +14,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { UdaService } from '../../service/uda.service';
+import * as ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import { ExcelExportService } from '../../service/excel-export.service';
+
 
 export interface DialogData {
   id: string;
@@ -46,6 +50,7 @@ export interface filter {
 
 export class TableRComponent {
   @Input() id_status?: number;
+  @Output() exportExcel = new EventEmitter<void>();
   readonly id = signal('');
   isLoading = false;
   columnsToDisplay  = ['Nombre', 'Tipo', 'Fecha de recepción', 'Fecha de registro', 'Estatus', 'Acciones'];
@@ -69,7 +74,11 @@ export class TableRComponent {
     private uda : UdaService,
     private dataService: DataService, 
     private NotificationService: NotificationService,
-    ) { }
+    private excelExportService: ExcelExportService,
+    ) {
+      this.excelExportService.exportRequested$.subscribe(() => {
+      this.exportToExcel();});
+     }
   
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.id_status);
@@ -83,6 +92,7 @@ export class TableRComponent {
     this.dataService.getDocuments().subscribe({ 
       next: (document) => {
         this.dataSource.data = document.documents;
+        this.document = document.documents;
         this.isLoading = true;
       },
       error: (error) => {
@@ -137,6 +147,88 @@ export class TableRComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  exportToExcel(): void {
+    // Crear un nuevo libro de trabajo
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Documentos');
+
+    // Agregar encabezados
+    const headers = [
+      'ID',
+      'Título',
+      'Número de referencia',
+      'Descripción',
+      'Categoría',
+      'Estatus',
+      'Departamento remitente',
+      'Departamento receptor',
+      'Fecha de emisión',
+      'Fecha de recepción',
+      'Prioridad',
+      'Creado por',
+      'Fecha de creación'
+    ];
+    
+    worksheet.addRow(headers);
+
+    // Estilo para los encabezados
+    const headerRow = worksheet.getRow(1);
+    headerRow.eachCell((cell) => {
+      cell.font = { bold: true };
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFD3D3D3' }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+    });
+
+    // Agregar datos
+    this.document.forEach(doc => {
+      const row = [
+        doc.id,
+        doc.title,
+        doc.reference_number,
+        doc.description,
+        doc.category.name,
+        doc.status.name,
+        doc.sender_department.name,
+        doc.receiver_department.name,
+        doc.issue_date,
+        doc.received_date,
+        doc.priority,
+        doc.created_at
+      ];
+      
+      worksheet.addRow(row);
+    });
+
+    // Ajustar el ancho de las columnas automáticamente
+    worksheet.columns.forEach(column => {
+      if (column && column.eachCell) { // Verificamos que exista
+      let maxLength = 0;
+      column.eachCell({ includeEmpty: true }, cell => {
+        const columnLength = cell.value ? cell.value.toString().length : 10;
+        if (columnLength > maxLength) {
+          maxLength = columnLength;
+        }
+      });
+      column.width = maxLength < 10 ? 10 : maxLength + 2;
+    }
+    });
+
+    // Generar el archivo Excel
+    workbook.xlsx.writeBuffer().then((buffer: ExcelJS.Buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs(blob, `documentos_${new Date().toISOString().slice(0,10)}.xlsx`);
+    });
   }
 }
 

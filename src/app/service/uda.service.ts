@@ -20,20 +20,28 @@ export class UdaService {
     return this.http.get<any>(`${this.API_URL}user`);
   }
 
+  infoUser(id: number): Observable<any>{
+    return this.http.get<any>(`${this.API_URL}users/${id}`);
+  }
 
   getUsers(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}users`);
   }
-
-  deleteUser(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.API_URL}users/${id}`);
-  }
+ 
   profile(): Observable<any>{
     return this.http.get<any>(`${this.API_URL}profile`);
   }
 
   createUser(newUser: any): Observable<any>{
     return this.http.post<any>(`${this.API_URL}users/register`, newUser);
+  }
+
+   editUser(id: number, user: any): Observable<any>{
+    return this.http.put<any>(`${this.API_URL}users/${id}` , user);
+  }
+
+  deleteUser(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.API_URL}users/${id}`);
   }
 
   dashboard(): Observable<any>{

@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { TableRComponent } from "../table-r/table-r.component";
+import { ExcelExportService } from '../../service/excel-export.service';
 
 
 @Component({
@@ -17,7 +18,11 @@ import { TableRComponent } from "../table-r/table-r.component";
 
 export class DocumentListComponent{
   statusId: number = 0;
+  constructor(private excelExportService: ExcelExportService) {}
 
+  onExportClick() {
+    this.excelExportService.requestExport();
+  }
   setid(number: number){
     this.statusId = number;
   }

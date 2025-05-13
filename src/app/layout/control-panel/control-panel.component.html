@@ -21,7 +21,7 @@
                 <div class="div2">
                     <h3>Lista de Usuarios</h3>
                     <ul class="listusers"> 
-                        @for (user of users; track $index) {
+                        @for (user of users.slice(0, 10); track $index) {
                             <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="8" r="5" fill="currentColor"/><path d="M20 21a8 8 0 1 0-16 0"/><path fill="currentColor" d="M12 13a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8"/></g>
@@ -31,11 +31,11 @@
                         }@empty {
                             no hay Usuarios
                         }
-                        <a href="">Ver mas</a>
+                        <a href="" [routerLink]="['/main/mas_detalles']">Ver mas</a>
                     </ul>
                 </div>
                 <div class="div3">
-                    <button class="btnusers" (click)="showdetails()">
+                    <button class="btnusers btnadshowdusers"  role="button" (click)="showdetails()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd" d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8m4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a3 3 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533zm9.032-5a2.9 2.9 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.9 2.9 0 0 0 18.092 8" clip-rule="evenodd"/>
                         </svg>
@@ -48,25 +48,31 @@
                         <h3>Agregar Usuario</h3>
                     </button>
                 </div>
-                <div class="div4">4</div>
+                <div class="div4"></div>
                 <div class="div5">
                     <h3>Actividad Reciente</h3>
                     <hr>
 
                     <ul class="activity-list">
-                        @for (activity of activities; track $index) {
+                        @for (activity of activities.slice(0, 8); track $index) {
                             @switch (activity.action) {
                                 @case ("update") {
                                     <li class="activity">
                                         <p><span class="fecha">{{activity.updated_at}}</span></p>
-                                        <p><span class="Usuario">{{activity.user_name}}</span> actualizo el documento: <span class="document_name">{{activity.document_name}}</span></p>
+                                        <p><span class="Usuario">{{activity.user_name}}</span> actualizo el documento: <span class="document_name_u">{{activity.document_name}}</span></p>
                                     </li>
                                 }
                                 @case ("delete") {
-
+                                    <li class="activity">
+                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
+                                        <p><span class="Usuario">{{activity.user_name}}</span> elimino el documento: <span class="document_name_d">{{activity.document_name}}</span></p>
+                                    </li>
                                 }
                                 @case ("create") {
-
+                                    <li class="activity">
+                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
+                                        <p><span class="Usuario">{{activity.user_name}}</span> creo un nuevo documento: <span class="document_name_c">{{activity.document_name}}</span></p>
+                                    </li>
                                 }
                                 @default {
                                     <li class="activity">
@@ -81,7 +87,6 @@
                         @empty {
                             No hay actividades recientes
                         }
-                        <a href="">Ver mas</a>
                     </ul>
                 </div>
             </div>            

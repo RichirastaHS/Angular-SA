@@ -36,12 +36,10 @@ export class DocumentDetailsComponent {
       this.dataService.getDocumentbyId(id).subscribe({  
         next: (response: ApiResponse) => {
           this.document = response.document; 
-          console.log(this.document);
         },
         error: (error) => {
           this.router.navigate(['/main']);
           this.NotificationService.showError(error.error.message, error.error.message);
-          console.log(error); 
         }
       });
     }
@@ -58,7 +56,6 @@ export class DocumentDetailsComponent {
         error: (error) => {
           this.router.navigate(['/main']);
           this.NotificationService.showSuccess("No tienes permiso para hacer esto", error);
-          console.log(error); 
         }
       });
     }

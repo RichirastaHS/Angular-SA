@@ -19,6 +19,7 @@ export interface user{
 })
 
 export class DropdownMenuComponent {
+  profile: string = '';
   name: string = '';
   role: string = '';
   constructor( 
@@ -34,6 +35,12 @@ export class DropdownMenuComponent {
         this.role = user.role;
       }
     });
+    this.udaService.profile().subscribe({
+      next: (response)=>{
+        this.profile = response.profile_photo;
+      }
+    })
+
     this.udaService.notification().subscribe({
       next: (response) =>{
         this.unreadNot = response.message;

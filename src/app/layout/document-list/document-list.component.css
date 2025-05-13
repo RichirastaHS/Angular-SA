@@ -119,3 +119,22 @@ span {
 .estatus_6 { 
     color: var(--color-theme-red);
 }
+
+.btn-excel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #0d7239;
+    color: white;
+    font-family: 'Nunito Sans', Courier, monospace;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 3px solid #185c37;
+    gap: 5px;
+}
+.btn-excel:hover{
+    background: #185c37;
+    color: white;
+}

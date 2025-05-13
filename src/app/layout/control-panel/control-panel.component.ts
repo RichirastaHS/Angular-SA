@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UdaService } from '../../service/uda.service';
 import { User } from '../../models/user';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 export interface activities{
   id: number;
@@ -24,7 +24,7 @@ export interface activities{
 
 @Component({
   selector: 'app-control-panel',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './control-panel.component.html',
   styleUrl: './control-panel.component.css'
 })
@@ -43,7 +43,7 @@ export class ControlPanelComponent {
 
   constructor(
     private udaService: UdaService,
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class ControlPanelComponent {
         this.users = response.users;
         this.statusCounts = response.statusCounts;
         this.activities = response.activities;
-        console.log(this.users)
+        console.log(this.activities)
       }, 
       error: (error) => {
       }

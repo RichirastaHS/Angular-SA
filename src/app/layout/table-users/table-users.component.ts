@@ -9,14 +9,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TableRComponent, DialogData } from '../table-r/table-r.component';
 import { NotificationService } from '../../service/notification.service';
+
+export interface DialogData {
+  id: string;
+  name: string;
+}
+
 
 export interface usuario {
   id: number
   name: string;
   username: string;
-  email: string;
 }
 
 @Component({
@@ -31,7 +35,7 @@ export class TableUsersComponent {
     private NotificationService: NotificationService
   ){}
   isLoading = false;
-  columnsToDisplay  = ['Nombre', 'Alias', 'Correo', 'Acciones'];
+  columnsToDisplay  = ['Nombre', 'Alias', 'Acciones'];
   users: usuario[] = [];
   dataSource = new MatTableDataSource<usuario>();
   readonly dialog = inject(MatDialog);
@@ -43,7 +47,6 @@ export class TableUsersComponent {
           id: user.id,
           name: user.name,
           username: user.username,
-          email: user.email
         }));
         this.dataSource.data = this.users;
         this.isLoading = true;
@@ -60,13 +63,16 @@ export class TableUsersComponent {
               this.NotificationService.showSuccess('Usuario eliminado con exito', `El usuario ${id} fue borrado`); // Muestra la notificación de éxito
             },
             error: (error) => {
-              console.log(error); 
+              
             }
           });
       }
-  openDialog(id_user:number): void{
+  openDialog(id_user:number, name:string): void{
       const dialogRef = this.dialog.open(DialogContentExampleDialog, {
-        data: {id: id_user}
+        data:{
+          id: id_user, 
+          name: name,
+        }
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -93,7 +99,7 @@ export class TableUsersComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogContentExampleDialog {
-  readonly dialogRef = inject(MatDialogRef<TableRComponent>);
+  readonly dialogRef = inject(MatDialogRef<TableUsersComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
 
   eliminar(id: number): void {

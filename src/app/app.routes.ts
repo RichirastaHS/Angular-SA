@@ -12,6 +12,10 @@ import { ConfigurationComponent } from './layout/configuration/configuration.com
 import { DocumentfoundComponent } from './layout/documentfound/documentfound.component';
 import { CreateNewUserComponent } from './layout/create-new-user/create-new-user.component';
 import { TableUsersComponent } from './layout/table-users/table-users.component';
+import { UserDataComponent } from './layout/user-data/user-data.component';
+import { NotFoundComponent } from './layout/not-found/not-found.component';
+import { AdminEditUserComponent } from './layout/admin-edit-user/admin-edit-user.component';
+import { NoAuthGuard } from './core/guards/noauth.guard';
 
 export const routes: Routes = [
     {
@@ -19,7 +23,8 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component:LoginComponent
+        component:LoginComponent,
+        canActivate: [NoAuthGuard],
     },
     {
         path: 'main',
@@ -68,6 +73,16 @@ export const routes: Routes = [
                 path: 'mas_detalles',
                 component: TableUsersComponent,
             },
+            {
+                path: 'usuario/:id',
+                component: UserDataComponent,
+            },
+            {
+                path: 'editarusuario/:id',
+                component: AdminEditUserComponent,
+            },
         ]
     },
+    { path: '**', component: NotFoundComponent }
+
 ];

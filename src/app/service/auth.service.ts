@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
 
@@ -48,9 +48,18 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('access_token'); // Verifica si hay un token
+  isLoggedIn(): Observable<boolean> {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    return of(true);
+  } else {
+    return this.getUserData().pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
+}
+
 
   logoutUser(): Observable<any> {
     return this.http.post(`${this.API_URL}logout`, {}).pipe(

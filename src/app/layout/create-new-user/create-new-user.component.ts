@@ -37,8 +37,8 @@ newU = this.userForm.value;
 user = [];
 selectedPhoto: string = '';
 profilePictures = [
-  { value: 'woman', src: '/business-woman.png' },
-  { value: 'man', src: '/businessman.png' }
+  { value: 'man', src: '/profile/mnpictureprofile.webp' },
+  { value: 'woman', src: '/profile/wmnpictureprofile.webp' }
 ];
 
 selectPhoto(value: string) {
@@ -65,13 +65,15 @@ onSubmit(){
 
 newUser(){
   if(this.userForm.valid){
+    console.log(this.userForm.value);
     this.udaService.createUser(this.userForm.value).subscribe({
       next: () =>{
-        this.router.navigate(['/panel']);
-        this.notificationService.showSuccess('Acutalización exitosa', 'Nuevo usuario agregado');
+        //this.router.navigate(['/main/panel']);
+        //this.notificationService.showSuccess('Acutalización exitosa', 'Nuevo usuario agregado');
       },
       error: (error) =>{
-        this.router.navigate(['/main']);
+        //this.router.navigate(['/main/panel']);
+        //console.log(error);
         this.notificationService.showError('¡Algo fallo!', error);
       }
     });
