@@ -49,13 +49,22 @@
                     </button>
                 </td>
             </ng-container>
-
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
             <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
         </table>
+        <div class="pagination">
+            <button class="pag-btn" (click)="getDocs(currentPage-1)">Previo</button>
+            @for (page of getPagesArray(); track page) {
+                <button 
+                class="pag-btn"
+                (click)="getDocs(page)"
+                [class.active]="page === currentPage">
+                {{page}}</button>
+            }
+            <button class="pag-btn" (click)="getDocs(currentPage+1)">Siguiente</button>
 
-        <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
-    </div>
+        </div>
+    </div>  
 } 
 @if (!isLoading) {
     <div class="loading-container">

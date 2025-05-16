@@ -13,7 +13,7 @@ export interface user{
 
 @Component({
   selector: 'app-dropdown-menu',
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, RouterLink],
+  imports: [MatButtonModule, MatMenuModule, RouterLink],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.css'
 })

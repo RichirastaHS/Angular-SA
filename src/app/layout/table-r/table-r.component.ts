@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges, ViewChild, inject, signal} from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +34,6 @@ export interface filter {
     MatSelectModule,
     CommonModule, 
     MatTableModule, 
-    MatPaginatorModule, 
     MatButtonModule, 
     MatProgressSpinnerModule,
     MatFormFieldModule, 
@@ -56,6 +54,10 @@ export class TableRComponent {
   columnsToDisplay  = ['Nombre', 'Tipo', 'Fecha de recepción', 'Fecha de registro', 'Estatus', 'Acciones'];
   document: Document[] = [];
   dataSource = new MatTableDataSource<Document>();
+  pgtotal = 0;
+  currentPage = 1;
+  lastPage = 0;
+  statusid = 0;
 
   readonly dialog = inject(MatDialog);
 
@@ -89,64 +91,69 @@ export class TableRComponent {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.dataService.getDocuments().subscribe({ 
-      next: (document) => {
-        this.dataSource.data = document.documents;
-        this.document = document.documents;
-        this.isLoading = true;
-      },
-      error: (error) => {
-      }
-    });
+    this.getDocs();
   }
 
-  applyFilter(): void {
-    console.log(this.id_status);
-    if (this.id_status) {
-      const params = {
-        status: this.id_status
-      };
+  getDocs(page?:number, category?:number): void {
+  this.isLoading = true;
+  this.dataService.getDocuments(
+    {
+      page: page,
+      per_page: 10,
+      status_id:  this.statusid,
+      category_id: category,
+      start_date: '',
+      end_date: ''
+    }
+  ).subscribe({
+    next: (response) => {
+      this.dataSource.data = response.documents;
+      this.pgtotal = response.pagination.total;
+      this.currentPage = response.pagination.current_page;
+      this.lastPage = response.pagination.last_page;
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.NotificationService.showError('Error al obtener los documentos', error.message);
+     }
+  });
+  }
+  getPagesArray(): number[] {
+  const totalPages = this.lastPage;
+  const current = this.currentPage;
+  const range = 4; // Cuántos botones mostrar alrededor de la página actual
+  const pages: number[] = [];
 
-      this.uda.filters(params).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.dataSource.data = response.documents;
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+  // Lógica para generar el rango de páginas
+  for (let i = Math.max(1, current - range); i <= Math.min(totalPages, current + range); i++) {
+    pages.push(i);
+  }
+
+  return pages;
+}
+
+  applyFilter(): void {
+    if (this.id_status) {
+     this.statusid = this.id_status;
+     this.getDocs(this.currentPage, this.id_status);
     }
     else{
-      this.dataService.getDocuments().subscribe({ 
-        next: (document) => {
-            this.dataSource.data = document.documents;
-            this.isLoading = true; 
-        },
-        error: (error) => {
-        }
-      });
-    }
+      this.statusid = 0;   
+     this.getDocs(this.currentPage, this.id_status);
 
+    }
   }
 
   deletedoc(id: string): void {
-        this.dataService.deleteDocument(id).subscribe({  
-          next: (response: ApiResponse) => {
-            this.dataSource.data = this.dataSource.data.filter(doc => doc.id !== id);
-            this.NotificationService.showSuccess('Documento borrado con exito', `El documento con ${id} fue borrado`); // Muestra la notificación de éxito
-          },
-          error: (error) => {
-            console.log(error); 
-          }
-        });
-    }
-
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator = new MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  this.dataService.deleteDocument(id).subscribe({  
+    next: (response: ApiResponse) => {
+      this.dataSource.data = this.dataSource.data.filter(doc => doc.id !== id);
+      this.NotificationService.showSuccess('Documento borrado con exito', `El documento con ${id} fue borrado`); // Muestra la notificación de éxito
+    },
+    error: (error) => {
+      console.log(error); 
+    }        
+  });      
   }
 
   exportToExcel(): void {
@@ -156,7 +163,6 @@ export class TableRComponent {
 
     // Agregar encabezados
     const headers = [
-      'ID',
       'Título',
       'Número de referencia',
       'Descripción',
@@ -165,9 +171,6 @@ export class TableRComponent {
       'Departamento remitente',
       'Departamento receptor',
       'Fecha de emisión',
-      'Fecha de recepción',
-      'Prioridad',
-      'Creado por',
       'Fecha de creación'
     ];
     
@@ -193,7 +196,6 @@ export class TableRComponent {
     // Agregar datos
     this.document.forEach(doc => {
       const row = [
-        doc.id,
         doc.title,
         doc.reference_number,
         doc.description,
@@ -201,10 +203,8 @@ export class TableRComponent {
         doc.status.name,
         doc.sender_department.name,
         doc.receiver_department.name,
-        doc.issue_date,
         doc.received_date,
         doc.priority,
-        doc.created_at
       ];
       
       worksheet.addRow(row);
