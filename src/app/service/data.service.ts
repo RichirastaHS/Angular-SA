@@ -44,8 +44,8 @@ export class DataService{
     return this.http.get(`${this.API_URL}/create`);  
   }
 
-  storeDocument(document: any): Observable<any> {
-    return this.http.post(this.API_URL, document);
+  storeDocument(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}`, formData);
   }
 
   getDocumentbyId(id: string): Observable<ApiResponse> {

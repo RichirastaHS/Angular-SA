@@ -138,7 +138,22 @@
                     }
                 }
             </fieldset>
-
+<fieldset class="form-group file-upload">
+    <label for="document_file">Adjuntar Documento (PDF)</label>
+    <div class="file-upload-container">
+        <input type="file" id="document_file" name="document_file" (change)="onFileSelected($event)" accept=".pdf" class="file-input">
+        <label for="document_file" class="file-label">
+            <span class="file-button">Seleccionar archivo</span>
+            <span class="file-name">{{ fileName || 'Ningún archivo seleccionado' }}</span>
+        </label>
+    </div>
+    @if (selectedFile && selectedFile.type !== 'application/pdf') {
+        <span class="msg_error">Solo se permiten archivos PDF</span>
+    }
+    @if (selectedFile && selectedFile.size > 5 * 1024 * 1024) {
+        <span class="msg_error">El archivo es demasiado grande (máximo 5MB)</span>
+    }
+</fieldset>
             <!-- Botón para guardar -->
             <fieldset class="form-group submit">
                 <button type="submit" >Guardar Documento</button>
