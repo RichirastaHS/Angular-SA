@@ -11,5 +11,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
+  isadmin:boolean = false;  
+  constructor(
+  ) {}
 
+  ngOnInit(): void {
+    this.isadmin = localStorage.getItem('isUserAdmin') === 'true';
+  }
 }

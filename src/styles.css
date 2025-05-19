@@ -71,11 +71,13 @@ app-header {
     background: var(--color-theme-dark-blue);
     position: sticky;
     top: 0px;
+    z-index: 3;
 }
 
 @media screen and (max-width: 1300px) {
     app-menu {
         position: absolute;
+        z-index: 2;
     }
     
 }

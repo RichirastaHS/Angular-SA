@@ -9,6 +9,11 @@
     max-height: 100px;
     gap: .5em;
   }
+
+  .profile-logout{
+    max-width: 200px;
+  }
+  
 img{
   width: 100%;
   aspect-ratio: 1/1;
@@ -17,6 +22,13 @@ img{
 
   .name-user{
     font-weight: 700;
+    line-height: 14px;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Máximo 2 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .sesion{ 
       outline: none;

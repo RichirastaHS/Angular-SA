@@ -23,7 +23,8 @@
         Agregar expediente
       </a>
     </li>
-    <li>
+    @if (isadmin) {
+      <li>
       <a routerLink="/main/panel">
         <div class="decorador"></div>
         <svg viewBox="0 0 24 24">
@@ -32,5 +33,6 @@
         Panel de Control
       </a>
     </li>
+    }
   </ul>
 

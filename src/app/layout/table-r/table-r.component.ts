@@ -12,11 +12,9 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogC
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { UdaService } from '../../service/uda.service';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { ExcelExportService } from '../../service/excel-export.service';
-
 
 export interface DialogData {
   id: string;
@@ -47,7 +45,13 @@ export interface filter {
 
 
 export class TableRComponent {
-  @Input() id_status?: number;
+  @Input() id_status?: number = 0;
+  @Input() filtros: { category_id: string, start_date: string, end_date: string } = {
+  category_id: '',
+  start_date: '',
+  end_date: ''
+  };
+
   @Output() exportExcel = new EventEmitter<void>();
   readonly id = signal('');
   isLoading = false;
@@ -58,7 +62,12 @@ export class TableRComponent {
   currentPage = 1;
   lastPage = 0;
   statusid = 0;
-
+  permissions = {
+    create: false,
+    read: false,
+    update: false,
+    delete: false
+  };
   readonly dialog = inject(MatDialog);
 
   openDialog(id_doc:string): void{
@@ -73,7 +82,6 @@ export class TableRComponent {
   }
 
   constructor(
-    private uda : UdaService,
     private dataService: DataService, 
     private NotificationService: NotificationService,
     private excelExportService: ExcelExportService,
@@ -83,27 +91,41 @@ export class TableRComponent {
      }
   
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.id_status);
-    if (changes['id_status'] && changes['id_status'].currentValue != null) {
-      this.applyFilter();
-    }
-  }
+    this.applyFilter();
+  }  
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.getDocs();
+    this.loadPermissions();
   }
-
-  getDocs(page?:number, category?:number): void {
+  loadPermissions(): void {
+      try {
+        const storedPermissions = localStorage.getItem('permissions');
+        if (storedPermissions) {
+          this.permissions = JSON.parse(storedPermissions);
+        }
+      } catch (error) {
+        console.error('Error loading permissions:', error);
+        // Fallback to default permissions if there's an error
+        this.permissions = {
+          create: false,
+          read: false,
+          update: false,
+          delete: false
+        };
+    }
+  }
+  getDocs(page?:number): void {
   this.isLoading = true;
+  
   this.dataService.getDocuments(
     {
       page: page,
       per_page: 10,
       status_id:  this.statusid,
-      category_id: category,
-      start_date: '',
-      end_date: ''
+      category_id: Number(this.filtros.category_id) || 0,
+      start_date: this.filtros.start_date || '',
+      end_date: this.filtros.end_date || ''
     }
   ).subscribe({
     next: (response) => {
@@ -133,15 +155,9 @@ export class TableRComponent {
 }
 
   applyFilter(): void {
-    if (this.id_status) {
-     this.statusid = this.id_status;
-     this.getDocs(this.currentPage, this.id_status);
-    }
-    else{
-      this.statusid = 0;   
-     this.getDocs(this.currentPage, this.id_status);
-
-    }
+    this.statusid = this.id_status ?? 0;
+    
+    this.getDocs(this.currentPage);
   }
 
   deletedoc(id: string): void {

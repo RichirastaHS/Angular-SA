@@ -16,6 +16,7 @@ import { UserDataComponent } from './layout/user-data/user-data.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { AdminEditUserComponent } from './layout/admin-edit-user/admin-edit-user.component';
 import { NoAuthGuard } from './core/guards/noauth.guard';
+import { EditMyUserComponent } from './layout/edit-my-user/edit-my-user.component';
 
 export const routes: Routes = [
     {
@@ -79,6 +80,10 @@ export const routes: Routes = [
             {
                 path: 'editarusuario/:id',
                 component: AdminEditUserComponent,
+            },
+            {
+                path: 'editarmiusuario',
+                component: EditMyUserComponent,
             },
         ]
     },

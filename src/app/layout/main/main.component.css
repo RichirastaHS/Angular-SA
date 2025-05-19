@@ -10,6 +10,9 @@
     translate: -5px;
 }
 
+nav{
+  z-index: 2;
+}
 img {
     max-height: 2.5em;
 }

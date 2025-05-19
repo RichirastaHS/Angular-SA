@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
 
@@ -60,15 +60,35 @@ export class AuthService {
   }
 }
 
+getPermissions(): any {
+  const permissions = localStorage.getItem('permissions');
+  return permissions ? JSON.parse(permissions) : null;
+}
+isAdminUser(): boolean {
+  return localStorage.getItem('isUserAdmin') === 'true';
+}
 
   logoutUser(): Observable<any> {
-    return this.http.post(`${this.API_URL}logout`, {}).pipe(
-      map((response) => {
-        localStorage.clear(); // Eliminar token
-        return response;
-      })
-    );
-  }
+  return this.http.post(`${this.API_URL}logout`, {}).pipe(
+    tap((response) => {
+      // Eliminación explícita de cada item
+      const itemsToRemove = ['access_token', 'isUserAdmin', 'user', 'permissions'];
+      itemsToRemove.forEach(item => localStorage.removeItem(item));
+      
+      // Limpieza adicional para asegurar
+      if (localStorage.length > 0) {
+        localStorage.clear();
+      }
+      
+      // Verificación final
+      console.log('Storage after logout:', localStorage);
+    }),
+    catchError(error => {
+      localStorage.clear();
+      return throwError(error);
+    })
+  );
+}
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Contraseña o correo incorrecto';

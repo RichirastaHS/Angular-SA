@@ -38,6 +38,7 @@ export class DropdownMenuComponent {
     this.udaService.profile().subscribe({
       next: (response)=>{
         this.profile = response.profile_photo;
+        console.log(this.profile);
       }
     })
 

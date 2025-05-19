@@ -12,7 +12,6 @@ export interface User{
   permissions: Array<string>
 }
 
-
 @Component({
   selector: 'app-admin-edit-user',
   imports: [ReactiveFormsModule],
@@ -20,7 +19,13 @@ export interface User{
   styleUrl: './admin-edit-user.component.css'
 })
 export class AdminEditUserComponent {
-
+  user: User = {
+    name: '',
+    username: '',
+    password: '',
+    role: '',
+    permissions: []
+  };
   constructor(      
     private router: Router,
     private notificationService: NotificationService,   
@@ -42,6 +47,7 @@ export class AdminEditUserComponent {
     if(id){
       this.udaService.infoUser(+id).subscribe({
         next: (response) => {
+          this.user = response;
           this.userForm.patchValue({
             name: response.name,
             username: response.username,
@@ -72,8 +78,8 @@ export class AdminEditUserComponent {
       console.log(this.userForm.value);
       this.udaService.editUser(+id, this.userForm.value).subscribe({
         next: (response) => {
-          this.notificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
           this.router.navigate(['/main']);
+          this.notificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
         },
         error: (error) => {
           const errorMessage = this.getFirstErrorMessage(error);

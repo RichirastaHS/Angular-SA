@@ -37,8 +37,8 @@ section {
     align-content: center;
     justify-content: center;
     justify-items: center;
-    aspect-ratio: 16/9;
-    width: 11vw;
+    aspect-ratio: 15/9;
+    width: 100px;
     max-width: 9rem;
     min-width: 5em;
     border-radius: 5px;
@@ -137,4 +137,132 @@ span {
 .btn-excel:hover{
     background: #185c37;
     color: white;
+}
+
+.dropdown-button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .dropdown-button:hover {
+      background-color: #45a049;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+.dropdown-container {
+      position: relative;
+      display: inline-block;
+    }
+
+.filter-form{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    width: 400px;
+    height: fit-content;
+}
+
+.fieldsetselect {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-form legend {
+    font-weight: bold;
+}
+
+.filter-form input:focus, .filter-form select:focus {
+    border-color: #718EBF;
+    outline: none;
+}
+
+.fieldsetselect select{
+    color: #718EBF;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.filter-form input[type="date"]{
+    border: none;
+    border-bottom: 1px solid #718EBF;
+    padding: 5px 0 0 0;
+    font-size: 14px;
+    background: none;
+    margin: 0 5px ;
+}
+
+.filter-date{
+    display: flex;
+    align-items: flex-end;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-send-filter{
+    color: white;
+    width: 25px;
+    border: none;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: var(--color-theme-light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.btn-send-filter:hover{
+    background: blue;
+}
+.filter-send{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    border: none;
+    background: none;
+    padding: 0;
+    
+}
+
+.btn-reset-filter{
+    color: white;
+    width: fit-content;
+    background: rgb(180, 180, 180);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.btn-reset-filter:hover{
+    background: rgb(107, 107, 107);
 }
