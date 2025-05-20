@@ -68,6 +68,10 @@ export class DataService{
     return this.http.delete(`${this.API_URL}/${id}`);
   }
 
+  deleteFile(id: string, fileId: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/${id}/files/${fileId}`);
+  }
+
   searchDocuments(query: string): Observable<Document[]> {
     return this.http.get<Document[]>(`${this.API_URL}/search`);
   }

@@ -30,6 +30,7 @@ export const routes: Routes = [
         path: 'main',
         component:MainComponent,
         canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: '', redirectTo: 'lista', pathMatch: 'full',

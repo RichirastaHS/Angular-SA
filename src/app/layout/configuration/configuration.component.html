@@ -19,6 +19,11 @@
             </div>
             <div class="info-card">
               <h4>Correo</h4>
+              @if(profile.email != null){
+                <p>{{profile.email}}</p>
+              }@else{
+                <p>Sin correo</p>
+              }
               <p>{{profile.email}}</p>
             </div>
         </div>  

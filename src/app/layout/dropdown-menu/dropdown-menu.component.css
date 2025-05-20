@@ -101,6 +101,7 @@ img{
 .div-menu-item{
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .momento-de-actualizacion{

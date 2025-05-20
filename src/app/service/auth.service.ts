@@ -49,16 +49,11 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    return of(true);
-  } else {
-    return this.getUserData().pipe(
-      map(() => true),
-      catchError(() => of(false))
+    return this.http.get<any>(`${this.API_URL}check_token`).pipe(
+      map(response => response.valid), // extraemos solo el booleano
+      catchError(() => of(false))      // en caso de error, lo tratamos como "no logueado"
     );
   }
-}
 
 getPermissions(): any {
   const permissions = localStorage.getItem('permissions');

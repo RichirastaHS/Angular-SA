@@ -10,16 +10,15 @@ export class NoAuthGuard implements CanActivate {
 
   constructor(private router: Router, private authService: AuthService) {}
 
-    canActivate(): Observable<boolean | UrlTree> {
-        return this.authService.isLoggedIn().pipe(
-          map((isLoggedIn) => {
-            if (isLoggedIn) {
-              return this.router.parseUrl('/main/lista');
-            } else {
-              return false;
-            }
-          })
-        );
-      }
-
+    canActivate(): Observable<any> {
+      return this.authService.isLoggedIn().pipe(
+        map((isLoggedIn) => {
+          if (!isLoggedIn) {
+            return true;
+          } else {
+            return this.router.parseUrl('/main/mas_detalles');
+          }
+        })
+      );
+    }
 }

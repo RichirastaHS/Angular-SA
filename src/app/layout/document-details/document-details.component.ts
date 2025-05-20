@@ -81,7 +81,6 @@ export class DocumentDetailsComponent {
           this.document = response.document; 
           this.coments = response.comments;
           this.files = response.document.files;
-          console.log(this.files);
         },
         error: (error) => {
           this.router.navigate(['/main']);

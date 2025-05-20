@@ -53,7 +53,6 @@ export class ControlPanelComponent {
         this.users = response.users;
         this.statusCounts = response.statusCounts;
         this.activities = response.activities;
-        console.log(this.activities)
       }, 
       error: (error) => {
       }

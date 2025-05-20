@@ -6,11 +6,11 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { NotificationService } from '../../service/notification.service';
 
 interface ArchivoSubido {
-  id: number;       // Identificador único (puede ser un timestamp o un UUID)
-  nombre: string;   // Nombre del archivo (ej: "documento.pdf")
-  tipo: string;     // Tipo MIME (ej: "application/pdf")
-  tamaño: number;   // Tamaño en bytes
-  file: File;       // Objeto File original (opcional, si necesitas enviarlo luego)
+  id: number;   
+  nombre: string;
+  tipo: string;   
+  tamaño: number;
+  file: File;
 }
 
 @Component({
@@ -111,11 +111,9 @@ eliminarArchivo(id: number) {
 
   onSubmit() {
   if (this.datosDocumento.valid) {
-    console.log('Formulario válido:', this.datosDocumento.value);
     const formData = new FormData();
     const senderDept = this.datosDocumento.get('sender_department_id')?.value;
     const newSenderDept = this.datosDocumento.get('new_sender_department')?.value;
-
 
     // 1. Agregar campos del formulario (excepto 'files' y los condicionales)
     Object.keys(this.datosDocumento.controls).forEach(key => {

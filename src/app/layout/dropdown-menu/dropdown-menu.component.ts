@@ -10,7 +10,20 @@ export interface user{
   name:string
   role:string
 }
-
+export interface UserActivityNotification {
+  id: string;
+  type: string;
+  notifiable_id: number;
+  notifiable_type: string;
+  data: {
+    title: string;
+    message: string;
+    description: string;
+  };
+  read_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
 @Component({
   selector: 'app-dropdown-menu',
   imports: [MatButtonModule, MatMenuModule, RouterLink],
@@ -27,7 +40,7 @@ export class DropdownMenuComponent {
     private router: Router,
     private udaService: UdaService
   ) {}
-  unreadNot: []=[];
+  unreadNot: UserActivityNotification[]=[];
   ngOnInit(): void {
     this.authsService.getUserData().subscribe((user) => {
       if (user) {
@@ -38,13 +51,12 @@ export class DropdownMenuComponent {
     this.udaService.profile().subscribe({
       next: (response)=>{
         this.profile = response.profile_photo;
-        console.log(this.profile);
       }
     })
 
     this.udaService.notification().subscribe({
       next: (response) =>{
-        this.unreadNot = response.message;
+        this.unreadNot = response.unread_notifications;
       },
       error: (error) =>{
 

@@ -10,6 +10,7 @@ interface profileUser {
   created_at: string;
   updated_at: string;
   email_verified_at: string;
+  department_id: number;
 }
 @Component({
   selector: 'app-user-data',
@@ -29,12 +30,9 @@ export class UserDataComponent {
   ngOnInit(): void{
     const id = this.route.snapshot.paramMap.get('id');
     if(id){
-      console.log(id);
       this.udaService.infoUser(+id).subscribe({
         next: (response)=>{
-          this.profile = response;
-          console.log(response);
-          console.log(this.profile);
+          this.profile = response
         },
         error:(error)=>{
           this.router.navigate(['/main/mas_detalles']);

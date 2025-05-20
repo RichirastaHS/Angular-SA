@@ -7,9 +7,11 @@
               <path fill="#currentColor" d="M6 22q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v3q-.575.125-1.075.4t-.925.7l-6 5.975V22zm8 0v-3.075l5.525-5.5q.225-.225.5-.325t.55-.1q.3 0 .575.113t.5.337l.925.925q.2.225.313.5t.112.55t-.1.563t-.325.512l-5.5 5.5zm6.575-5.6l.925-.975l-.925-.925l-.95.95zM13 9h5l-5-5l5 5l-5-5z"/>
           </svg>
         </button>
-          <div class="picture">
+          <!--
+        <div class="picture">
               <img src="/student.png" alt="">
           </div>
+          -->
           <div class="document-details">
             <div class="document-header">
                 <h2>{{profile.name}}</h2>
@@ -20,19 +22,27 @@
               </div>
               <div class="info-card">
                 <h4>Correo</h4>
-                <p>{{profile.email}}</p>
+                @if(profile.email!= null){
+                  <p>{{profile.email}}</p>
+                }
+                @else{
+                  <p>Sin correo</p>
+                }
               </div>
               <div class="info-grid ">
                 <div class="info-card">
-                  <h4>Nombre de Usuario</h4>
+                  <h4>Usuario Creado el:</h4>
                   <p>{{profile.created_at}}</p>
                 </div>
                 <div class="info-card">
-                  <h4>Correo</h4>
+                  <h4>Usuario actualizado el:</h4>
                   <p>{{profile.updated_at}}</p>
                 </div>
               </div>
-              
+              <div class="info-card">
+                  <h4>Departamento</h4>
+                  <p>{{profile.department_id}}</p>
+                </div>
           </div>  
       </div>
   </section>
