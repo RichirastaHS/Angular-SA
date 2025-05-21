@@ -68,12 +68,11 @@ newUser(){
     console.log(this.userForm.value);
     this.udaService.createUser(this.userForm.value).subscribe({
       next: () =>{
-        //this.router.navigate(['/main/panel']);
-        //this.notificationService.showSuccess('Acutalización exitosa', 'Nuevo usuario agregado');
+        this.router.navigate(['/main/panel']);
+        this.notificationService.showSuccess('Acutalización exitosa', 'Nuevo usuario agregado');
       },
       error: (error) =>{
-        //this.router.navigate(['/main/panel']);
-        //console.log(error);
+        this.router.navigate(['/main/panel']);
         this.notificationService.showError('¡Algo fallo!', error);
       }
     });

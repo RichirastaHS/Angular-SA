@@ -53,6 +53,7 @@ export class AdminEditUserComponent {
             username: response.username,
             permissions: response.permissions
           })
+          console.log(response)
         },
         error: (error) => {
           this.router.navigate(['/main']);
@@ -82,6 +83,7 @@ export class AdminEditUserComponent {
           this.notificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
         },
         error: (error) => {
+          console.log(error)
           const errorMessage = this.getFirstErrorMessage(error);
           this.notificationService.showError(errorMessage, '¡Oh no! Ocurrio un error inesperado');
         }
