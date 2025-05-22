@@ -6,7 +6,12 @@ import { TableRComponent } from "../table-r/table-r.component";
 import { ExcelExportService } from '../../service/excel-export.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataService } from '../../service/data.service';
 
+export interface categorys{
+  id: number,
+  name: string
+}
 
 @Component({
   selector: 'app-document-list',
@@ -23,13 +28,14 @@ export class DocumentListComponent{
     start_date: new FormControl<string>(''),
     end_date: new FormControl<string>('')
   });
-  
+  categorys: categorys[]=[];
   isOpen = false;
   buttonText = 'Menu';
   statusId: number = 0;
   constructor(
     private excelExportService: ExcelExportService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private dataService: DataService
   ) {}
   
   @ViewChild('dropdownContainer') dropdownContainer!: ElementRef;
@@ -37,6 +43,16 @@ export class DocumentListComponent{
   toggleDropdown(event: MouseEvent): void {
     event.stopPropagation(); // Evita que el clic se propague al document
     this.isOpen = !this.isOpen;
+  }
+
+
+  ngOnInit(){
+    this.dataService.getmetadata().subscribe({
+      next: (next) =>{
+        console.log(next)
+        this.categorys=next.categories;
+      }
+    })
   }
 
   @HostListener('document:click', ['$event'])

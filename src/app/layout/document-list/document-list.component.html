@@ -64,10 +64,10 @@
               <fieldset class="fieldsetselect">
                 <legend>Tipo de documento</legend>
                 <select name="category_id" formControlName="category_id" id="">
-                  <option value="1">Selecciona</option>
-                  <option value="2">Opcion 1</option>
-                  <option value="3">Opcion 2</option>
-                  <option value="4">Opcion 3</option>
+                  <option value="" selected>Selecciona una opcion</option>
+                  @for (cat of categorys; track $index) {
+                    <option value="{{cat.id}}">{{cat.name}}</option>
+                  }
                 </select>
               </fieldset>
               <fieldset class="filter-date">

@@ -20,6 +20,7 @@ h2 {
     border-radius: 20px;
     max-width: 1200px;
     font-weight: 600;
+    position: relative;
 }
 .picture{
     border: 10px solid rgb(199, 169, 113);
@@ -77,15 +78,19 @@ h2 {
     margin-top: 0;
   }
   button{
+    position: absolute;
+    top: 10px;
+    right: 20px;
     display: flex;
     margin: 0 auto;
-    align-items: flex-end;
     border: none;
     background: none;
     cursor: pointer;
     outline: none;
     transition: ease-out .1s;
     color: #888;
+    flex-direction: column-reverse;
+    align-items: center;
     svg{
     fill: #888;
     }
