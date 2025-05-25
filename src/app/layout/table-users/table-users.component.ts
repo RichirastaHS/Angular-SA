@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { UdaService } from '../../service/uda.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -70,7 +70,7 @@ export const openClose = trigger('openClose', [
 ]);
 @Component({
   selector: 'app-table-users',
-  imports: [MatTableModule, MatPaginatorModule, RouterLink, ReactiveFormsModule],
+  imports: [MatTableModule, MatPaginatorModule, ReactiveFormsModule],
   templateUrl: './table-users.component.html',
   styleUrl: './table-users.component.css',
   animations: [
@@ -135,7 +135,7 @@ user: User = {
         this.isLoading = true;
       },
       error: (error)=>{
-
+        this.router.navigate(['/main']);
       }
     });
   }

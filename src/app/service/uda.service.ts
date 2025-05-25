@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../models/document';
+import { environment } from '../../environments/environment';
 
 export interface filter {
   type: string,
@@ -12,7 +13,7 @@ export interface filter {
   providedIn: 'root'
 })
 export class UdaService {
-  private API_URL = 'http://127.0.0.1:8000/api/';
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient) { }
 

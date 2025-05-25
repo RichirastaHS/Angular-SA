@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private API_URL = 'http://127.0.0.1:8000/api/';
+  private API_URL = environment.API_URL;
 
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable(); 

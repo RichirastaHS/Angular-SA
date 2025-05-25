@@ -55,6 +55,7 @@ export class ControlPanelComponent {
         this.activities = response.activities;
       }, 
       error: (error) => {
+        this.router.navigate(['/main']);
       }
     })
   }

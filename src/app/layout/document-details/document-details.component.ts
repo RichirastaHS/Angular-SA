@@ -1,3 +1,4 @@
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DataService } from '../../service/data.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -49,6 +50,8 @@ export interface FileData {
 
 export class DocumentDetailsComponent {
   readonly dialog = inject(MatDialog);
+  safeUrl: SafeResourceUrl="";
+  idDoc: string="";
   coments: Comment[]= [];
   files: FileData[] = [];
   document!: Document;
@@ -65,17 +68,19 @@ export class DocumentDetailsComponent {
     private dataService: DataService,
     private NotificationService: NotificationService,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {}
-
+  previewisvisible: boolean = false;
+  documentisEdit: boolean = false;
   filesform = new FormGroup({
       files: new FormControl<File[] | null>([])
   });
 
   ngOnInit(): void {
     this.loadPermissions();
-    const id = this.route.snapshot.paramMap.get('id'); // Obtiene el id del documento
-    if(id){
-      this.dataService.getDocumentbyId(id).subscribe({  
+    this.idDoc = this.route.snapshot.paramMap.get('id')!; // Obtiene el id del documento
+    if(this.idDoc){
+      this.dataService.getDocumentbyId(this.idDoc).subscribe({  
         next: (response) => {
           console.log(response);
           this.document = response.document; 
@@ -108,12 +113,36 @@ export class DocumentDetailsComponent {
     }
   }
 
+  descargafile(idarchivo: number){
+    this.dataService.downloadDocFile(this.idDoc, idarchivo).subscribe({
+      next:(value) =>{
+          console.log(value);
+      },
+      error:(err)=>{
+          console.log(err);
+      },
+    });
+  }
+
+  previewfile(idarchivo: number){
+    this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
+      next:(value) =>{
+          console.log(value);
+          const url = value.file_url
+          this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.previewisvisible = true;
+      },
+      error:(err) =>{
+          console.log(err);
+      },
+    });
+  }
+
   deletedoc(){
     const id = this.route.snapshot.paramMap.get('id');
     if(id){
       this.dataService.deleteDocument(id).subscribe({  
         next: (response: ApiResponse) => {
-          console.log(response);
           this.router.navigate(['/main']);
           this.NotificationService.showSuccess('Documento borrado con exito', `El documento ${id} fue borrado`); // Muestra la notificación de éxito
         },
@@ -168,6 +197,9 @@ export class DocumentDetailsComponent {
   }
   eliminarArchivo(id: number) {
     this.archivosSubidos = this.archivosSubidos.filter(archivo => archivo.id !== id);
+  }
+  closePreview(){
+    this.previewisvisible = false;
   }
   onSubmit() {
     const formData = new FormData();
