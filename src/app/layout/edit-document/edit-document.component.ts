@@ -104,12 +104,15 @@ export class EditDocumentComponent {
   }
   
   onSubmit() {
-    console.log("asdas");
-    console.log(this.datosDocumento.value);
-    if (this.datosDocumento.valid) {
-    const formData = new FormData();
+  console.log("asdas");
+  console.log(this.datosDocumento.value);
+  
+  if (this.datosDocumento.valid) {
     const senderDept = this.datosDocumento.get('sender_department_id')?.value;
     const newSenderDept = this.datosDocumento.get('new_sender_department')?.value;
+
+    const jsonData: any = {};
+
     Object.keys(this.datosDocumento.controls).forEach(key => {
       const control = this.datosDocumento.get(key);
       if (!control || control.value === null || control.value === undefined) return;
@@ -120,29 +123,28 @@ export class EditDocumentComponent {
       // Excluir new_sender_department si NO se está usando un nuevo departamento
       if (key === 'new_sender_department' && !newSenderDept) return;
 
-      formData.append(key, control.value);
+      jsonData[key] = control.value;
     });
-    console.log("formData");
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    console.log("datos form:",this.datosDocumento.value);
-      this.dataService.updateDocument(this.document.id, formData).subscribe({
-        next: (response) => {
-          this.router.navigate(['/main']);
-          this.notificationService.showSuccess('Actualizado', 'Documento actualizado con éxito');
-        },
-        error: (error) => {
-          console.log(error)
-          //this.router.navigate(['/main']);
-          this.notificationService.showError('Error en la actualizacion', error.statusText);
-        }
-      });
-    } else {
-      this.datosDocumento.markAllAsTouched(); 
-      this.notificationService.showError('Error al rellenar los datos', 'Los Campos obligatorios no pueden estar vacíos');
-    }
+
+    console.log("jsonData", jsonData);
+
+    this.dataService.updateDocument(this.document.id, jsonData).subscribe({
+      next: (response) => {
+        this.router.navigate(['/main']);
+        this.notificationService.showSuccess('Actualizado', 'Documento actualizado con éxito');
+      },
+      error: (error) => {
+        console.log(error)
+        this.notificationService.showError('Error en la actualizacion', error.statusText);
+      }
+    });
+
+  } else {
+    this.datosDocumento.markAllAsTouched(); 
+    this.notificationService.showError('Error al rellenar los datos', 'Los Campos obligatorios no pueden estar vacíos');
   }
+}
+
 deleteFile() {
   this.mostrarModal = false;
   this.dataService.deleteFile(this.docid, this.deleteFileId).subscribe({
@@ -151,7 +153,6 @@ deleteFile() {
       this.notificationService.showSuccess('Archivo eliminado', 'El archivo ha sido eliminado con éxito');
     },
     error: (error) => {
-      console.error('Error al eliminar el archivo:', error);
       this.notificationService.showError('Error al eliminar el archivo', error.statusText);
     }
   });

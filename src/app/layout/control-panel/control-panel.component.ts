@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UdaService } from '../../service/uda.service';
 import { User } from '../../models/user';
 import { Router, RouterLink } from '@angular/router';
+import { TimeService } from '../../service/time.service';
 
 export interface activities{
   id: number;
@@ -43,16 +44,22 @@ export class ControlPanelComponent {
 
   constructor(
     private udaService: UdaService,
-    private router: Router
+    private router: Router,
+    private time: TimeService,
   ) { }
 
   ngOnInit(): void {
     this.udaService.dashboard().subscribe({
       next: (response) => {
+        console.log(response);
         this.totalDocuments = response.totalDocuments;
         this.users = response.users;
         this.statusCounts = response.statusCounts;
-        this.activities = response.activities;
+        this.activities = (response.activities as activities[]).map((act: activities) => ({
+          ...act,
+          created_at: this.time.getRelativeTime(act.created_at),
+          updated_at: this.time.getRelativeTime(act.updated_at)
+        }));
       }, 
       error: (error) => {
         this.router.navigate(['/main']);

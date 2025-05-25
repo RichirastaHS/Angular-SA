@@ -140,7 +140,7 @@
             @for (sd of formData.senders_department; track $index) {
             <option value="{{ sd.id }}">{{ sd.name }}</option>
             }
-            <option value="NewDep">Agregar nuevo Departamento</option>
+            <option class="newvalue" value="NewDep">Agregar nuevo Departamento</option>
           </select>
           @if (datosDocumento.get("sender_department_id")?.invalid &&
           datosDocumento.get("sender_department_id")?.touched) { @if

@@ -1,95 +1,149 @@
 <section>
-    <h2>Panel de Control</h2>
-    <div>
-        <div class="control-panel-grid">
-            <div class="parent">
-                <div class="div1">
-                    <h3>Informacion General</h3>
-                    <aside>
-                        <p>{{totalDocuments}}</p>
-                        <h4>Documentos Registrados</h4>
-                    </aside>
-                    <aside  class="control-panel-status">
-                        @for (status of statusCounts; track $index) {
-                        <article>
-                            <p>{{status.total}}</p>
-                            <h4>{{ getStatusLabel(status.status.name) }}</h4>
-                        </article>
-                        }
-                    </aside>
-                </div>
-                <div class="div2">
-                    <h3>Lista de Usuarios</h3>
-                    <ul class="listusers"> 
-                        @for (user of users.slice(0, 10); track $index) {
-                            <li>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="8" r="5" fill="currentColor"/><path d="M20 21a8 8 0 1 0-16 0"/><path fill="currentColor" d="M12 13a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8"/></g>
-                                </svg>
-                                <p>{{ user.name }}</p>
-                            </li>
-                        }@empty {
-                            no hay Usuarios
-                        }
-                        <a href="" [routerLink]="['/main/mas_detalles']">Ver mas</a>
-                    </ul>
-                </div>
-                <div class="div3">
-                    <button class="btnusers btnadshowdusers"  role="button" (click)="showdetails()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path fill="currentColor" fill-rule="evenodd" d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8m4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a3 3 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533zm9.032-5a2.9 2.9 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.9 2.9 0 0 0 18.092 8" clip-rule="evenodd"/>
-                        </svg>
-                        <h3>Gestionar Usuarios</h3>
-                    </button>   
-                    <button class="btnusers btnaddusers" (click)="addNewUser()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path fill="currentColor" fill-rule="evenodd" d="M18.75 10.75V8h1.5v2.75H23v1.5h-2.75V15h-1.5v-2.75H16v-1.5zm-10.918 1.6C7.096 11.478 6.5 9.85 6.5 8.71V7a4 4 0 0 1 8 0v1.71c0 1.14-.6 2.773-1.332 3.642l-.361.428c-.59.699-.406 1.588.419 1.99l5.66 2.762c.615.3 1.114 1.093 1.114 1.783v.687a1 1 0 0 1-1.001.998H2a1 1 0 0 1-1-.998v-.687c0-.685.498-1.483 1.114-1.784l5.66-2.762c.821-.4 1.012-1.288.42-1.99z"/>
-                        </svg>
-                        <h3>Agregar Usuario</h3>
-                    </button>
-                </div>
-                <div class="div4"></div>
-                <div class="div5">
-                    <h3>Actividad Reciente</h3>
-                    <hr>
-
-                    <ul class="activity-list">
-                        @for (activity of activities.slice(0, 8); track $index) {
-                            @switch (activity.action) {
-                                @case ("update") {
-                                    <li class="activity">
-                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
-                                        <p><span class="Usuario">{{activity.user_name}}</span> actualizo el documento: <span class="document_name_u">{{activity.document_name}}</span></p>
-                                    </li>
-                                }
-                                @case ("delete") {
-                                    <li class="activity">
-                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
-                                        <p><span class="Usuario">{{activity.user_name}}</span> elimino el documento: <span class="document_name_d">{{activity.document_name}}</span></p>
-                                    </li>
-                                }
-                                @case ("create") {
-                                    <li class="activity">
-                                        <p><span class="fecha">{{activity.updated_at}}</span></p>
-                                        <p><span class="Usuario">{{activity.user_name}}</span> creo un nuevo documento: <span class="document_name_c">{{activity.document_name}}</span></p>
-                                    </li>
-                                }
-                                @default {
-                                    <li class="activity">
-                                        <p>{{activity.user_name}} <span class="fecha">{{activity.updated_at}}</span></p>
-                                        <p>{{activity.description}} {{activity.document_name}}</p>
-                                    </li>
-                                }
-                            }
-                            
-                            <hr>
-                        }
-                        @empty {
-                            No hay actividades recientes
-                        }
-                    </ul>
-                </div>
-            </div>            
+  <h2>Panel de Control</h2>
+  <div>
+    <div class="control-panel-grid">
+      <div class="parent">
+        <div class="div1">
+          <h3>Informacion General</h3>
+          <aside>
+            <p>{{ totalDocuments }}</p>
+            <h4>Documentos Registrados</h4>
+          </aside>
+          <aside class="control-panel-status">
+            @for (status of statusCounts; track $index) {
+            <article>
+              <p>{{ status.total }}</p>
+              <h4>{{ getStatusLabel(status.status.name) }}</h4>
+            </article>
+            }
+          </aside>
         </div>
+        <div class="div2">
+          <h3>Lista de Usuarios</h3>
+          <ul class="listusers">
+            @for (user of users.slice(0, 10); track $index) {
+            <li class="user-li">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64"><path fill="currentColor" d="M32 36.8c8.3 0 15-6.7 15-15s-6.7-15-15-15s-15 6.7-15 15s6.7 15 15 15m0-25.5c5.8 0 10.5 4.7 10.5 10.5S37.8 32.3 32 32.3s-10.5-4.7-10.5-10.5S26.2 11.3 32 11.3m29.5 41.9C53.3 46.3 42.9 42.5 32 42.5S10.7 46.3 2.5 53.2c-.9.8-1.1 2.2-.3 3.2c.8.9 2.2 1.1 3.2.3C12.8 50.4 22.2 47 32 47s19.2 3.4 26.5 9.6c.4.4.9.5 1.5.5s1.3-.3 1.7-.8c.8-.9.7-2.3-.2-3.1"/></svg>
+                <article class="user-li-text">
+                    <p>{{ user.name }}</p>
+                    <p class="username">{{ user.username }}</p>
+                </article>
+                </li>
+            }@empty { no hay Usuarios }
+          </ul>
+        </div>
+        <div class="div3">
+          <button
+            class="btnusers btnadshowdusers"
+            role="button"
+            (click)="showdetails()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M5 8a4 4 0 1 1 7.796 1.263l-2.533 2.534A4 4 0 0 1 5 8m4.06 5H7a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h2.172a3 3 0 0 1-.114-1.588l.674-3.372a3 3 0 0 1 .82-1.533zm9.032-5a2.9 2.9 0 0 0-2.056.852L9.967 14.92a1 1 0 0 0-.273.51l-.675 3.373a1 1 0 0 0 1.177 1.177l3.372-.675a1 1 0 0 0 .511-.273l6.07-6.07a2.91 2.91 0 0 0-.944-4.742A2.9 2.9 0 0 0 18.092 8"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <h3>Gestionar Usuarios</h3>
+          </button>
+          <button class="btnusers btnaddusers" (click)="addNewUser()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M18.75 10.75V8h1.5v2.75H23v1.5h-2.75V15h-1.5v-2.75H16v-1.5zm-10.918 1.6C7.096 11.478 6.5 9.85 6.5 8.71V7a4 4 0 0 1 8 0v1.71c0 1.14-.6 2.773-1.332 3.642l-.361.428c-.59.699-.406 1.588.419 1.99l5.66 2.762c.615.3 1.114 1.093 1.114 1.783v.687a1 1 0 0 1-1.001.998H2a1 1 0 0 1-1-.998v-.687c0-.685.498-1.483 1.114-1.784l5.66-2.762c.821-.4 1.012-1.288.42-1.99z"
+              />
+            </svg>
+            <h3>Agregar Usuario</h3>
+          </button>
+        </div>
+        <div class="div4"></div>
+        <div class="div5">
+          <h3>Actividad Reciente</h3>
+          <hr />
+          <ul class="activity-list">
+            @for (activity of activities.slice(0, 8); track $index) { @switch
+            (activity.action) { @case ("update") {
+            <li class="activity" style="--type: var(--color-theme-orange)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 3c2.09 0 3.97.92 5.25 2.38l-1.71 1.95A4.44 4.44 0 0 0 10 5.55C7.89 5.55 6.13 7.03 5.68 9H8l-3.5 4L1 9h2.08C3.57 5.61 6.47 3 10 3zm0 14.04c-2.1 0-3.97-.92-5.25-2.38l1.71-1.95A4.44 4.44 0 0 0 10 14.49c2.11 0 3.87-1.48 4.32-3.45H12l3.5-4 3.5 4h-2.08c-.49 3.39-3.4 6-6.92 6z" fill="currentColor"/></svg>
+              <aside class="content">
+                <p>
+                  <span class="fecha">{{ activity.created_at }}</span>
+                  <span class="Usuario">{{ activity.user_name }}</span>
+                  actualizo el documento:
+                  <span class="document_name">{{
+                    activity.document_name
+                  }}</span>
+                </p>
+              </aside>
+            </li>
+            } @case ("delete") {
+            <li class="activity" style="--type: var(--color-theme-red)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.419 0-8 3.582-8 8s3.581 8 8 8s8-3.582 8-8s-3.581-8-8-8m3.707 10.293a.999.999 0 1 1-1.414 1.414L12 13.414l-2.293 2.293a.997.997 0 0 1-1.414 0a1 1 0 0 1 0-1.414L10.586 12L8.293 9.707a.999.999 0 1 1 1.414-1.414L12 10.586l2.293-2.293a.999.999 0 1 1 1.414 1.414L13.414 12z"/></svg>
+              <aside class="content">
+                <p>
+                  <span class="Usuario">{{ activity.user_name }}</span> elimino
+                  el documento:
+                  <span class="document_name">{{
+                    activity.document_name
+                  }}</span>
+                </p>
+                <p>
+                  <span class="fecha">{{ activity.created_at }}</span>
+                </p>
+              </aside>
+            </li>
+            } @case ("create") {
+            <li class="activity" style="--type: var(--color-theme-light-green)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5v2H5v14h14v-5z"/><path fill="currentColor" d="M21 7h-4V3h-2v4h-4v2h4v4h2V9h4z"/></svg>
+              <aside class="content">
+                <p>
+                  <span class="Usuario">{{ activity.user_name }}</span> creo un
+                  nuevo documento:
+                  <span class="document_name">{{
+                    activity.document_name
+                  }}</span>
+                </p>
+                <p>
+                  <span class="fecha">{{ activity.created_at }}</span>
+                </p>
+              </aside>
+            </li>
+            } @case ("view") {
+            <li class="activity" style="--type: #09f">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><g fill="currentColor"><g opacity=".2"><path d="M11.698 8.813c2.67 0 4.834 1.217 4.834 2.718c0 1.502-2.164 2.719-4.834 2.719s-4.833-1.217-4.833-2.719s2.164-2.719 4.833-2.719"/><path fill-rule="evenodd" d="M8.77 12.582c.7.393 1.733.668 2.928.668c1.196 0 2.229-.275 2.928-.668c.73-.41.906-.822.906-1.05c0-.23-.176-.64-.906-1.052c-.7-.393-1.732-.668-2.928-.668s-2.228.275-2.927.668c-.73.411-.906.822-.906 1.051c0 .23.176.64.906 1.051m-.98 1.743c-1.019-.573-1.925-1.521-1.925-2.794c0-1.272.906-2.22 1.925-2.794c1.05-.59 2.434-.925 3.908-.925s2.858.334 3.908.925c1.02.573 1.926 1.522 1.926 2.794s-.907 2.221-1.926 2.794c-1.05.591-2.434.925-3.908.925s-2.857-.334-3.908-.925M3.2 4.5A2.5 2.5 0 0 1 5.7 2h1.961a1 1 0 0 1 0 2H5.7a.5.5 0 0 0-.5.5v2.25a1 1 0 1 1-2 0zM14.45 3a1 1 0 0 1 1-1h2.25a2.5 2.5 0 0 1 2.5 2.5v2.25a1 1 0 0 1-2 0V4.5a.5.5 0 0 0-.5-.5h-2.25a1 1 0 0 1-1-1M4.2 12.962a1 1 0 0 1 1 1V16.5a.5.5 0 0 0 .5.5h2.25a1 1 0 1 1 0 2H5.7a2.5 2.5 0 0 1-2.5-2.5v-2.539a1 1 0 0 1 1-1m15 .288a1 1 0 0 1 1 1v2.25a2.5 2.5 0 0 1-2.5 2.5h-2.25a1 1 0 1 1 0-2h2.25a.5.5 0 0 0 .5-.5v-2.25a1 1 0 0 1 1-1" clip-rule="evenodd"/></g><path fill-rule="evenodd" d="M6.826 12.518c.787.442 1.907.732 3.172.732s2.386-.29 3.173-.732c.802-.452 1.16-.997 1.16-1.487s-.358-1.035-1.16-1.486c-.787-.443-1.907-.732-3.173-.732c-1.265 0-2.385.289-3.172.732c-.803.451-1.161.996-1.161 1.486s.358 1.035 1.16 1.487m-.49.871c-.947-.532-1.671-1.346-1.671-2.358c0-1.011.724-1.825 1.67-2.358c.963-.541 2.26-.86 3.663-.86c1.405 0 2.7.319 3.663.86c.947.533 1.67 1.347 1.67 2.358s-.723 1.826-1.67 2.358c-.962.542-2.258.861-3.663.861s-2.7-.32-3.662-.86" clip-rule="evenodd"/><path fill-rule="evenodd" d="M9.998 6a.5.5 0 0 1 .5.5v1.813a.5.5 0 0 1-1 0V6.5a.5.5 0 0 1 .5-.5m2.515.312a.5.5 0 0 1 .392.588l-.302 1.51a.5.5 0 1 1-.98-.196l.302-1.51a.5.5 0 0 1 .588-.392m-5.029 0a.5.5 0 0 0-.393.588l.303 1.51a.5.5 0 0 0 .98-.196l-.302-1.51a.5.5 0 0 0-.588-.392m-2.576.968a.5.5 0 0 0-.172.686l.907 1.51a.5.5 0 0 0 .857-.515l-.906-1.51a.5.5 0 0 0-.686-.171m10.181 0a.5.5 0 0 1 .171.686l-.906 1.51a.5.5 0 0 1-.857-.515l.906-1.51a.5.5 0 0 1 .686-.171" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8.988 10.73a1.01 1.01 0 1 0 2.02 0a1.01 1.01 0 0 0-2.02 0m1.01 2.01a2.01 2.01 0 1 1 0-4.021a2.01 2.01 0 0 1 0 4.02M2 4a2 2 0 0 1 2-2h1.962a.5.5 0 0 1 0 1H4a1 1 0 0 0-1 1v2.25a.5.5 0 0 1-1 0zm11.25-1.5a.5.5 0 0 1 .5-.5H16a2 2 0 0 1 2 2v2.25a.5.5 0 0 1-1 0V4a1 1 0 0 0-1-1h-2.25a.5.5 0 0 1-.5-.5M2.5 12.962a.5.5 0 0 1 .5.5V16a1 1 0 0 0 1 1h2.25a.5.5 0 0 1 0 1H4a2 2 0 0 1-2-2v-2.539a.5.5 0 0 1 .5-.5m15 .288a.5.5 0 0 1 .5.5V16a2 2 0 0 1-2 2h-2.25a.5.5 0 0 1 0-1H16a1 1 0 0 0 1-1v-2.25a.5.5 0 0 1 .5-.5" clip-rule="evenodd"/></g></svg>
+              <aside class="content">
+                <p>
+                  El <span class="Usuario">{{ activity.user_name }}</span
+                  >, visualizó el archivo
+                  <span class="document_name">{{
+                    activity.document_name
+                  }}</span>
+                </p>
+                <p>
+                  <span class="fecha">{{ activity.created_at }}</span>
+                </p>
+              </aside>
+            </li>
+            } @default {
+            <li class="activity" style="--type: var(--color-theme-dark-blue)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M10.76 8.69a.76.76 0 0 0-.76.76V20.9c0 .42.34.76.76.76c.19 0 .35-.06.48-.16l1.91-1.55l1.66 3.62c.13.27.4.43.69.43c.11 0 .22 0 .33-.08l2.76-1.28c.38-.18.56-.64.36-1.01L17.28 18l2.41-.45a.9.9 0 0 0 .43-.26c.27-.32.23-.79-.12-1.08l-8.74-7.35l-.01.01a.76.76 0 0 0-.49-.18M15 10V8h5v2zm-1.17-5.24l2.83-2.83l1.41 1.41l-2.83 2.83zM10 0h2v5h-2zM3.93 14.66l2.83-2.83l1.41 1.41l-2.83 2.83zm0-11.32l1.41-1.41l2.83 2.83l-1.41 1.41zM7 10H2V8h5z"/></svg>
+              <aside class="content">
+                <p>
+                  {{ activity.user_name }} {{ activity.description }}
+                  {{ activity.document_name }}
+                </p>
+                <p>
+                  <span class="fecha">{{ activity.created_at }}</span>
+                </p>
+              </aside>
+            </li>
+            } } } @empty { No hay actividades recientes }
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </section>

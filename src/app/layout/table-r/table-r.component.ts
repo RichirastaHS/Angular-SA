@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import * as ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { ExcelExportService } from '../../service/excel-export.service';
+import { TimeService } from '../../service/time.service';
 
 export interface DialogData {
   id: string;
@@ -85,6 +86,7 @@ export class TableRComponent {
     private dataService: DataService, 
     private NotificationService: NotificationService,
     private excelExportService: ExcelExportService,
+    private time: TimeService,
     ) {
       this.excelExportService.exportRequested$.subscribe(() => {
       this.exportToExcel();});
@@ -106,7 +108,7 @@ export class TableRComponent {
         }
       } catch (error) {
         console.error('Error loading permissions:', error);
-        // Fallback to default permissions if there's an error
+
         this.permissions = {
           create: false,
           read: false,
@@ -115,6 +117,7 @@ export class TableRComponent {
         };
     }
   }
+
   getDocs(page?:number): void {
   this.isLoading = true;
   
@@ -129,7 +132,13 @@ export class TableRComponent {
     }
   ).subscribe({
     next: (response) => {
-      this.dataSource.data = response.documents;
+      this.dataSource.data = (response.documents as Document[]).map((doc: Document) => ({
+    ...doc,
+      issue_date: this.time.formatFullDate(doc.issue_date),
+      received_date: this.time.formatFullDate(doc.received_date),
+      created_at: this.time.formatFullDate(doc.created_at),
+      updated_at: doc.updated_at ? this.time.formatFullDate(doc.updated_at) : null,
+    }));
       this.pgtotal = response.pagination.total;
       this.currentPage = response.pagination.current_page;
       this.lastPage = response.pagination.last_page;

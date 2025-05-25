@@ -66,4 +66,11 @@ export class UdaService {
     const params = new HttpParams().set('query', query);
     return this.http.get(`${this.API_URL}search`, {params});
   }
+
+  postComment(comment: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}comments`, comment);
+  }
+  deleteComment(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.API_URL}comments/${id}`);
+  }
 }

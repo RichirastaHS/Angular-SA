@@ -11,18 +11,32 @@ import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, Mat
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TableRComponent, DialogData } from '../table-r/table-r.component';
-
-export interface Comment {
-  id: string;
-  text: string;
-  created_at: string;
+import { TimeService } from '../../service/time.service';
+import { PdfComponent } from "../../icons/pdf/pdf.component";
+import { DocComponent } from "../../icons/doc/doc.component";
+import { XlsxComponent } from "../../icons/xlsx/xlsx.component";
+import { UdaService } from '../../service/uda.service';
+export interface usuario {
+  id: number;
   name: string;
+}
+export interface Comment {
+  id: number;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+  parent_id: number | null;
+  document_id: string;
+  document: any | null;
+  user_id: number;
+  user: usuario;
+  replies: Comment[];
 }
 interface ArchivoSubido {
   id: number;       // Identificador único (puede ser un timestamp o un UUID)
   nombre: string;   // Nombre del archivo (ej: "documento.pdf")
-  tipo: string;     // Tipo MIME (ej: "application/pdf")
-  tamaño: number;   // Tamaño en bytes
+  tipo: string;     // Tipo MIME (ej: "sapplication/pdf")
+  tamaño: number;   // Tamaño en bytes 
   file: File;       // Objeto File original (opcional, si necesitas enviarlo luego)
 }
 export interface FileData {
@@ -43,12 +57,17 @@ export interface FileData {
 
 @Component({
   selector: 'app-document-details',
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, PdfComponent, DocComponent, XlsxComponent],
   templateUrl: './document-details.component.html',
   styleUrl: './document-details.component.css'
 })
 
 export class DocumentDetailsComponent {
+  commentForm = new FormGroup({
+    comment: new FormControl('', { nonNullable: true })
+  });
+  postingComment = false;
+
   readonly dialog = inject(MatDialog);
   safeUrl: SafeResourceUrl="";
   idDoc: string="";
@@ -69,6 +88,8 @@ export class DocumentDetailsComponent {
     private NotificationService: NotificationService,
     private router: Router,
     private sanitizer: DomSanitizer,
+    private time: TimeService,
+    public udaService: UdaService // Inyectar UdaService para comentarios
   ) {}
   previewisvisible: boolean = false;
   documentisEdit: boolean = false;
@@ -82,9 +103,21 @@ export class DocumentDetailsComponent {
     if(this.idDoc){
       this.dataService.getDocumentbyId(this.idDoc).subscribe({  
         next: (response) => {
-          console.log(response);
-          this.document = response.document; 
-          this.coments = response.comments;
+          const doc = response.document as Document;
+          console.log(response)
+          this.document = {
+            ...doc,
+            issue_date: this.time.formatFullDate(doc.issue_date),
+            received_date: this.time.formatFullDate(doc.received_date),
+            created_at: this.time.formatFullDate(doc.created_at),
+            updated_at: doc.updated_at ? this.time.formatFullDate(doc.updated_at) : null,
+          }; 
+          this.coments = (response.comments as any[]).map((c: any): Comment => ({
+          ...c,
+          id: Number(c.id),
+          created_at: this.time.getRelativeTime(c.created_at),
+          updated_at: c.updated_at ? this.time.getRelativeTime(c.updated_at) : null,
+        }));
           this.files = response.document.files;
         },
         error: (error) => {
@@ -201,6 +234,57 @@ export class DocumentDetailsComponent {
   closePreview(){
     this.previewisvisible = false;
   }
+
+  postComment() {
+    if (this.commentForm.invalid || this.postingComment) return;
+    this.postingComment = true;
+    const commentText = this.commentForm.get('comment')?.value?.trim();
+    if (!commentText) {
+      this.NotificationService.showError('El comentario no puede estar vacío', 'Error');
+      this.postingComment = false;
+      return;
+    }
+    const payload = {
+      document_id: this.idDoc,
+      comment: commentText
+    };
+    this.udaService.postComment(payload).subscribe({
+      next: (resp: any) => {
+        this.NotificationService.showSuccess('Comentario agregado', 'Éxito');
+        this.commentForm.reset();
+        this.refreshComments();
+        this.postingComment = false;
+      },
+      error: (err: any) => {
+        this.NotificationService.showError('Error al agregar comentario', err?.error?.message || '');
+        this.postingComment = false;
+      }
+    });
+  }
+
+  deleteComment(commentId: string) {
+    if (!commentId) return;
+    this.udaService.deleteComment(Number(commentId)).subscribe({
+      next: () => {
+        this.NotificationService.showSuccess('Comentario eliminado', 'Éxito');
+        this.refreshComments();
+      },
+      error: (err: any) => {
+        this.NotificationService.showError('Error al eliminar comentario', err?.error?.message || '');
+      }
+    });
+  }
+
+  refreshComments() {
+    if (this.idDoc) {
+      this.dataService.getDocumentbyId(this.idDoc).subscribe({
+        next: (response) => {
+          this.coments = response.comments.map((c: any) => ({ ...c, id: Number(c.id) }));
+        }
+      });
+    }
+  }
+
   onSubmit() {
     const formData = new FormData();
     const archivos = this.filesform.get('files')?.value;

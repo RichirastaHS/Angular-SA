@@ -57,6 +57,8 @@ export class AddDocumentComponent {
         this.formData.statuses = response.statuses || [];
         this.formData.senders_department = response.senders_department || [];
         this.formData.receivers_department = response.receivers_department || [];
+    this.datosDocumento.patchValue({ sender_department_id: '' });
+
       },
       error: (error) => {
         this.router.navigate(['/main']);
@@ -151,8 +153,6 @@ eliminarArchivo(id: number) {
   } else {
     const senderDept = this.datosDocumento.get('sender_department')?.value;
     const newSenderDept = this.datosDocumento.get('new_sender_department')?.value;
-    console.log('Sender Department:', senderDept)
-      console.log('New Sender Department:', newSenderDept);
     if (!senderDept && !newSenderDept) {
       this.notificationService.showError('Debes seleccionar un departamento emisor o agregar uno nuevo.', 'Error');
       return;
@@ -167,7 +167,7 @@ SelecttoText(event: Event) {
   const select = this.datosDocumento.get('sender_department_id');
   if (select?.value === 'NewDep') {
     this.typeText = true;
-    this.datosDocumento.patchValue({ sender_department_id: 0 });
+    this.datosDocumento.patchValue({ sender_department_id: '' });
   } else {
     this.negTypeText();  // resetea el campo adicional si elige un departamento válido
   }

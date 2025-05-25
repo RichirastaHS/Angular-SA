@@ -15,6 +15,7 @@ section{
     background: white;
     position: relative;
     cursor: default;
+    z-index: 1000;
 }
 
 h5{

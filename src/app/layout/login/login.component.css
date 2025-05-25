@@ -8,7 +8,7 @@
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     padding: 2em 1em;
     margin: 20px auto;
-    width: 30rem;
+    width: 25rem;
     border-radius: 10px;
     background: white;
     font-family: 'Nunito Sans', sans-serif;
@@ -48,7 +48,7 @@
   input[type="password"]:focus {
     border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.25);
+    box-shadow: 0 4px 6px -4px rgba(0, 123, 255, 0.25);
   }
   
   button[type="submit"] {
@@ -116,4 +116,21 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  .imgcontainer{
+    height: 80px;
+    width: fit-content;
+    margin: 0 auto;
+    img{
+      height: 100%;
+    }
+  }
+
+  .leyenda{
+    color: #c2c2c2;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }

@@ -74,7 +74,6 @@ hr{
     grid-row: span 3 / span 3;
     grid-column-start: 3;
     grid-row-start: 0;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     padding: 1em;
 }
 
@@ -143,6 +142,111 @@ hr{
     z-index: 1;
   }
 
+.control-panel-status{
+    display: flex;
+    flex-wrap: wrap;
+}
+article{
+    width: 50%;
+}
+
+.listusers{
+    list-style: none;
+    margin: 10px 0;
+    li{
+        display: flex;
+        padding: 6px;
+    }
+    svg{
+        color: rgb(5, 82, 25);
+    }
+}
+.activity{
+    padding: 0 3px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    list-style: none;
+    background: white;
+    border-left: 3px solid var(--type, #09f);
+    box-shadow: rgba(23, 31, 46, 0.1) 0px 1px 3px 0px, rgba(27, 126, 255, 0.06) 0px 1px 2px 0px;
+    border-radius: 3px;
+    height: 70px;
+    gap: 5px;
+    & p{
+        text-wrap: pretty;
+        font-weight: 500;
+        font-size: 14px;
+        font-family:'Inter', Courier, monospace;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Máximo 1 línea */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    & svg{
+        color: var(--type, #09f);
+        height: 80%;
+        aspect-ratio: 1/1;
+    }
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+}
+.activity-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fecha{
+    font-style: italic;
+    color: #a5a5a5;
+    font-size: 10px;
+    font-family: 'Nunito Sans', Courier, monospace;
+}
+
+.Usuario{
+    font-family: 'Nunito Sans', Courier, monospace;
+    font-weight: 800;
+    color: var(--mat-sys-on-surface);
+}
+
+.document_name{
+    font-family: 'Nunito Sans', Courier, monospace;
+    font-weight: 600;
+    color: var(--type, #09f);
+}
+
+.user-li {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  margin: 5px 0;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  gap: 0.5rem; /* Espacio entre el SVG y el texto */
+}
+
+.user-li svg {
+  flex-shrink: 0; /* Evita que el SVG se reduzca */
+}
+
+.user-li-text {
+    font-family: 'Inter', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  flex: 1;
+  font-weight: 600;
+}
+.username{
+    color: rgb(135, 149, 170);
+    font-weight: 400;
+
+}
+
 @media only screen and (max-width: 1300px)  {
     .parent {
         padding: 10px;
@@ -165,53 +269,80 @@ hr{
             height: 50px;
         }
     }
-}
-
-.control-panel-status{
-    display: flex;
-    flex-wrap: wrap;
-}
-article{
-    width: 50%;
-}
-
-.listusers{
-    list-style: none;
-    margin: 10px 0;
-    li{
-        display: flex;
-        padding: 6px;
+    .activity{
+    & p{
+        text-wrap: balance;
+        font-weight: 500;
+        font-size: smaller;
     }
-    svg{
-        color: rgb(5, 82, 25);
+    & svg{
+        color: var(--type, #09f);
+        height: 100%;
+        aspect-ratio: 1/1;
     }
 }
-.activity{
-    list-style: none;
 }
 
-.fecha{
-    font-style: italic;
-    color: #a5a5a5;
-    font-size: 10px;
+.comments-section {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
 }
 
-.Usuario{
-    font-style:oblique ;
-    font-weight: 700;
-    color: var(--mat-sys-on-surface);
+.comment-card, .reply-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-.document_name_c{
-    font-weight: 600;
-    color: var(--color-theme-light-green);
+.comment-card__header, .reply-card__header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
 }
 
-.document_name_u{
-    font-weight: 600;
-    color: var(--color-theme-light-blue);
+.comment-card__author, .reply-card__author {
+  font-weight: bold;
 }
-.document_name_d{
-    font-weight: 600;
-    color: var(--color-theme-red);
+
+.comment-card__text, .reply-card__text {
+  font-size: 1rem;
+}
+
+.replies {
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.comment-form, .reply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+textarea {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.btn-save {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-save[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

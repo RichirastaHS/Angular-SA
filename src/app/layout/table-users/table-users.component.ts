@@ -125,7 +125,6 @@ user: User = {
   getListUsers(){
     this.udaService.getUsers().subscribe({
       next: (response) => {
-        console.log(response)
         this.users = response.map((user: any) => ({
           id: user.id,
           name: user.name,
