@@ -196,14 +196,12 @@ returnUserData(){
 
     onSubmit(id: number):void{
         if(id){
-          console.log(this.userForm.value);
           this.udaService.editUser(+id, this.userForm.value).subscribe({
             next: (response) => {
               this.NotificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
               this.userisedit = false;
             },
             error: (error) => {
-              console.log(error)
               const errorMessage = this.getFirstErrorMessage(error);
               this.NotificationService.showError(errorMessage, '¡Oh no! Ocurrio un error inesperado');
             }

@@ -25,7 +25,7 @@ export interface activities{
 
 @Component({
   selector: 'app-control-panel',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './control-panel.component.html',
   styleUrl: './control-panel.component.css'
 })
@@ -51,7 +51,6 @@ export class ControlPanelComponent {
   ngOnInit(): void {
     this.udaService.dashboard().subscribe({
       next: (response) => {
-        console.log(response);
         this.totalDocuments = response.totalDocuments;
         this.users = response.users;
         this.statusCounts = response.statusCounts;

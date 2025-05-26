@@ -3,6 +3,7 @@ section {
     padding: 2em;
     gap: 1em;
     max-width: 1200px;
+    z-index: 0;
 }
 
 .document-details__actions{
@@ -625,4 +626,27 @@ input[type="file"]{
     box-shadow: 0 0 0 1.5px #fff;
     top: 3px
   }
+}
+
+.no-comments {
+  border: none;
+  background: none;
+  width: 500px;
+  font-family: 'Inter', sans-serif;
+  resize: vertical; /* solo permite expandir verticalmente */
+  field-sizing: content;
+  min-height: 30px;
+  padding: 5px;
+}
+
+.no-comments:focus{
+  outline: none;
+}
+
+.ac5:has(.no-comments:focus) {
+  background-color: #ffd09f; /* o cualquier color que prefieras */
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.ac5{
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) .1s;
 }

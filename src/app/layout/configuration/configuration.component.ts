@@ -27,7 +27,6 @@ export class ConfigurationComponent {
     this.udaService.profile().subscribe({
       next: (response)=>{
         this.profile = response;
-        console.log(response)
       }
     })
   }

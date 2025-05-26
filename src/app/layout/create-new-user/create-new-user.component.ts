@@ -65,7 +65,6 @@ onSubmit(){
 
 newUser(){
   if(this.userForm.valid){
-    console.log(this.userForm.value);
     this.udaService.createUser(this.userForm.value).subscribe({
       next: () =>{
         this.router.navigate(['/main/panel']);

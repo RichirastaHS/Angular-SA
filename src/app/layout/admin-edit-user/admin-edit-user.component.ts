@@ -53,7 +53,6 @@ export class AdminEditUserComponent {
             username: response.username,
             permissions: response.permissions
           })
-          console.log(response)
         },
         error: (error) => {
           this.router.navigate(['/main']);
@@ -76,14 +75,12 @@ export class AdminEditUserComponent {
   onSubmit():void{
     const id = this.route.snapshot.paramMap.get('id');
     if(id){
-      console.log(this.userForm.value);
       this.udaService.editUser(+id, this.userForm.value).subscribe({
         next: (response) => {
           this.router.navigate(['/main']);
           this.notificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
         },
         error: (error) => {
-          console.log(error)
           const errorMessage = this.getFirstErrorMessage(error);
           this.notificationService.showError(errorMessage, '¡Oh no! Ocurrio un error inesperado');
         }

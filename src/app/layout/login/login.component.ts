@@ -68,7 +68,6 @@ export class LoginComponent {
       this.router.navigate(['/main']);
     },
     error: (error) => {
-      console.error('Error al obtener datos de usuario:', error);
       this.router.navigate(['/main']); // O manejar el error de otra forma
     }
   });

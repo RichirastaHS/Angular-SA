@@ -36,7 +36,6 @@ export class DocumentfoundComponent {
             }
           },
           error: (error) => {
-            console.error('Error fetching documents:', error);
           }
         });
       }

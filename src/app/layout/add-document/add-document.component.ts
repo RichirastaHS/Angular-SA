@@ -146,7 +146,6 @@ eliminarArchivo(id: number) {
         this.notificationService.showSuccess('Éxito', 'Documento guardado');
       },
       error: (error) => {
-        console.log('Error:', error);
         this.notificationService.showError('Error', error.error?.message || 'Falló la subida');
       }
     });

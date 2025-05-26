@@ -77,7 +77,6 @@ isAdminUser(): boolean {
       }
       
       // Verificación final
-      console.log('Storage after logout:', localStorage);
     }),
     catchError(error => {
       localStorage.clear();

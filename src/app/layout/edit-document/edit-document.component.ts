@@ -104,8 +104,6 @@ export class EditDocumentComponent {
   }
   
   onSubmit() {
-  console.log("asdas");
-  console.log(this.datosDocumento.value);
   
   if (this.datosDocumento.valid) {
     const senderDept = this.datosDocumento.get('sender_department_id')?.value;
@@ -126,15 +124,12 @@ export class EditDocumentComponent {
       jsonData[key] = control.value;
     });
 
-    console.log("jsonData", jsonData);
-
     this.dataService.updateDocument(this.document.id, jsonData).subscribe({
       next: (response) => {
         this.router.navigate(['/main']);
         this.notificationService.showSuccess('Actualizado', 'Documento actualizado con éxito');
       },
       error: (error) => {
-        console.log(error)
         this.notificationService.showError('Error en la actualizacion', error.statusText);
       }
     });
@@ -183,7 +178,6 @@ negTypeText() {
 abrirModal(id: number) {
     const archivo = this.filesdata .find(file => file.id === id);
     this.selectedFiledata = archivo || null;
-    console.log(archivo?.original_name);
     this.mostrarModal = true;
     this.deleteFileId = id;
 }

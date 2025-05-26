@@ -102,6 +102,10 @@ img{
   display: flex;
   align-items: center;
   gap: 10px;
+  & svg{
+    width: 70px;
+    aspect-ratio: 1/1;
+  }
 }
 
 .momento-de-actualizacion{

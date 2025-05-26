@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AuthService } from '../../service/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { UdaService } from '../../service/uda.service';
+import { TimeService } from '../../service/time.service';
 
 export interface user{
   name:string
@@ -38,6 +39,7 @@ export class DropdownMenuComponent {
   constructor( 
     private authsService: AuthService, 
     private router: Router,
+    private time: TimeService,
     private udaService: UdaService
   ) {}
   unreadNot: UserActivityNotification[]=[];
@@ -56,7 +58,13 @@ export class DropdownMenuComponent {
 
     this.udaService.notification().subscribe({
       next: (response) =>{
-        this.unreadNot = response.unread_notifications;
+        console.log(response.unread_notifications)
+        const notificiones = response.unread_notifications
+        this.unreadNot = (response.unread_notifications as UserActivityNotification[]).map((act: UserActivityNotification)=>({
+          ...act,
+           created_at: this.time.getRelativeTime(act.created_at),
+          updated_at: this.time.getRelativeTime(act.updated_at)
+        }));
       },
       error: (error) =>{
 
@@ -75,7 +83,6 @@ export class DropdownMenuComponent {
         this.router.navigate(['/login']); // Redirige al login
       },
       error: (error) => {
-        console.error('Error al cerrar sesión:', error);
       }
     });
   }

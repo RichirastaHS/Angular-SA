@@ -50,7 +50,6 @@ previewUrl: string | ArrayBuffer | null = null;
       });
       },
       error: (error) => {
-        console.error(error);
       }
     });
   }

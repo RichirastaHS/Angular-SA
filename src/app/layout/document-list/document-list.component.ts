@@ -49,7 +49,6 @@ export class DocumentListComponent{
   ngOnInit(){
     this.dataService.getmetadata().subscribe({
       next: (next) =>{
-        console.log(next)
         this.categorys=next.categories;
       }
     })
@@ -76,7 +75,6 @@ export class DocumentListComponent{
 
   onSubmit() {
     const formData = this.filtersform.value;
-    console.log('Formulario enviado:', formData);
     // Aquí puedes realizar la lógica para enviar los datos del formulario al backend
   }
 

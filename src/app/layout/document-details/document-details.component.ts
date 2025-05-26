@@ -104,7 +104,6 @@ export class DocumentDetailsComponent {
       this.dataService.getDocumentbyId(this.idDoc).subscribe({  
         next: (response) => {
           const doc = response.document as Document;
-          console.log(response)
           this.document = {
             ...doc,
             issue_date: this.time.formatFullDate(doc.issue_date),
@@ -135,7 +134,6 @@ export class DocumentDetailsComponent {
           this.permissions = JSON.parse(storedPermissions);
         }
       } catch (error) {
-        console.error('Error loading permissions:', error);
         // Fallback to default permissions if there's an error
         this.permissions = {
           create: false,
@@ -149,10 +147,8 @@ export class DocumentDetailsComponent {
   descargafile(idarchivo: number){
     this.dataService.downloadDocFile(this.idDoc, idarchivo).subscribe({
       next:(value) =>{
-          console.log(value);
       },
       error:(err)=>{
-          console.log(err);
       },
     });
   }
@@ -160,13 +156,11 @@ export class DocumentDetailsComponent {
   previewfile(idarchivo: number){
     this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
       next:(value) =>{
-          console.log(value);
           const url = value.file_url
           this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
           this.previewisvisible = true;
       },
       error:(err) =>{
-          console.log(err);
       },
     });
   }

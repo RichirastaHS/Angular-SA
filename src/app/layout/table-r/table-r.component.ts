@@ -107,7 +107,6 @@ export class TableRComponent {
           this.permissions = JSON.parse(storedPermissions);
         }
       } catch (error) {
-        console.error('Error loading permissions:', error);
 
         this.permissions = {
           create: false,
@@ -176,7 +175,6 @@ export class TableRComponent {
       this.NotificationService.showSuccess('Documento borrado con exito', `El documento con ${id} fue borrado`); // Muestra la notificación de éxito
     },
     error: (error) => {
-      console.log(error); 
     }        
   });      
   }

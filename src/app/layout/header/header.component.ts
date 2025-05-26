@@ -28,7 +28,6 @@ export class HeaderComponent {
       this.searchService.setSearchQuery(query);
       this.router.navigate(['/main/busqueda'], { queryParams: { query } });
     }else{
-      console.log("No hay nada que buscar")
     }
   }
 
