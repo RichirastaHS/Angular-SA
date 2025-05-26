@@ -28,8 +28,8 @@ previewUrl: string | ArrayBuffer | null = null;
   profileForm = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
     username: new FormControl<string>('', [Validators.required]),
-    new_password: new FormControl<string>('', [Validators.required]),
-    current_password: new FormControl<string>('', [Validators.required]),
+    new_password: new FormControl<string>('',),
+    current_password: new FormControl<string>('',),
     profile_photo: new FormControl<File | null>(null)
   });
 
@@ -89,6 +89,9 @@ previewUrl: string | ArrayBuffer | null = null;
           this.notificationService.showError(error, '¡Oh no! Ocurrió un error inesperado');
         }
       });
+    }
+    else{
+      this.notificationService.showError("Datos sin relllenar!!", 'Hay campos sin rellenar');
     }
   }
 }

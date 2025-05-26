@@ -93,6 +93,7 @@ export class TableRComponent {
      }
   
   ngOnChanges(changes: SimpleChanges): void {
+    this.currentPage = 0;
     this.applyFilter();
   }  
 
@@ -151,7 +152,7 @@ export class TableRComponent {
   getPagesArray(): number[] {
   const totalPages = this.lastPage;
   const current = this.currentPage;
-  const range = 4; // Cuántos botones mostrar alrededor de la página actual
+  const range = 4;
   const pages: number[] = [];
 
   // Lógica para generar el rango de páginas
@@ -164,7 +165,6 @@ export class TableRComponent {
 
   applyFilter(): void {
     this.statusid = this.id_status ?? 0;
-    
     this.getDocs(this.currentPage);
   }
 
