@@ -93,6 +93,7 @@ export class TableRComponent {
      }
   
   ngOnChanges(changes: SimpleChanges): void {
+    this.currentPage = 0;
     this.applyFilter();
   }  
 

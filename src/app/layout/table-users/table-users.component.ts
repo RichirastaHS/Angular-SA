@@ -102,9 +102,9 @@ user: User = {
   userForm= new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]), 
       username: new FormControl('', [Validators.required,  Validators.maxLength(255)]),
-      new_password: new FormControl('',[Validators.required, Validators.maxLength(255)]), 
-      new_password_confirmation: new FormControl('',[Validators.required, Validators.maxLength(255)]), 
-      admin_password: new FormControl('',[Validators.required, Validators.maxLength(255)]), 
+      new_password: new FormControl('',[Validators.maxLength(255)]), 
+      new_password_confirmation: new FormControl('',Validators.maxLength(255)), 
+      admin_password: new FormControl('',[ Validators.maxLength(255)]), 
       role: new FormControl('', [Validators.required, Validators.maxLength(255)]),//
       permissions: new FormArray([], [Validators.required])
     });
@@ -194,20 +194,29 @@ returnUserData(){
       });
     }
 
-    onSubmit(id: number):void{
-        if(id){
-          this.udaService.editUser(+id, this.userForm.value).subscribe({
-            next: (response) => {
-              this.NotificationService.showSuccess('Usuario editado correctamente', '¡Exito!');
-              this.userisedit = false;
-            },
-            error: (error) => {
-              const errorMessage = this.getFirstErrorMessage(error);
-              this.NotificationService.showError(errorMessage, '¡Oh no! Ocurrio un error inesperado');
-            }
-          });
-        }
+    onSubmit(id: number): void {
+  if (id) {
+    const formData = { ...this.userForm.value };
+
+    // Si no hay nueva contraseña, eliminamos esos campos
+    if (!formData.new_password) {
+      delete formData.new_password;
+      delete formData.new_password_confirmation;
+      delete formData.admin_password;
+    }
+
+    this.udaService.editUser(+id, formData).subscribe({
+      next: (response) => {
+        this.NotificationService.showSuccess('Usuario editado correctamente', '¡Éxito!');
+        this.userisedit = false;
+      },
+      error: (error) => {
+        const errorMessage = this.getFirstErrorMessage(error);
+        this.NotificationService.showError(errorMessage, '¡Oh no! Ocurrió un error inesperado');
       }
+    });
+  }
+}
       getFirstErrorMessage(error: any): string {
   if (error?.error?.errors) {
     const errors = error.error.errors;

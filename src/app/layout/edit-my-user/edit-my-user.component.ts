@@ -7,7 +7,7 @@ interface profileUser{
   name: string,
   username: string,
   email: string,
-  profile_photo: string,
+  profile_photo: File,
 }
 @Component({
   selector: 'app-edit-my-user',
@@ -20,7 +20,7 @@ user: profileUser={
   name: '',
   username: '',
   email: '',
-  profile_photo: '',
+  profile_photo: new File([], ''),
 }
  selectedFile: File | null = null;
 previewUrl: string | ArrayBuffer | null = null;
@@ -28,8 +28,8 @@ previewUrl: string | ArrayBuffer | null = null;
   profileForm = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
     username: new FormControl<string>('', [Validators.required]),
-    new_password: new FormControl<string>('', [Validators.required]),
-    current_password: new FormControl<string>('', [Validators.required]),
+    new_password: new FormControl<string>('', ),
+    current_password: new FormControl<string>('', ),
     profile_photo: new FormControl<File | null>(null)
   });
 
@@ -68,27 +68,41 @@ previewUrl: string | ArrayBuffer | null = null;
   }
 
   onSubmit(): void {
-    if (this.profileForm.valid) {
-      const formData = new FormData();
-      formData.append('name', this.profileForm.value.name!);
-      formData.append('username', this.profileForm.value.username!);
-      formData.append('new_password', this.profileForm.value.new_password!);
-      formData.append('current_password', this.profileForm.value.current_password!);
-      
-      if (this.selectedFile) {
-        formData.append('profile_photo', this.selectedFile);
-      }
+  if (this.profileForm.valid) {
+    const formData = new FormData();
+    
+    // Campos obligatorios
+    formData.append('name', this.profileForm.value.name!);
+    formData.append('username', this.profileForm.value.username!);
+    
+    // Solo agregamos contraseñas si están definidas y no vacías
+    const newPassword = this.profileForm.value.new_password;
+    const currentPassword = this.profileForm.value.current_password;
 
-      this.udaService.updateProfile(formData).subscribe({
-        next: (response) => {
-          this.router.navigate(['/main']);
-          this.notificationService.showSuccess('Usuario actualizad correctamente', '¡Exito!');
-          // Manejar éxito (redirección, mensaje, etc.)
-        },
-        error: (error) => {
-          this.notificationService.showError(error, '¡Oh no! Ocurrió un error inesperado');
-        }
-      });
+    if (newPassword) {
+      formData.append('new_password', newPassword);
     }
+
+    if (currentPassword) {
+      formData.append('current_password', currentPassword);
+    }
+
+    // Adjuntar imagen solo si fue seleccionada
+    if (this.selectedFile) {
+      formData.append('profile_photo', this.selectedFile);
+    }
+
+    this.udaService.updateProfile(formData).subscribe({
+      next: (response) => {
+        this.router.navigate(['/main']);
+        this.notificationService.showSuccess('Usuario actualizado correctamente', '¡Éxito!');
+      },
+      error: (error) => {
+        this.notificationService.showError(error, '¡Oh no! Ocurrió un error inesperado');
+      }
+    });
+  } else {
+    this.notificationService.showError("Datos sin rellenar", 'Hay campos sin rellenar');
   }
+}
 }

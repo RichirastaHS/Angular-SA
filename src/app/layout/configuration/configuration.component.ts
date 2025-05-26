@@ -7,7 +7,7 @@ interface profileUser{
   username: string,
   email: string,
   created_ad: string,
-  pitcure: string,
+  profile_photo: string,
 }
 @Component({
   selector: 'app-configuration',

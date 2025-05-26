@@ -1,91 +1,87 @@
 @if(user){
 <div class="form-container">
-    <h2>Editar mi perfil</h2>
+  <h2>Editar mi perfil</h2>
   <section class="container">
     <div class="data-container">
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">           
         
+        <!-- Foto de perfil -->
         <fieldset class="form-group title">
-            <label for="profile_photo">Foto de perfil</label>
-            <input 
-                class="input-form" 
-                type="file" 
-                id="profile_photo" 
-                name="profile_photo" 
-                (change)="onFileSelected($event)" 
-                accept="image/*"
-            >
-            @if (selectedFile) {
-                <div class="image-preview">
-                <img [src]="previewUrl" alt="Vista previa" class="preview-image">
-                </div>
-  }
-
+          <label for="profile_photo">Foto de perfil</label>
+          <input 
+            class="input-form" 
+            type="file" 
+            id="profile_photo" 
+            name="profile_photo" 
+            (change)="onFileSelected($event)" 
+            accept="image/*"
+          >
+          @if (selectedFile) {
+            <div class="image-preview">
+              <img [src]="previewUrl" alt="Vista previa" class="preview-image">
+            </div>
+          }
         </fieldset>
         
-        <!-- Titulo del Documento -->
-            <fieldset class="form-group title">
-                <label for="name">Nombre</label>
-                <input formControlName="name" class="input-form" type="text" id="name" name="name"  maxlength="255" placeholder="Nombre"/>
-                @if (profileForm.get("name")?.invalid && profileForm.get("name")?.touched) {
-                    @if (profileForm.get("name")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (profileForm.get("name")?.hasError("maxlength")) {
-                        <span class="msg_error">El nombre no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
+        <!-- Nombre -->
+        <fieldset class="form-group title">
+          <label for="name">Nombre</label>
+          <input formControlName="name" class="input-form" type="text" id="name" name="name" maxlength="255" placeholder="Nombre"/>
+          @if (profileForm.get("name")?.invalid && profileForm.get("name")?.touched) {
+            @if (profileForm.get("name")?.hasError("required")) {
+              <span class="msg_error">Campo obligatorio</span>
+            }
+            @if (profileForm.get("name")?.hasError("maxlength")) {
+              <span class="msg_error">El nombre no puede tener más de 255 caracteres</span>
+            }
+          }
+        </fieldset>
 
-             <!-- Username -->
-             <label for="username">Alias (Username)</label>
-             <fieldset class="form-group title">
-                 <input formControlName="username" class="input-form" type="text" id="username" name="username" placeholder="Username" required="">
-                @if (profileForm.get("username")?.invalid && profileForm.get("name")?.touched) {
-                    @if (profileForm.get("username")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (profileForm.get("username")?.hasError("maxlength")) {
-                        <span class="msg_error">El Alias no puede tener más de 255 caracteres</span>
-                    }
-                }
-             </fieldset>
+        <!-- Username -->
+        <label for="username">Alias (Username)</label>
+        <fieldset class="form-group title">
+          <input formControlName="username" class="input-form" type="text" id="username" name="username" placeholder="Username"/>
+          @if (profileForm.get("username")?.invalid && profileForm.get("username")?.touched) {
+            @if (profileForm.get("username")?.hasError("required")) {
+              <span class="msg_error">Campo obligatorio</span>
+            }
+            @if (profileForm.get("username")?.hasError("maxlength")) {
+              <span class="msg_error">El Alias no puede tener más de 255 caracteres</span>
+            }
+          }
+        </fieldset>
 
+        <!-- Nueva contraseña -->
+        <label for="new_password">Nueva contraseña</label>
+        <fieldset class="form-group title">
+          <input formControlName="new_password" class="input-form" type="password" id="new_password" name="new_password" placeholder="Nueva contraseña"/>
+          @if (profileForm.get("new_password")?.invalid && profileForm.get("new_password")?.touched) {
+            @if (profileForm.get("new_password")?.hasError("maxlength")) {
+              <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
+            }
+          }
+        </fieldset>
 
-            <label for="new_password">Nueva contraseña</label>
-            <fieldset class="form-group title">
-                <input formControlName="new_password" class="input-form" type="password" id="new_password" name="new_password" placeholder="Nueva contraseña" required="">
-                @if (profileForm.get("new_password")?.invalid && profileForm.get("new_password")?.touched) {
-                    @if (profileForm.get("new_password")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (profileForm.get("new_password")?.hasError("maxlength")) {
-                        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
-            <!-- Contraseña -->
-            <label for="current_password">Confirmar contraseña</label>
-            <fieldset class="form-group title">
-                <input formControlName="current_password" class="input-form" type="password" id="current_password" name="new_password_confirmation" placeholder="Confirmacion" required="">
-                @if (profileForm.get("current_password")?.invalid && profileForm.get("current_password")?.touched) {
-                    @if (profileForm.get("current_password")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (profileForm.get("current_password")?.hasError("maxlength")) {
-                        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
+        <!-- Confirmar contraseña: solo visible si hay contenido en "new_password" o fue tocado -->
+        @if (profileForm.get("new_password")?.touched || profileForm.get("new_password")?.value) {
+          <label for="current_password">Confirmar contraseña</label>
+          <fieldset class="form-group title">
+            <input formControlName="current_password" class="input-form" type="password" id="current_password" name="current_password" placeholder="Confirmación"/>
+            @if (profileForm.get("current_password")?.invalid && profileForm.get("current_password")?.touched) {
+              @if (profileForm.get("current_password")?.hasError("maxlength")) {
+                <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
+              }
+            }
+          </fieldset>
+        }
 
-            <!-- Botón para guardar -->
-            <fieldset class="form-group submit">
-                <button type="submit" >Guardar Documento</button>
-            </fieldset>
-            
+        <!-- Botón para guardar -->
+        <fieldset class="form-group submit">
+          <button type="submit">Guardar Documento</button>
+        </fieldset>
 
-        </form>
+      </form>
     </div>
   </section>
-  </div>
+</div>
 }

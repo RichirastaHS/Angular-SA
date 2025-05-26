@@ -132,45 +132,63 @@
                 }
              </fieldset>
 
-             <fieldset class="form-group title">
-              <label for="new_password">Nueva contraseña</label>
-                <input formControlName="new_password" class="input-form" type="password" id="new_password" name="new_password" placeholder="Nueva contraseña" required="">
-                @if (userForm.get("new_password")?.invalid && userForm.get("new_password")?.touched) {
-                    @if (userForm.get("new_password")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (userForm.get("new_password")?.hasError("maxlength")) {
-                        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
-            <!-- Contraseña -->
-            <fieldset class="form-group title">
-              <label for="new_password_confirmation">Confirmar contraseña nueva</label>
-                <input formControlName="new_password_confirmation" class="input-form" type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="Confirmacion" required="">
-                @if (userForm.get("new_password_confirmation")?.invalid && userForm.get("new_password_confirmation")?.touched) {
-                    @if (userForm.get("new_password_confirmation")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (userForm.get("new_password_confirmation")?.hasError("maxlength")) {
-                        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
+             <!-- Nueva contraseña -->
+<fieldset class="form-group title">
+  <label for="new_password">Nueva contraseña</label>
+  <input
+    formControlName="new_password"
+    class="input-form"
+    type="password"
+    id="new_password"
+    name="new_password"
+    placeholder="Nueva contraseña"
+  />
+  @if (userForm.get("new_password")?.invalid && userForm.get("new_password")?.touched) {
+    @if (userForm.get("new_password")?.hasError("maxlength")) {
+      <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
+    }
+  }
+</fieldset>
 
-            <!-- Admin Password -->
-            <fieldset class="form-group title">
-              <label for="admin_password">Contraseña Administrador</label>
-                <input formControlName="admin_password" class="input-form" type="password" id="admin_password" name="admin_password" placeholder="Confirmacion" required="">
-                @if (userForm.get("admin_password")?.invalid && userForm.get("admin_password")?.touched) {
-                    @if (userForm.get("admin_password")?.hasError("required")) {
-                        <span class="msg_error">Campo obligatorio</span>
-                    }
-                    @if (userForm.get("admin_password")?.hasError("maxlength")) {
-                        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-                    }
-                }
-            </fieldset>
+<!-- Confirmar contraseña nueva -->
+
+@if (userForm.get("new_password")?.touched || userForm.get("new_password")?.value) {
+  <fieldset class="form-group title">
+    <label for="new_password_confirmation">Confirmar contraseña nueva</label>
+    <input
+      formControlName="new_password_confirmation"
+      class="input-form"
+      type="password"
+      id="new_password_confirmation"
+      name="new_password_confirmation"
+      placeholder="Confirmación"
+    />
+    @if (userForm.get("new_password_confirmation")?.invalid && userForm.get("new_password_confirmation")?.touched) {
+      @if (userForm.get("new_password_confirmation")?.hasError("maxlength")) {
+        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
+      }
+    }
+  </fieldset>
+
+  <!-- Contraseña Administrador -->
+  <fieldset class="form-group title">
+    <label for="admin_password">Contraseña Administrador</label>
+    <input
+      formControlName="admin_password"
+      class="input-form"
+      type="password"
+      id="admin_password"
+      name="admin_password"
+      placeholder="Contraseña de administrador"
+    />
+    @if (userForm.get("admin_password")?.invalid && userForm.get("admin_password")?.touched) {
+      @if (userForm.get("admin_password")?.hasError("maxlength")) {
+        <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
+      }
+    }
+  </fieldset>
+}
+
             <!-- Rol -->
             <fieldset class="form-group title">
                 <label for="role">Rol</label>
