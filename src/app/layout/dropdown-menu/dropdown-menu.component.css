@@ -125,6 +125,10 @@ h5{
 
 .btb-dropdown{
   padding: .7em .5em;
+  max-height: 100px;
+   p {
+    line-height: 15px;
+   }
 }
 .customize{
   width: 300px;

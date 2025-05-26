@@ -97,6 +97,8 @@ svg:hover{
   right: 40px;
   width: fit-content;
   justify-self: flex-end;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .hamburger {

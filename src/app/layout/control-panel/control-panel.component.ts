@@ -3,6 +3,7 @@ import { UdaService } from '../../service/uda.service';
 import { User } from '../../models/user';
 import { Router, RouterLink } from '@angular/router';
 import { TimeService } from '../../service/time.service';
+import { NotificationService } from '../../service/notification.service';
 
 export interface activities{
   id: number;
@@ -46,6 +47,7 @@ export class ControlPanelComponent {
     private udaService: UdaService,
     private router: Router,
     private time: TimeService,
+    private notifiaciones: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +64,7 @@ export class ControlPanelComponent {
       }, 
       error: (error) => {
         this.router.navigate(['/main']);
+        this.notifiaciones.showError("Pagina inaccesible", "No tienes persmisos para ver esto")
       }
     })
   }
