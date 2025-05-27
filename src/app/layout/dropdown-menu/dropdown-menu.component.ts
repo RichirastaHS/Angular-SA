@@ -58,7 +58,6 @@ export class DropdownMenuComponent {
 
     this.udaService.notification().subscribe({
       next: (response) =>{
-        console.log(response.unread_notifications)
         const notificiones = response.unread_notifications
         this.unreadNot = (response.unread_notifications as UserActivityNotification[]).map((act: UserActivityNotification)=>({
           ...act,

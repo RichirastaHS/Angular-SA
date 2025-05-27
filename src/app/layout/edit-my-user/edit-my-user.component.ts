@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UdaService } from '../../service/uda.service';
 import { NotificationService } from '../../service/notification.service';
@@ -11,7 +12,7 @@ interface profileUser{
 }
 @Component({
   selector: 'app-edit-my-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-my-user.component.html',
   styleUrl: './edit-my-user.component.css'
 })
@@ -42,6 +43,7 @@ previewUrl: string | ArrayBuffer | null = null;
     this.udaService.profile().subscribe({
       next: (response) => {
         this.user= response;
+        this.previewUrl = response.profile_photo; 
         this.profileForm.patchValue({
         name: this.user.name,
         username: this.user.username,
@@ -57,11 +59,10 @@ previewUrl: string | ArrayBuffer | null = null;
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      
-      // Mostrar vista previa de la imagen
+
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewUrl = reader.result;
+        this.previewUrl = reader.result as string;
       };
       reader.readAsDataURL(file);
     }

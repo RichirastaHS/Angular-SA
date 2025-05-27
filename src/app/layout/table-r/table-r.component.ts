@@ -218,7 +218,7 @@ export class TableRComponent {
     });
 
     // Agregar datos
-    this.document.forEach(doc => {
+    this.dataSource.data.forEach(doc => {
       const row = [
         doc.title,
         doc.reference_number,

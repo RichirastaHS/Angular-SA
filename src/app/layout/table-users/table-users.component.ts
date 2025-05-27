@@ -1,15 +1,36 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UdaService } from '../../service/uda.service';
 import { Router } from '@angular/router';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NotificationService } from '../../service/notification.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export interface DialogData {
   id: string;
@@ -17,7 +38,7 @@ export interface DialogData {
 }
 
 export interface usuario {
-  id: number
+  id: number;
   name: string;
   username: string;
 }
@@ -32,12 +53,12 @@ interface profileUser {
   email_verified_at: string;
   department_id: number;
 }
-export interface User{
-  name: string,
-  username: string,
-  password: string,
-  role: string,
-  permissions: Array<string>
+export interface User {
+  name: string;
+  username: string;
+  password: string;
+  role: string;
+  permissions: Array<string>;
 }
 
 export const openClose = trigger('openClose', [
@@ -47,15 +68,15 @@ export const openClose = trigger('openClose', [
       height: '*',
       opacity: 1,
       overflow: 'hidden',
-    }),
+    })
   ),
   state(
     'closed',
     style({
       height: '*',
-      opacity: .8,
+      opacity: 0.8,
       overflow: 'hidden',
-    }),
+    })
   ),
   transition('void => open', [
     style({ height: '0', opacity: 0 }),
@@ -64,65 +85,63 @@ export const openClose = trigger('openClose', [
   transition('open => closed', [
     animate('400ms ease-in', style({ height: '0', opacity: 0 })),
   ]),
-  transition('closed => open', [
-    animate('400ms ease-out'),
-  ]),
+  transition('closed => open', [animate('400ms ease-out')]),
 ]);
 @Component({
   selector: 'app-table-users',
   imports: [MatTableModule, MatPaginatorModule, ReactiveFormsModule],
   templateUrl: './table-users.component.html',
   styleUrl: './table-users.component.css',
-  animations: [
-    openClose
-  ]
-  
+  animations: [openClose],
 })
 export class TableUsersComponent {
   constructor(
     private udaService: UdaService,
     private NotificationService: NotificationService,
-    private router: Router,
-  ){}
-user: User = {
+    private router: Router
+  ) {}
+  user: User = {
     name: '',
     username: '',
     password: '',
     role: '',
-    permissions: []
+    permissions: [],
   };
 
   permissionslist = [
-    {permission: "create", traduccion: "Crear"},
-    {permission:"read", traduccion: "Lectura"},
-    {permission:"update", traduccion:"Actualizar"},
-    {permission:"delete", traduccion: "Borrar"}
+    { permission: 'create', traduccion: 'Crear' },
+    { permission: 'read', traduccion: 'Lectura' },
+    { permission: 'update', traduccion: 'Actualizar' },
+    { permission: 'delete', traduccion: 'Borrar' },
   ];
 
-  userForm= new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.maxLength(255)]), 
-      username: new FormControl('', [Validators.required,  Validators.maxLength(255)]),
-      new_password: new FormControl('',[Validators.maxLength(255)]), 
-      new_password_confirmation: new FormControl('',Validators.maxLength(255)), 
-      admin_password: new FormControl('',[ Validators.maxLength(255)]), 
-      role: new FormControl('', [Validators.required, Validators.maxLength(255)]),//
-      permissions: new FormArray([], [Validators.required])
-    });
-  
+  userForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(255),
+    ]),
+    new_password: new FormControl('', [Validators.maxLength(255)]),
+    new_password_confirmation: new FormControl('', Validators.maxLength(255)),
+    admin_password: new FormControl('', [Validators.maxLength(255)]),
+    role: new FormControl('', [Validators.required, Validators.maxLength(255)]), //
+    permissions: new FormArray([], [Validators.required]),
+  });
+
   profileisview: boolean = false;
   userisedit: boolean = false;
   profile!: profileUser;
   isLoading = false;
-  columnsToDisplay  = ['Nombre', 'Alias', 'Acciones'];
+  columnsToDisplay = ['Nombre', 'Alias', 'Acciones'];
   users: usuario[] = [];
   dataSource = new MatTableDataSource<usuario>();
   readonly dialog = inject(MatDialog);
   isOpen = false;
 
-  ngOnInit(){
+  ngOnInit() {
     this.getListUsers();
   }
-  getListUsers(){
+  getListUsers() {
     this.udaService.getUsers().subscribe({
       next: (response) => {
         this.users = response.map((user: any) => ({
@@ -133,114 +152,125 @@ user: User = {
         this.dataSource.data = this.users;
         this.isLoading = true;
       },
-      error: (error)=>{
+      error: (error) => {
         this.router.navigate(['/main']);
-      }
+      },
     });
   }
 
-
   delet(id: number): void {
-          this.udaService.deleteUser(id).subscribe({  
-            next: (response) => {
-              this.dataSource.data = this.dataSource.data.filter(user => user.id !== id);
-              this.NotificationService.showSuccess('Usuario eliminado con exito', `El usuario ${id} fue borrado`); // Muestra la notificación de éxito
-            },
-            error: (error) => {
-              
-            }
-          });
+    this.udaService.deleteUser(id).subscribe({
+      next: (response) => {
+        this.dataSource.data = this.dataSource.data.filter(
+          (user) => user.id !== id
+        );
+        this.NotificationService.showSuccess(
+          'Usuario eliminado con exito',
+          `El usuario ${id} fue borrado`
+        ); // Muestra la notificación de éxito
+      },
+      error: (error) => {},
+    });
   }
-  getUserData(id: number){
+  getUserData(id: number) {
     this.userisedit = false;
-    this.isOpen=false;
-    if(id){
+    this.isOpen = false;
+    if (id) {
       this.udaService.infoUser(+id).subscribe({
-        next: (response)=>{
-          this.profile = response
+        next: (response) => {
+          console.log(response);
+          this.profile = response;
           this.profileisview = true;
           this.isOpen = true;
         },
-        error:(error)=>{
+        error: (error) => {
           this.router.navigate(['/main/mas_detalles']);
-        }
+        },
       });
-    }else{
+    } else {
       this.router.navigate(['/main/mas_detalles']);
     }
   }
 
-  editUser(id: number){
+  editUser(id: number) {
     this.userisedit = true;
     this.userForm.patchValue({
       name: this.profile.name,
       username: this.profile.username,
-    })
+    });
   }
-returnUserData(){
-  this.userisedit = false;
-}
-  openDialog(id_user:number, name:string): void{
-      const dialogRef = this.dialog.open(DialogContentExampleDialog, {
-        data:{
-          id: id_user, 
-          name: name,
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.delet(result);
-        }
-      });
-    }
-
-    onSubmit(id: number): void {
-  if (id) {
-    const formData = { ...this.userForm.value };
-
-    // Si no hay nueva contraseña, eliminamos esos campos
-    if (!formData.new_password) {
-      delete formData.new_password;
-      delete formData.new_password_confirmation;
-      delete formData.admin_password;
-    }
-
-    this.udaService.editUser(+id, formData).subscribe({
-      next: (response) => {
-        this.NotificationService.showSuccess('Usuario editado correctamente', '¡Éxito!');
-        this.userisedit = false;
+  returnUserData() {
+    this.userisedit = false;
+  }
+  openDialog(id_user: number, name: string): void {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {
+      data: {
+        id: id_user,
+        name: name,
       },
-      error: (error) => {
-        const errorMessage = this.getFirstErrorMessage(error);
-        this.NotificationService.showError(errorMessage, '¡Oh no! Ocurrió un error inesperado');
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delet(result);
       }
     });
   }
-}
-      getFirstErrorMessage(error: any): string {
-  if (error?.error?.errors) {
-    const errors = error.error.errors;
-    // Obtener el primer campo que tenga errores
-    const firstErrorField = Object.keys(errors)[0];
-    // Obtener el primer mensaje de error de ese campo
-    const firstErrorMessage = errors[firstErrorField][0];
-    return firstErrorMessage;
+
+  onSubmit(id: number): void {
+    if (id) {
+      const formData = { ...this.userForm.value };
+
+      // Si no hay nueva contraseña, eliminamos esos campos
+      if (!formData.new_password) {
+        delete formData.new_password;
+        delete formData.new_password_confirmation;
+        delete formData.admin_password;
+      }
+
+      this.udaService.editUser(+id, formData).subscribe({
+        next: (response) => {
+          this.NotificationService.showSuccess(
+            'Usuario editado correctamente',
+            '¡Éxito!'
+          );
+          this.userisedit = false;
+        },
+        error: (error) => {
+          const errorMessage = this.getFirstErrorMessage(error);
+          this.NotificationService.showError(
+            errorMessage,
+            '¡Oh no! Ocurrió un error inesperado'
+          );
+        },
+      });
+    }
   }
-  return 'Ocurrió un error desconocido';
-}
-      onCheckboxChange(event: Event) {
-      const checkbox = event.target as HTMLInputElement;
-      const permissionsArray = this.userForm.get('permissions') as FormArray;
-    
-      if (checkbox.checked) {
-        permissionsArray.push(new FormControl(checkbox.value));
-      } else {
-        const index = permissionsArray.controls.findIndex(x => x.value === checkbox.value);
-        if (index >= 0) {
-          permissionsArray.removeAt(index);
-        }
+  getFirstErrorMessage(error: any): string {
+    if (error?.error?.errors) {
+      const errors = error.error.errors;
+      // Obtener el primer campo que tenga errores
+      const firstErrorField = Object.keys(errors)[0];
+      // Obtener el primer mensaje de error de ese campo
+      const firstErrorMessage = errors[firstErrorField][0];
+      return firstErrorMessage;
+    }
+    return 'Ocurrió un error desconocido';
+  }
+  onCheckboxChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const permissionsArray = this.userForm.get('permissions') as FormArray;
+
+    if (checkbox.checked) {
+      permissionsArray.push(new FormControl(checkbox.value));
+    } else {
+      const index = permissionsArray.controls.findIndex(
+        (x) => x.value === checkbox.value
+      );
+      if (index >= 0) {
+        permissionsArray.removeAt(index);
       }
     }
+  }
 }
 
 @Component({
@@ -265,5 +295,5 @@ export class DialogContentExampleDialog {
 
   eliminar(id: number): void {
     this.dialogRef.close(id);
-}
+  }
 }

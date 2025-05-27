@@ -82,9 +82,12 @@ export class DataService{
     return this.http.get<Document[]>(`${this.API_URL}/search`);
   }
 
-  downloadDocFile(id: string, file: number){
-    return this.http.get<any>(`${this.API_URL}/${id}/files/${file}/download`);
-  }
+  downloadDocFile(id: string, file: number) {
+  return this.http.get(`${this.API_URL}/${id}/files/${file}/download`, {
+    responseType: 'blob', // ✅ necesario para manejar binarios
+    observe: 'response'   // ✅ si quieres acceder a los headers (ej. filename)
+  });
+}
   previewDocFile(id: string, file: number){
     return this.http.get<any>(`${this.API_URL}/${id}/files/${file}/preview`);
   }

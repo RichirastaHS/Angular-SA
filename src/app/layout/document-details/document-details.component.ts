@@ -147,6 +147,28 @@ export class DocumentDetailsComponent {
   descargafile(idarchivo: number){
     this.dataService.downloadDocFile(this.idDoc, idarchivo).subscribe({
       next:(value) =>{
+         const blob = value.body!;
+    const contentDisposition = value.headers.get('content-disposition');
+    let filename = 'archivo.pdf';
+
+    if (contentDisposition) {
+      const matches = /filename="?(.*?)"?$/.exec(contentDisposition);
+      if (matches?.[1]) {
+        filename = matches[1];
+      }
+    }
+
+    const link = document.createElement('a');
+    const url = window.URL.createObjectURL(blob);
+
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+
+    // Limpieza
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
       },
       error:(err)=>{
       },
@@ -156,7 +178,8 @@ export class DocumentDetailsComponent {
   previewfile(idarchivo: number){
     this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
       next:(value) =>{
-          const url = value.file_url
+        console.log(value);
+          const url = value.file_path;
           this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
           this.previewisvisible = true;
       },
