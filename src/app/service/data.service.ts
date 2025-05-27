@@ -84,11 +84,14 @@ export class DataService{
 
   downloadDocFile(id: string, file: number) {
   return this.http.get(`${this.API_URL}/${id}/files/${file}/download`, {
-    responseType: 'blob', // ✅ necesario para manejar binarios
-    observe: 'response'   // ✅ si quieres acceder a los headers (ej. filename)
+    responseType: 'blob', 
+    observe: 'response'  
   });
 }
   previewDocFile(id: string, file: number){
-    return this.http.get<any>(`${this.API_URL}/${id}/files/${file}/preview`);
+    return this.http.get(`${this.API_URL}/${id}/files/${file}/preview`, {
+      responseType: 'blob', 
+      observe: 'response'
+    });
   }
 }

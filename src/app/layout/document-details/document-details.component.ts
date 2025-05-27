@@ -148,8 +148,8 @@ export class DocumentDetailsComponent {
     this.dataService.downloadDocFile(this.idDoc, idarchivo).subscribe({
       next:(value) =>{
          const blob = value.body!;
-    const contentDisposition = value.headers.get('content-disposition');
-    let filename = 'archivo.pdf';
+          const contentDisposition = value.headers.get('content-disposition');
+          let filename = 'archivo.pdf';
 
     if (contentDisposition) {
       const matches = /filename="?(.*?)"?$/.exec(contentDisposition);
@@ -175,18 +175,29 @@ export class DocumentDetailsComponent {
     });
   }
 
-  previewfile(idarchivo: number){
-    this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
-      next:(value) =>{
-        console.log(value);
-          const url = value.file_path;
-          this.safeUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
-          this.previewisvisible = true;
-      },
-      error:(err) =>{
-      },
-    });
-  }
+  previewfile(idarchivo: number) {
+  this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
+    next: (response) => {
+      if (!response.body) {
+        console.error('El cuerpo de la respuesta es null');
+        return;
+      }
+      
+      // Crear un blob a partir de la respuesta
+      const blob = new Blob([response.body], {type: response.headers.get('Content-Type') || ''});
+      
+      // Crear una URL de objeto para el blob
+      const fileURL = URL.createObjectURL(blob);
+      
+      // Sanitizar la URL
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
+      this.previewisvisible = true;
+    },
+    error: (err) => {
+      console.error('Error al obtener el archivo:', err);
+    },
+  });
+}
 
   deletedoc(){
     const id = this.route.snapshot.paramMap.get('id');
