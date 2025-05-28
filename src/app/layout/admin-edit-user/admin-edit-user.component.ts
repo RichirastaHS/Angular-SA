@@ -56,7 +56,7 @@ export class AdminEditUserComponent {
         },
         error: (error) => {
           this.router.navigate(['/main']);
-          this.notificationService.showError(error, '¡Oh no! Ocurrió un error inesperado');
+          this.notificationService.showError(error?.error?.message, '¡Oh no! Ocurrió un error inesperado');
         }
       });
     }

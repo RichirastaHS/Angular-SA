@@ -74,28 +74,18 @@ previewUrl: string | ArrayBuffer | null = null;
   onSubmit(): void {
   if (this.profileForm.valid) {
     const formData = new FormData();
-    
-    // Campos obligatorios
     formData.append('_method', 'PATCH');
-    formData.append('name', this.profileForm.value.name!);
-    formData.append('username', this.profileForm.value.username!);
-    
-    // Solo agregamos contraseñas si están definidas y no vacías
-    const newPassword = this.profileForm.value.new_password;
-    const newPasswordConfirmation = this.profileForm.value.new_password;
-    const currentPassword = this.profileForm.value.current_password;
 
-    if (newPassword) {
-      formData.append('new_password', newPassword);
-    }
-    if (newPasswordConfirmation) {
-      formData.append('new_password_confirmation', newPasswordConfirmation);
-    }
-
-    if (currentPassword) {
-      formData.append('current_password', currentPassword);
-    }
-
+    // Solo enviamos los campos que fueron modificados (dirty)
+    Object.keys(this.profileForm.controls).forEach((key) => {
+      const control = this.profileForm.get(key);
+      if (control?.dirty && control.value) {
+        // Evitamos agregar profile_photo directamente aquí
+        if (key !== 'profile_photo') {
+          formData.append(key, control.value);
+        }
+      }
+    });
 
     // Adjuntar imagen solo si fue seleccionada
     if (this.selectedFile) {
@@ -104,18 +94,18 @@ previewUrl: string | ArrayBuffer | null = null;
 
     this.udaService.updateProfile(formData).subscribe({
       next: (response) => {
-        const userData = { name: this.profileForm.value.name};
+        const userData = { name: this.profileForm.value.name };
         this.authsService.setUser(userData);
         this.router.navigate(['/main']);
         this.notificationService.showSuccess('Usuario actualizado correctamente', '¡Éxito!');
       },
       error: (error) => {
-
-        this.notificationService.showError(error, '¡Oh no! Ocurrió un error inesperado');
+        this.notificationService.showError(error?.error?.message, '¡Oh no! Ocurrió un error inesperado');
       }
     });
   } else {
     this.notificationService.showError("Datos sin rellenar", 'Hay campos sin rellenar');
   }
 }
+
 }

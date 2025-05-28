@@ -72,7 +72,7 @@ newUser(){
       },
       error: (error) =>{
         this.router.navigate(['/main/panel']);
-        this.notificationService.showError('¡Algo fallo!', error);
+        this.notificationService.showError('¡Algo fallo!', error.message);
       }
     });
   }else {
