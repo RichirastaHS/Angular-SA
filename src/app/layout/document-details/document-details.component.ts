@@ -144,38 +144,45 @@ export class DocumentDetailsComponent {
     }
   }
 
-  descargafile(idarchivo: number){
+  descargafile(idarchivo: number) {
     this.dataService.downloadDocFile(this.idDoc, idarchivo).subscribe({
-      next:(value) =>{
-         const blob = value.body!;
-          const contentDisposition = value.headers.get('content-disposition');
-          let filename = 'archivo.pdf';
+        next: (value) => {
+            const blob = value.body!;
+            const contentDisposition = value.headers.get('content-disposition');
+            
+            // Nombre por defecto (sin extensión o con una genérica)
+            let filename = 'archivo_descargado';
 
-    if (contentDisposition) {
-      const matches = /filename="?(.*?)"?$/.exec(contentDisposition);
-      if (matches?.[1]) {
-        filename = matches[1];
-      }
-    }
+            if (contentDisposition) {
+                // Extrae el nombre del archivo de content-disposition
+                const filenameRegex = /filename\*?=['"]?(?:UTF-\d['"]*)?([^;\r\n"']*)['"]?;?/i;
+                const matches = filenameRegex.exec(contentDisposition);
+                
+                if (matches != null && matches[1]) {
+                    filename = matches[1].trim();
+                }
+            }
 
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
+            // Crear el enlace de descarga
+            const link = document.createElement('a');
+            const url = window.URL.createObjectURL(blob);
 
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
 
-    // Limpieza
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-      },
-      error:(err)=>{
-      },
+            // Limpieza
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        },
+        error: (err) => {;
+            // Puedes manejar el error aquí, por ejemplo mostrando un mensaje al usuario
+        }
     });
-  }
+}
 
-  previewfile(idarchivo: number) {
+ /* previewfile(idarchivo: number) {
   this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
     next: (response) => {
       if (!response.body) {
@@ -197,8 +204,7 @@ export class DocumentDetailsComponent {
       console.error('Error al obtener el archivo:', err);
     },
   });
-}
-
+}*/
   deletedoc(){
     const id = this.route.snapshot.paramMap.get('id');
     if(id){

@@ -43,7 +43,7 @@ export class EditDocumentComponent {
   issue_date: new FormControl<string>('', [Validators.required]),
   received_date: new FormControl<string>('', [Validators.required]),
   description: new FormControl<string>(''),
-  priority: new FormControl<string>('', [Validators.required]),
+  priority: new FormControl<number | string>("", [Validators.required]),
   }, );
   filesdata: FileData[] = [];
   newDocData = this.datosDocumento.value;
@@ -54,6 +54,12 @@ export class EditDocumentComponent {
   deleteFileId: number = 0;
   mostrarModal = false;
   
+  priorities = [
+  { id: 0, label: 'null' },
+  { id: 1, label: 'low' },
+  { id: 2, label: 'medium' },
+  { id: 3, label: 'high' }
+];
   constructor(
     private dataService: DataService, 
     private route: ActivatedRoute,
@@ -91,8 +97,14 @@ export class EditDocumentComponent {
             issue_date: this.document.issue_date,
             received_date: this.document.received_date,
             description: this.document.description,
-            priority: this.document.priority,
           });
+          const responseValue = 'low'; // lo que devuelve el backend
+
+          const matched = this.priorities.find(p => p.label === responseValue);
+
+          if (matched) {
+            this.datosDocumento.patchValue({ priority: matched.id });
+          }
           this.filesdata= response.document.files;
         },
         error: (error) => {
@@ -157,15 +169,32 @@ SelecttoText(event: Event) {
   const select = this.datosDocumento.get('sender_department_id');
   if (select?.value === 'NewDep') {
     this.typeText = true;
+    this.updateSenderValidators();
     this.datosDocumento.patchValue({ sender_department_id: 0 });
   } else {
     this.negTypeText();  // resetea el campo adicional si elige un departamento válido
   }
 }
+updateSenderValidators(): void {
+  if (this.typeText) {
+    // Nuevo departamento
+    this.datosDocumento.get('new_sender_department')?.setValidators([Validators.required, Validators.maxLength(255)]);
+    this.datosDocumento.get('sender_department_id')?.clearValidators();
+    this.datosDocumento.get('sender_department_id')?.setValue(null); // opcional, para limpiar
+  } else {
+    // Selección desde dropdown
+    this.datosDocumento.get('sender_department_id')?.setValidators([Validators.required]);
+    this.datosDocumento.get('new_sender_department')?.clearValidators();
+    this.datosDocumento.get('new_sender_department')?.setValue(''); // opcional
+  }
 
+  this.datosDocumento.get('new_sender_department')?.updateValueAndValidity();
+  this.datosDocumento.get('sender_department_id')?.updateValueAndValidity();
+}
 negTypeText() {
   this.typeText = false;
   this.datosDocumento.patchValue({ new_sender_department: '' });
+  this.updateSenderValidators();
 }
 
   senderDepartmentValidator(group: AbstractControl): ValidationErrors | null {

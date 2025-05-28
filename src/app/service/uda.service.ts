@@ -33,7 +33,7 @@ export class UdaService {
     return this.http.get<any>(`${this.API_URL}profile`);
   }
   updateProfile(user: any): Observable<any>{
-    return this.http.put<any>(`${this.API_URL}profile`, user);
+    return this.http.post<any>(`${this.API_URL}profile`, user);
   }
   createUser(newUser: any): Observable<any>{
     return this.http.post<any>(`${this.API_URL}users/register`, newUser);

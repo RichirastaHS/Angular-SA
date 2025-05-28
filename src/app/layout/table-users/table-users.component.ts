@@ -43,15 +43,19 @@ export interface usuario {
   username: string;
 }
 
+interface Department {
+  id: number;
+  name: string;
+}
+
 interface profileUser {
   id: number;
   name: string;
   username: string;
-  email: string;
-  created_at: string;
-  updated_at: string;
-  email_verified_at: string;
-  department_id: number;
+  department: Department;
+  permissions: string[];
+  profile_photo: string;
+  roles: string[];
 }
 export interface User {
   name: string;
@@ -100,20 +104,13 @@ export class TableUsersComponent {
     private NotificationService: NotificationService,
     private router: Router
   ) {}
-  user: User = {
-    name: '',
-    username: '',
-    password: '',
-    role: '',
-    permissions: [],
-  };
-
-  permissionslist = [
-    { permission: 'create', traduccion: 'Crear' },
-    { permission: 'read', traduccion: 'Lectura' },
-    { permission: 'update', traduccion: 'Actualizar' },
-    { permission: 'delete', traduccion: 'Borrar' },
-  ];
+  permissionslist : { [key: string]: string } = {
+  create: 'Crear',
+  read: 'Leer',
+  update: 'Actualizar',
+  delete: 'Eliminar'
+};
+permisosKeys = Object.keys(this.permissionslist);
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -178,7 +175,7 @@ export class TableUsersComponent {
     if (id) {
       this.udaService.infoUser(+id).subscribe({
         next: (response) => {
-          console.log(response);
+
           this.profile = response;
           this.profileisview = true;
           this.isOpen = true;
@@ -197,8 +194,20 @@ export class TableUsersComponent {
     this.userForm.patchValue({
       name: this.profile.name,
       username: this.profile.username,
+      role: "user"
     });
+    this.setPermisosSeleccionados(this.profile.permissions);
   }
+
+  setPermisosSeleccionados(permisos: string[]) {
+  const permisosFormArray = this.userForm.get('permissions') as FormArray;
+  permisosFormArray.clear(); // Limpiar primero
+
+  permisos.forEach(permiso => {
+    permisosFormArray.push(new FormControl(permiso));
+  });
+}
+
   returnUserData() {
     this.userisedit = false;
   }
@@ -215,6 +224,16 @@ export class TableUsersComponent {
       }
     });
   }
+
+  traducirPermiso(permiso: string): string {
+  switch (permiso) {
+    case 'create': return 'Crear';
+    case 'read': return 'Leer';
+    case 'update': return 'Actualizar';
+    case 'delete': return 'Eliminar';
+    default: return permiso;
+  }
+}
 
   onSubmit(id: number): void {
     if (id) {
@@ -256,21 +275,24 @@ export class TableUsersComponent {
     }
     return 'Ocurrió un error desconocido';
   }
-  onCheckboxChange(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    const permissionsArray = this.userForm.get('permissions') as FormArray;
+  onCheckboxChange(event: any) {
+  const formArray: FormArray = this.userForm.get('permissions') as FormArray;
 
-    if (checkbox.checked) {
-      permissionsArray.push(new FormControl(checkbox.value));
-    } else {
-      const index = permissionsArray.controls.findIndex(
-        (x) => x.value === checkbox.value
-      );
-      if (index >= 0) {
-        permissionsArray.removeAt(index);
-      }
+  if (event.target.checked) {
+    formArray.push(new FormControl(event.target.value));
+  } else {
+    const index = formArray.controls.findIndex(
+      x => x.value === event.target.value
+    );
+    if (index !== -1) {
+      formArray.removeAt(index);
     }
   }
+}
+isChecked(permiso: string): boolean {
+  const formArray = this.userForm.get('permissions') as FormArray;
+  return formArray.value.includes(permiso);
+}
 }
 
 @Component({
