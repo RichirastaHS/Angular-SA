@@ -56,38 +56,29 @@
         </fieldset>
 
         <!-- Nueva contraseña -->
-        <label for="new_password">Nueva contraseña</label>
-        <fieldset class="form-group title">
-          <input formControlName="new_password" class="input-form" type="password" id="new_password" name="new_password" placeholder="Nueva contraseña"/>
-          @if (profileForm.get("new_password")?.invalid && profileForm.get("new_password")?.touched) {
-            @if (profileForm.get("new_password")?.hasError("maxlength")) {
-              <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-            }
-          }
-        </fieldset>
+<label for="new_password">Nueva contraseña</label>
+<fieldset class="form-group title">
+  <input formControlName="new_password" class="input-form" type="password" id="new_password" name="new_password" placeholder="Nueva contraseña" />
+</fieldset>
 
-        <!-- Confirmar contraseña -->
-        @if (profileForm.get("new_password")?.touched || profileForm.get("new_password")?.value) {
-          <label for="new_password_confirmation">Confirmar nueva contraseña</label>
-          <fieldset class="form-group title">
-            <input formControlName="new_password_confirmation" class="input-form" type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="Confirmación"/>
-            @if (profileForm.get("new_password_confirmation")?.invalid && profileForm.get("new_password_confirmation")?.touched) {
-              @if (profileForm.get("new_password_confirmation")?.hasError("maxlength")) {
-                <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-              }
-            }
-          </fieldset>
+<!-- Condicionalmente mostrar confirmaciones solo si se empieza a escribir nueva contraseña -->
+@if (profileForm.get("new_password")?.value) {
+  <label for="new_password_confirmation">Confirmar nueva contraseña</label>
+  <fieldset class="form-group title">
+    <input formControlName="new_password_confirmation" class="input-form" type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="Confirmación" />
+    @if (profileForm.get("new_password_confirmation")?.hasError("required") && profileForm.get("new_password_confirmation")?.touched) {
+      <span class="msg_error">Campo obligatorio</span>
+    }
+  </fieldset>
 
-          <label for="current_password">Confirmar nueva contraseña</label>
-          <fieldset class="form-group title">
-            <input formControlName="current_password" class="input-form" type="password" id="current_password" name="current_password" placeholder="Confirmación"/>
-            @if (profileForm.get("current_password")?.invalid && profileForm.get("current_password")?.touched) {
-              @if (profileForm.get("current_password")?.hasError("maxlength")) {
-                <span class="msg_error">La contraseña no puede tener más de 255 caracteres</span>
-              }
-            }
-          </fieldset>
-        }
+  <label for="current_password">Contraseña actual</label>
+  <fieldset class="form-group title">
+    <input formControlName="current_password" class="input-form" type="password" id="current_password" name="current_password" placeholder="Contraseña actual" />
+    @if (profileForm.get("current_password")?.hasError("required") && profileForm.get("current_password")?.touched) {
+      <span class="msg_error">Campo obligatorio</span>
+    }
+  </fieldset>
+}
 
         <!-- Botón para guardar -->
         <fieldset class="form-group submit">

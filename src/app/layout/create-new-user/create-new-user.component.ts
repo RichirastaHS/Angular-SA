@@ -36,10 +36,13 @@ userForm= new FormGroup({
 newU = this.userForm.value;
 user = [];
 selectedPhoto: string = '';
-profilePictures = [
-  { value: 'man', src: '/profile/mnpictureprofile.webp' },
-  { value: 'woman', src: '/profile/wmnpictureprofile.webp' }
-];
+permissionslist: { [key: string]: string } = {
+    create: 'Crear',
+    read: 'Leer',
+    update: 'Actualizar',
+    delete: 'Eliminar',
+  };
+  permisosKeys = Object.keys(this.permissionslist);
 
 selectPhoto(value: string) {
   this.selectedPhoto = value;
@@ -52,7 +55,9 @@ onCheckboxChange(event: Event) {
   if (checkbox.checked) {
     permissionsArray.push(new FormControl(checkbox.value));
   } else {
-    const index = permissionsArray.controls.findIndex(x => x.value === checkbox.value);
+    const index = permissionsArray.controls.findIndex(
+      (x) => x.value === checkbox.value
+    );
     if (index >= 0) {
       permissionsArray.removeAt(index);
     }
