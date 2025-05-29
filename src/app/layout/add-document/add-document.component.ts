@@ -32,7 +32,6 @@ export class AddDocumentComponent {
   issue_date: new FormControl<string>('', [Validators.required]),
   received_date: new FormControl<string>('', [Validators.required]),
   description: new FormControl<string>(''),
-  priority: new FormControl<string>('', [Validators.required]),
   files: new FormControl<File[] | null>([])
 }, { validators: this.senderDepartmentValidator });
 

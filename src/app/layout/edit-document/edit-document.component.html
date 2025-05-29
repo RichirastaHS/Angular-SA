@@ -158,22 +158,6 @@
                         }
                     }
                 </fieldset>
-                <!-- Prioridad -->
-                <fieldset class="form-group type">
-                    <label for="priority">Prioridad</label>
-                    <select formControlName="priority" class="input-form" id="priority" name="priority" required="">
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="0" selected>Sin prioridad</option>
-                        <option value="1" selected>Baja</option>
-                        <option value="2">Media</option>
-                        <option value="3">Alta</option>
-                    </select>
-                    @if (datosDocumento.get("priority")?.invalid && datosDocumento.get("priority")?.touched) {
-                        @if (datosDocumento.get("priority")?.hasError("required")) {
-                            <span class="msg_error">Campo obligatorio</span>
-                        }
-                    }
-                </fieldset>
         <!-- Documentos ajuntos -->
                 <fieldset class="form-group description">
                     Documentos Adjuntos

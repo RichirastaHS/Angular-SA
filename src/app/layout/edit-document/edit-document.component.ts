@@ -43,7 +43,6 @@ export class EditDocumentComponent {
   issue_date: new FormControl<string>('', [Validators.required]),
   received_date: new FormControl<string>('', [Validators.required]),
   description: new FormControl<string>(''),
-  priority: new FormControl<number | string>("", [Validators.required]),
   }, );
   filesdata: FileData[] = [];
   newDocData = this.datosDocumento.value;
@@ -54,12 +53,6 @@ export class EditDocumentComponent {
   deleteFileId: number = 0;
   mostrarModal = false;
   
-  priorities = [
-  { id: 0, label: 'null' },
-  { id: 1, label: 'low' },
-  { id: 2, label: 'medium' },
-  { id: 3, label: 'high' }
-];
   constructor(
     private dataService: DataService, 
     private route: ActivatedRoute,
@@ -76,7 +69,6 @@ export class EditDocumentComponent {
           this.formData.statuses = response.statuses || [];
           this.formData.senders_department = response.senders_department || [];
           this.formData.receivers_department = response.receivers_department || [];
-          this.formData.priority = response.priority || [];
         },
         error: (error) => {
           this.router.navigate(['/main']);
@@ -98,13 +90,6 @@ export class EditDocumentComponent {
             received_date: this.document.received_date,
             description: this.document.description,
           });
-          const responseValue = 'low'; // lo que devuelve el backend
-
-          const matched = this.priorities.find(p => p.label === responseValue);
-
-          if (matched) {
-            this.datosDocumento.patchValue({ priority: matched.id });
-          }
           this.filesdata= response.document.files;
         },
         error: (error) => {

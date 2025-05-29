@@ -8,5 +8,4 @@ export interface DocumentCreate {
     issue_date: string;      
     received_date: string;  
     description?: string;
-    priority: number;
   }

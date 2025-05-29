@@ -195,7 +195,6 @@ export class TableRComponent {
       'Departamento remitente',
       'Departamento receptor',
       'Fecha de emisión',
-      'Fecha de creación'
     ];
     
     worksheet.addRow(headers);
@@ -228,7 +227,6 @@ export class TableRComponent {
         doc.sender_department.name,
         doc.receiver_department.name,
         doc.received_date,
-        doc.priority,
       ];
       
       worksheet.addRow(row);

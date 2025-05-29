@@ -181,30 +181,6 @@ export class DocumentDetailsComponent {
         }
     });
 }
-
- /* previewfile(idarchivo: number) {
-  this.dataService.previewDocFile(this.idDoc, idarchivo).subscribe({
-    next: (response) => {
-      if (!response.body) {
-        console.error('El cuerpo de la respuesta es null');
-        return;
-      }
-      
-      // Crear un blob a partir de la respuesta
-      const blob = new Blob([response.body], {type: response.headers.get('Content-Type') || ''});
-      
-      // Crear una URL de objeto para el blob
-      const fileURL = URL.createObjectURL(blob);
-      
-      // Sanitizar la URL
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fileURL);
-      this.previewisvisible = true;
-    },
-    error: (err) => {
-      console.error('Error al obtener el archivo:', err);
-    },
-  });
-}*/
   deletedoc(){
     const id = this.route.snapshot.paramMap.get('id');
     if(id){

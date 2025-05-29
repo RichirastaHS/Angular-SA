@@ -39,7 +39,6 @@ export interface Document {
   receiver_department_id: number;
   issue_date: string; // Formato YYYY-MM-DD
   received_date: string; // Formato YYYY-MM-DD
-  priority: string; // Puede ser "Low", "Medium", etc.
   created_at: string; // Formato ISO con zona horaria
   updated_at: string | null;
   category: Category; // Relación con categoría

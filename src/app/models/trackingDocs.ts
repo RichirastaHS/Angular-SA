@@ -18,7 +18,6 @@ export interface Category {
     statuses: Status[];
     senders_department: Department[];
     receivers_department: Department[];
-    priority: string;
   }
   
   export const documentFormData: DocumentFormModel = {
@@ -26,6 +25,5 @@ export interface Category {
     statuses: [],
     senders_department: [],
     receivers_department: [],
-    priority: "",
   };
   
