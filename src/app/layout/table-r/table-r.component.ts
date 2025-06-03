@@ -187,8 +187,8 @@ export class TableRComponent {
 
     // Agregar encabezados
     const headers = [
-      'Título',
-      'Número de referencia',
+      'Numero de Oficio',
+      'Asunto',
       'Descripción',
       'Categoría',
       'Estatus',

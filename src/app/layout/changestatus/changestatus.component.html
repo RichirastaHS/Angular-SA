@@ -1,0 +1,279 @@
+<div class="contenedor">
+    Cambiar de Estatus
+    <section class="checkbox-contenedor">
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="Recepcionado" (change)="selectstatus($event)"/>
+                <span class="checkbox-tile" style="--color: #a0a0a0;">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">Recepcionado</span>
+                </span>
+            </label>
+        </div>
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="En Tramite" (change)="selectstatus($event)"/>
+                <span class="checkbox-tile" style="--color: var(--color-theme-orange);">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">En Tramite</span>
+                </span>
+            </label>
+        </div>
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="Firmado" (change)="selectstatus($event)" />
+                <span class="checkbox-tile" style="--color: purple;">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">Firmado</span>
+                </span>
+            </label>
+        </div>
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="Concluido" (change)="selectstatus($event)"/>
+                <span class="checkbox-tile" style="--color:var(--color-theme-green);">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">Concluido</span>
+                </span>
+            </label>
+        </div>
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="Entregado" (change)="selectstatus($event)"/>
+                <span class="checkbox-tile" style="--color: var(--color-theme-light-blue);">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">Entregado</span>
+                </span>
+            </label>
+        </div>
+        <div class="checkbox-wrapper-16">
+            <label class="checkbox-wrapper">
+                <input type="radio" class="checkbox-input" name="status" value="Cancelado" (change)="selectstatus($event)"/>
+                <span class="checkbox-tile" style="--color: var(--color-theme-red);">
+                    <span class="checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <polygon points="72 40 184 40 240 104 128 224 16 104 72 40" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <polygon points="177.091 104 128 224 78.909 104 128 40 177.091 104" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+                            </polygon>
+                            <line x1="16" y1="104" x2="240" y2="104" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></line>
+                        </svg>
+                    </span>
+                    <span class="checkbox-label">Cancelado</span>
+                </span>
+            </label>
+        </div>
+    </section>
+    <section>
+        @switch (contenidoModal) {
+        @case ("Recepcionado") {
+        <form action="">
+            <fieldset class="form-group type">
+                <label for="receiver_department_id">Departamento Receptor</label>
+                <select formControlName="receiver_department_id" class="input-form" id="receiver_department_id"
+                    name="receiver_department_id" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                </select>
+            </fieldset>
+            <fieldset class="form-group date_registration">
+                <label for="issue_date">Fecha de Registro</label>
+                <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date" />
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Nota</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }@case ("En Tramite") {
+            <form action="">
+            <fieldset class="form-group type">
+                <label for="receiver_department_id">Departamento envio</label>
+                <select formControlName="receiver_department_id" class="input-form" id="receiver_department_id"
+                    name="receiver_department_id" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                </select>
+            </fieldset>
+            <fieldset class="form-group date_registration">
+                <label for="">Departamento Remitente</label>
+                <select
+                    formControlName="sender_department_id"
+                    class="input-form"
+                    id="sender_department_id"
+                    name="sender_department_id"
+                    >
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option class="newvalue" value="NewDep">Agregar nuevo Departamento</option>
+                </select>
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Descripción</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }
+        @case ("Firmado") {
+<form action="">
+            <fieldset class="form-group type">
+                <label for="receiver_department_id">Departamento envio</label>
+                <select formControlName="receiver_department_id" class="input-form" id="receiver_department_id"
+                    name="receiver_department_id" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                </select>
+            </fieldset>
+            <fieldset class="form-group date_registration">
+                <label for="">Departamento Remitente</label>
+                <select
+                    formControlName="sender_department_id"
+                    class="input-form"
+                    id="sender_department_id"
+                    name="sender_department_id"
+                    >
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option class="newvalue" value="NewDep">Agregar nuevo Departamento</option>
+                </select>
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Descripción</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }
+        @case ("Concluido") {
+<form action="">
+            <fieldset class="form-group type">
+                <label for="receiver_department_id">Departamento envio</label>
+                <select formControlName="receiver_department_id" class="input-form" id="receiver_department_id"
+                    name="receiver_department_id" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                </select>
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Descripción</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }
+        @case ("Entregado") {
+            <form action="">
+            <fieldset class="form-group type">
+                <label for="receiver_department_id">Departamento Receptor</label>
+                <select formControlName="receiver_department_id" class="input-form" id="receiver_department_id"
+                    name="receiver_department_id" required="">
+                    <option value="" disabled selected>Selecciona una opción</option>
+
+                </select>
+            </fieldset>
+            <fieldset class="form-group date_registration">
+                <label for="issue_date">Fecha de Registro</label>
+                <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date" />
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Nota</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }
+        @case ("Cancelado") {
+        <form action="">
+            <fieldset class="form-group type">
+                <label for="issue_date">Fecha de Cambio</label>
+                <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date" />
+            </fieldset>
+            <!-- Descripción -->
+            <fieldset class="form-group description">
+                <label for="description">Nota</label>
+                <textarea formControlName="description" class="input-form" id="description" name="description" rows="4"
+                    placeholder="Descripción del documento"></textarea>
+            </fieldset>
+        </form>
+        }
+        @default {
+            
+        }
+        }
+    </section>
+</div>

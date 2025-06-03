@@ -17,6 +17,7 @@ import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { AdminEditUserComponent } from './layout/admin-edit-user/admin-edit-user.component';
 import { NoAuthGuard } from './core/guards/noauth.guard';
 import { EditMyUserComponent } from './layout/edit-my-user/edit-my-user.component';
+import { ChangestatusComponent } from './layout/changestatus/changestatus.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path: 'login',
         component:LoginComponent,
         canActivate: [NoAuthGuard]
+    },
+    {
+        path: 'a',
+        component: ChangestatusComponent,
     },
     {
         path: 'main',

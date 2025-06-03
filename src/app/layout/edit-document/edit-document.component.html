@@ -5,7 +5,7 @@
             
             <form [formGroup]="datosDocumento" (ngSubmit)="onSubmit()">
                 <fieldset class="form-group title">
-                    <label for="title">Título del Documento</label>
+                    <label for="title">Numero de Oficio</label>
                     <input formControlName="title" class="input-form" type="text" id="title" name="title"  maxlength="255" placeholder="Ingrese el título del documento"/>
                     @if (datosDocumento.get("title")?.invalid && datosDocumento.get("title")?.touched) {
                         @if (datosDocumento.get("title")?.hasError("required")) {
@@ -19,7 +19,7 @@
     
                 <!-- Referencia de Documento -->
                 <fieldset class="form-group title">
-                    <label for="reference_number">Numero de referencia</label>
+                    <label for="reference_number">Asunto</label>
                     <input formControlName="reference_number" class="input-form" type="text" id="reference_number" name="reference_number" placeholder="Numero de referencia" required="">
                     @if (datosDocumento.get("reference_number")?.invalid && datosDocumento.get("reference_number")?.touched) {
                         @if (datosDocumento.get("reference_number")?.hasError("required")) {
@@ -139,7 +139,7 @@
     
                 <!-- Fecha de Registro -->
                 <fieldset class="form-group date_registration">
-                    <label for="issue_date">Fecha de Registro</label>
+                    <label for="issue_date">Fecha de Elaboración</label>
                     <input formControlName="issue_date" class="input-form" type="date" id="issue_date" name="issue_date">
                     @if (datosDocumento.get("issue_date")?.invalid && datosDocumento.get("issue_date")?.touched) {
                         @if (datosDocumento.get("issue_date")?.hasError("required")) {

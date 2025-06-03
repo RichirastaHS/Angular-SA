@@ -16,6 +16,7 @@ import { PdfComponent } from "../../icons/pdf/pdf.component";
 import { DocComponent } from "../../icons/doc/doc.component";
 import { XlsxComponent } from "../../icons/xlsx/xlsx.component";
 import { UdaService } from '../../service/uda.service';
+import { ChangestatusComponent } from "../changestatus/changestatus.component";
 export interface usuario {
   id: number;
   name: string;
@@ -57,7 +58,7 @@ export interface FileData {
 
 @Component({
   selector: 'app-document-details',
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, PdfComponent, DocComponent, XlsxComponent],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, PdfComponent, DocComponent, XlsxComponent, ChangestatusComponent],
   templateUrl: './document-details.component.html',
   styleUrl: './document-details.component.css'
 })
@@ -319,7 +320,14 @@ export class DocumentDetailsComponent {
       });
     }
   }
+  changestatusopen = false;
+  changestatus(){
+    this.changestatusopen = true;
+  }
+cerrarModal(){
+  this.changestatusopen = false;
 
+}
   openDialog(): void{
       const dialogRef = this.dialog.open(DialogContentExampleDialog, {
       });

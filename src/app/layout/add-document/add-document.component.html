@@ -5,7 +5,7 @@
     <form [formGroup]="datosDocumento" (ngSubmit)="onSubmit()">
       <!-- Titulo del Documento -->
       <fieldset class="form-group title">
-        <label for="title">Título del Documento</label>
+        <label for="title">Numero de Oficio</label>
         <input
           formControlName="title"
           class="input-form"
@@ -28,7 +28,7 @@
 
       <!-- Referencia de Documento -->
       <fieldset class="form-group title">
-        <label for="reference_number">Numero de referencia</label>
+        <label for="reference_number">Asunto</label>
         <input
           formControlName="reference_number"
           class="input-form"
@@ -187,7 +187,7 @@
 
       <!-- Fecha de Registro -->
       <fieldset class="form-group date_registration">
-        <label for="issue_date">Fecha de Registro</label>
+        <label for="issue_date">Fecha de Elaboración</label>
         <input
           formControlName="issue_date"
           class="input-form"
