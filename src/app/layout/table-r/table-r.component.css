@@ -301,3 +301,17 @@ select {
   color: rgb(177, 122, 19);
 
 }
+
+.no-data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-family: 'Nunito Sans', Courier, monospace;
+  font-weight: 600;
+  color: #000;
+  font-size: 1.2rem;
+  height: 200px;
+  background: white;
+}

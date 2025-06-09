@@ -1,6 +1,7 @@
 @if(isLoading){
     <div class="border-container">
-        <table mat-table [dataSource]="dataSource">
+        @if (dataSource.data.length > 0) {
+            <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="Nombre">
                 <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
                 <td mat-cell *matCellDef="let doc">
@@ -67,9 +68,14 @@
             }
             <button class="pag-btn" (click)="getDocs(currentPage+1)" [disabled]="currentPage>=lastPage" >Siguiente</button>
         </div>
+        } @else {
+            <div class="no-data">
+                <p>Sin documentos</p>
+            </div>
+        }
     </div>  
 } 
-@if (!isLoading) {
+@if (isLoading === false) {
     <div class="loading-container">
         <mat-spinner [diameter]="50"></mat-spinner>
     </div>
