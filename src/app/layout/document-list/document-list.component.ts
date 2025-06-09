@@ -41,7 +41,7 @@ export class DocumentListComponent{
   @ViewChild('dropdownContainer') dropdownContainer!: ElementRef;
 
   toggleDropdown(event: MouseEvent): void {
-    event.stopPropagation(); // Evita que el clic se propague al document
+    event.stopPropagation();
     this.isOpen = !this.isOpen;
   }
 
@@ -50,6 +50,7 @@ export class DocumentListComponent{
     this.dataService.getmetadata().subscribe({
       next: (next) =>{
         this.categorys=next.categories;
+        console.log(next)
       }
     })
   }
@@ -75,7 +76,6 @@ export class DocumentListComponent{
 
   onSubmit() {
     const formData = this.filtersform.value;
-    // Aquí puedes realizar la lógica para enviar los datos del formulario al backend
   }
 
   resetFilters() {

@@ -9,22 +9,19 @@ import { Component } from '@angular/core';
 export class ChangestatusComponent {
   estados = [
     'Recepcionado',
-    'En Trámite',
+    'En Tramite',
+    'En Firma',
     'Firmado',
-    'Concluido',
-    'Entregado',
+    'Archivado',
     'Cancelado',
   ];
-  modalAbierto = false;
+  
   contenidoModal = '';
-
   selectstatus(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.contenidoModal = input.value
-    this.modalAbierto = true;
   }
 
   cerrarModal(): void {
-    this.modalAbierto = false;
   }
 }
