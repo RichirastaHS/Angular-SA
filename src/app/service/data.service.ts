@@ -61,6 +61,9 @@ export class DataService{
   getDocumentbyId(id: string): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/${id}`);
   }
+  getDocumentHistory(id: string): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/${id}/status`);
+  }
 
   editDocument(id: string): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}/edit`);

@@ -12,8 +12,9 @@ section {
 }
 
 .document-details{
-    border: 1px solid #dddddd;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    box-shadow:  
+      rgba(0, 0, 0, 0.23) 0px 5px 6px -1px;
+      
     border-radius: 15px;
     padding: 1em 4em 2em 4em;
     background: white;
@@ -702,4 +703,27 @@ input[type="file"]{
 
 .modal-button:hover {
   background-color: #555;
+}
+
+.active-section{
+  position: relative;
+  z-index: 1;
+  border-radius: 0 15px 15px 15px;
+}
+.document-actions{
+  display: inline-flex;
+  gap: 5px;
+}
+.actionbutton{
+  box-shadow: rgba(136, 165, 191, 0.48) 3px 2px 5px 0px, rgba(255, 255, 255, 0.8) -3px -2px 5px 0px;
+  border-bottom: none;
+  background: rgb(255, 255, 255);
+  border-radius: 5px 5px 0 0;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+.active {
+  background-color: #007bff;
+  color: white;
 }

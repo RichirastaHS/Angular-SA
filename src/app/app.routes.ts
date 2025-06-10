@@ -18,6 +18,7 @@ import { AdminEditUserComponent } from './layout/admin-edit-user/admin-edit-user
 import { NoAuthGuard } from './core/guards/noauth.guard';
 import { EditMyUserComponent } from './layout/edit-my-user/edit-my-user.component';
 import { ChangestatusComponent } from './layout/changestatus/changestatus.component';
+import { DHistoryChangesComponent } from './layout/d-history-changes/d-history-changes.component';
 
 export const routes: Routes = [
     {
@@ -30,7 +31,7 @@ export const routes: Routes = [
     },
     {
         path: 'a',
-        component: ChangestatusComponent,
+        component: DHistoryChangesComponent,
     },
     {
         path: 'main',

@@ -17,6 +17,7 @@ import { DocComponent } from "../../icons/doc/doc.component";
 import { XlsxComponent } from "../../icons/xlsx/xlsx.component";
 import { UdaService } from '../../service/uda.service';
 import { ChangestatusComponent } from "../changestatus/changestatus.component";
+import { DHistoryChangesComponent } from "../d-history-changes/d-history-changes.component";
 export interface usuario {
   id: number;
   name: string;
@@ -55,10 +56,37 @@ export interface FileData {
   created_at: string;
   updated_at: string;
 }
+interface DocumentHistory {
+  id: number;
+  name: string;
+  key: string;
+  created_at: string;
+  updated_at: string | null;
+}
+
+interface DocumentDataHistory {
+  id: string;
+  title: string;
+  reference_number: string;
+  description: string;
+  created_by: number;
+  category_id: number;
+  status_id: number;
+  sender_department_id: number;
+  receiver_department_id: number;
+  issue_date: string;
+  received_date: string;
+  priority: string;
+  created_at: string;
+  updated_at: string | null;
+  parent_id: string | null;
+  status: DocumentDataHistory;
+  children: DocumentDataHistory[]; // Recursivo para hijos
+}
 
 @Component({
   selector: 'app-document-details',
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, PdfComponent, DocComponent, XlsxComponent, ChangestatusComponent],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, PdfComponent, DocComponent, XlsxComponent, ChangestatusComponent, DHistoryChangesComponent],
   templateUrl: './document-details.component.html',
   styleUrl: './document-details.component.css'
 })
@@ -72,11 +100,13 @@ export class DocumentDetailsComponent {
   readonly dialog = inject(MatDialog);
   safeUrl: SafeResourceUrl="";
   idDoc: string="";
+  section: string = "archivos";
   coments: Comment[]= [];
   files: FileData[] = [];
   document!: Document;
   archivosSubidos: ArchivoSubido[] = [];
   FileArray: File[] = []; 
+  DocumentDataHistory: DocumentDataHistory[] = [];
   permissions = {
     create: false,
     read: false,
@@ -198,6 +228,14 @@ export class DocumentDetailsComponent {
     }
   }
 
+  getHistory() {
+    this.section = "historial";
+    this.dataService.getDocumentHistory(this.idDoc).subscribe({
+      next: (response) => {
+        this.DocumentDataHistory = response.data;
+      }
+    });
+  }
 
   onFileArraySelected(event: Event) {
   const input = event.target as HTMLInputElement;
@@ -240,12 +278,49 @@ export class DocumentDetailsComponent {
   }
   }
   eliminarArchivo(id: number) {
-    this.archivosSubidos = this.archivosSubidos.filter(archivo => archivo.id !== id);
-  }
+  // Filtra el archivo fuera de archivosSubidos
+  this.archivosSubidos = this.archivosSubidos.filter(archivo => archivo.id !== id);
+
+  // Filtra también en FileArray
+  this.FileArray = this.archivosSubidos.map(archivo => archivo.file);
+
+  // Actualiza el formulario
+  this.filesform.patchValue({
+    files: this.FileArray
+  });
+}
   closePreview(){
     this.previewisvisible = false;
   }
 
+  onSubmit() {
+    const formData = new FormData();
+    const archivos = this.filesform.get('files')?.value;
+    if (archivos && Array.isArray(archivos)) {
+      archivos.forEach((file: File) => {
+        formData.append('files[]', file);  // 👈 nombre correcto
+      });
+    }
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) { 
+      this.dataService.uploadFiles(id, formData).subscribe({
+        next: (response) => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100); 
+          this.NotificationService.showSuccess('Archivos subidos con exito', `Los archivos fueron subidos`); // Muestra la notificación de éxito
+        },
+        error: (error) => { 
+          this.NotificationService.showError('Error al subir archivos', error.error.message);
+        }
+      });
+    }
+  }
+  changestatusopen = false;
+  changestatus(){
+    this.changestatusopen = true;
+  }
   postComment() {
     if (this.commentForm.invalid || this.postingComment) return;
     this.postingComment = true;
@@ -294,35 +369,6 @@ export class DocumentDetailsComponent {
         }
       });
     }
-  }
-
-  onSubmit() {
-    const formData = new FormData();
-    const archivos = this.filesform.get('files')?.value;
-    if (archivos && Array.isArray(archivos)) {
-      archivos.forEach((file: File) => {
-        formData.append('files[]', file);  // 👈 nombre correcto
-      });
-    }
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) { 
-      this.dataService.uploadFiles(id, formData).subscribe({
-        next: (response) => {
-          this.NotificationService.showSuccess('Archivos subidos con exito', `Los archivos fueron subidos`); // Muestra la notificación de éxito
-          setTimeout(() => {
-            window.location.reload();
-          }, 500); 
-        },
-        error: (error) => { 
-          this.NotificationService.showError('Error al subir archivos', error.error.message);
-        }
-      });
-    }
-  }
-  changestatusopen = false;
-  changestatus(){
-    this.changestatusopen = true;
   }
 cerrarModal(){
   this.changestatusopen = false;

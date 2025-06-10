@@ -86,8 +86,23 @@
       <p>{{ document.user.name }}</p>
     </div>
   </div>
-  <div class="document-details">
-    <div class="document-header">
+
+
+  <aside>
+    <div class="document-actions">
+      <button class="actionbutton" (click)="section = 'archivos'" [class.active]="section === 'archivos'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a1 1 0 0 1 .707.293L14.415 4H19a3 3 0 0 1 2.995 2.824L22 7v7a3 3 0 0 1-3 3h-1v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h1V5a3 3 0 0 1 3-3zM6 8H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1H9a3 3 0 0 1-3-3z"/></svg>
+      Archivos
+    </button>
+    <button class="actionbutton" (click)="getHistory()" [class.active]="section === 'historial'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10.02 10.02 0 0 0-6.994 2.872V3a1 1 0 0 0-2 0v4.5a1 1 0 0 0 1 1h4.5a1 1 0 0 0 0-2H6.218A7.98 7.98 0 1 1 4 12a1 1 0 0 0-2 0A10 10 0 1 0 12 2"/><path fill="currentColor" d="M14 13h-2a1 1 0 0 1-1-1V9a1 1 0 0 1 2 0v2h1a1 1 0 0 1 0 2"/><path fill="currentColor" d="M12 4a8 8 0 0 0-5.782 2.5h2.288a1 1 0 0 1 0 2h-4.5a.99.99 0 0 1-.978-.889A9.9 9.9 0 0 0 2 12a1 1 0 0 1 2 0a8 8 0 1 0 8-8m2 9h-2a1 1 0 0 1-1-1V9a1 1 0 0 1 2 0v2h1a1 1 0 0 1 0 2" opacity=".5"/></svg>
+      Historial
+    </button>
+    </div>
+    <div class="document-details active-section">
+    @switch (section) {
+      @case ("archivos") {
+        <div class="document-header">
       <h3>Docuentos adjuntos</h3>
     </div>
     <div class="info-grid">
@@ -195,7 +210,19 @@
         </svg>
       </button>
     </form>
+      }
+      @case ("historial") {
+        @for (item of DocumentDataHistory; track $index) {
+          <app-d-history-changes
+            [historyItem]="item"
+          >
+          </app-d-history-changes>
+        }
+      }
+    }
   </div>
+</aside>
+
   <section>
     Comentarios
     <div class="af7">
