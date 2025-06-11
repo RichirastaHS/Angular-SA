@@ -46,5 +46,16 @@ getFormattedDate(date: string | null): string {
 getRelativeDate(date: string | null): string {
   return this.time.getRelativeTime(date!);
 }
+getStatusColor(status: string): string {
+  const statusColors: Record<string, string> = {
+    'Recepcionado': '#a0a0a0',
+    'En Tramite': 'var(--color-theme-orange)',    
+    'En Firma': 'purple',     
+    'Firmado': 'var(--color-theme-light-blue)',     
+    'Cancelado': 'var(--color-theme-red)',
+    'Concluido': 'var(--color-theme-green)'
+  };
 
+  return statusColors[status] || '#95a5a6'; 
+}
 }

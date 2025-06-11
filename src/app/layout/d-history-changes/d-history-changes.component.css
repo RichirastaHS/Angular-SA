@@ -2,6 +2,12 @@
     display: flex;
     flex-direction: row;
 }
+.history-item__content{
+    margin: 10px 0;
+        gap: 5px;
+    display: grid
+;
+}
 .status{
     border-radius: 10px;
     border: 1px solid #e5e5e5;
@@ -10,6 +16,9 @@
     padding: 2px 10px;
     font-size: 13px;
     margin-right: 2px;
+}
+.history-item__item{
+  display: flex;
 }
 .subtext{
     font-size: 12px;
@@ -30,4 +39,32 @@ h5{
     font-weight: 300;
     color: #505050;
    }
+}
+
+
+.timeline-wrapper {
+  position: relative;
+  width: 20px; /* espacio reservado para bolita y palito */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.timeline-marker {
+  aspect-ratio: 1 / 1; 
+  width: 15px;
+  background-color: var(--color, #007bff);
+  border: 2px solid color-mix(in srgb, var(--color) 70%, white 30%);
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute;
+  top: 18%;
+}
+
+.timeline-line {
+  flex-grow: 1;
+  width: 3px;
+  background-color: #e8e8e8;
+  position: relative;  
 }

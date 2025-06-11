@@ -1,4 +1,9 @@
-<div>
+<div class="history-item__item">
+  <div class="timeline-wrapper">
+  <div class="timeline-marker" [style.--color]="getStatusColor(historyItem.status.name)"></div>
+  <div class="timeline-line"></div>
+</div>
+<div class="history-item__content">
   <header class="title">
     <div>
       <h5>
@@ -13,4 +18,5 @@
       {{historyItem.description}}
     </p>
   </div>
+</div>
 </div>
