@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { TimeService } from '../../service/time.service';
+
 interface DocumentHistory {
   id: number;
   name: string;
@@ -23,7 +25,7 @@ interface DocumentDataHistory {
   created_at: string;
   updated_at: string | null;
   parent_id: string | null;
-  status: DocumentDataHistory;
+  status: DocumentHistory;
   children: DocumentDataHistory[]; // Recursivo para hijos
 }
 @Component({
@@ -35,4 +37,14 @@ interface DocumentDataHistory {
 export class DHistoryChangesComponent {
  @Input() historyItem!: DocumentDataHistory;
   
+  constructor(private time: TimeService) {}
+
+getFormattedDate(date: string | null): string {
+  return this.time.formatFullDate(date!);
+}
+
+getRelativeDate(date: string | null): string {
+  return this.time.getRelativeTime(date!);
+}
+
 }

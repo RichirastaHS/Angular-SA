@@ -212,12 +212,17 @@
     </form>
       }
       @case ("historial") {
+        <ul class="history-item">
         @for (item of DocumentDataHistory; track $index) {
-          <app-d-history-changes
-            [historyItem]="item"
-          >
-          </app-d-history-changes>
+        <li class="history-item__item">
+        <div class="timeline-wrapper">
+          <div class="timeline-marker"></div>
+          <div class="timeline-line"></div>
+        </div>
+          <app-d-history-changes style="margin: 10px 0;" [historyItem]="item"></app-d-history-changes>
+        </li>
         }
+      </ul> 
       }
     }
   </div>

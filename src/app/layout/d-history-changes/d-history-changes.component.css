@@ -1,0 +1,33 @@
+.title{
+    display: flex;
+    flex-direction: row;
+}
+.status{
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    color: #505050;
+    height: fit-content;
+    padding: 2px 10px;
+    font-size: 13px;
+    margin-right: 2px;
+}
+.subtext{
+    font-size: 12px;
+    color: #505050;
+    margin-top: 1px;
+}
+h5{
+    font-family: 'Roboto Flex', Courier, monospace;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 25px;
+}
+.content{
+   & p{
+    font-family: "Roboto Flex", Courier, monospace;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 300;
+    color: #505050;
+   }
+}

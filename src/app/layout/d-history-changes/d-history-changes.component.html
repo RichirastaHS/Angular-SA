@@ -1,7 +1,16 @@
-<section>
-    <h3 class="text-xl font-bold">{{ historyItem.title }}</h3>
-  <p><strong>Referencia:</strong> {{ historyItem.reference_number }}</p>
-  <p><strong>Descripción:</strong> {{ historyItem.description }}</p>
-  <p><strong>Prioridad:</strong> {{ historyItem.priority }}</p>
-  <p><strong>Fecha de emisión:</strong> {{ historyItem.issue_date }}</p>
-</section>
+<div>
+  <header class="title">
+    <div>
+      <h5>
+      <span class="status">{{historyItem.status.name}}</span> 
+       {{historyItem.title}} 
+      </h5>
+      <p class="subtext">{{getFormattedDate(historyItem.created_at)}}</p>
+    </div>
+  </header>
+  <div class="content">
+    <p>
+      {{historyItem.description}}
+    </p>
+  </div>
+</div>

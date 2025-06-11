@@ -80,7 +80,7 @@ interface DocumentDataHistory {
   created_at: string;
   updated_at: string | null;
   parent_id: string | null;
-  status: DocumentDataHistory;
+  status: DocumentHistory;
   children: DocumentDataHistory[]; // Recursivo para hijos
 }
 
@@ -118,7 +118,6 @@ export class DocumentDetailsComponent {
     private dataService: DataService,
     private NotificationService: NotificationService,
     private router: Router,
-    private sanitizer: DomSanitizer,
     private time: TimeService,
     public udaService: UdaService // Inyectar UdaService para comentarios
   ) {}
@@ -233,6 +232,7 @@ export class DocumentDetailsComponent {
     this.dataService.getDocumentHistory(this.idDoc).subscribe({
       next: (response) => {
         this.DocumentDataHistory = response.data;
+        console.log(this.DocumentDataHistory);
       }
     });
   }

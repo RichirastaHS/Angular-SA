@@ -87,6 +87,8 @@ svg:hover{
 
 .flex1{
   flex: 1;
+  height: fit-content;
+
 }
 
 .notification-container{
