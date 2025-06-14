@@ -543,3 +543,32 @@ svg{
   list-style: none;
   padding: 10px 0;
 }
+
+.history-item__item{
+  display: flex;
+}
+.timeline-wrapper {
+  position: relative;
+  width: 20px; /* espacio reservado para bolita y palito */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.timeline-marker {
+  width: 12px;
+  height: 12px;
+  background-color: #007bff;
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute;
+  top: 20%;
+}
+
+.timeline-line {
+  flex-grow: 1;
+  width: 3px;
+  background-color: #007bff;
+  position: relative;  
+}

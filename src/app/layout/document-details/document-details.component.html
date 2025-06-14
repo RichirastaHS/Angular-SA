@@ -107,7 +107,7 @@
       @case ("historial") {
         <ul class="history-item">
         @for (item of DocumentDataHistory; track $index) {
-        <li>
+        <li class="history-item__item">
           <app-d-history-changes [historyItem]="item"></app-d-history-changes>
         </li>
         }
