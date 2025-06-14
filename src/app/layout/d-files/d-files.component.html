@@ -1,0 +1,108 @@
+<div class="document-header">
+      <h3>Docuentos adjuntos</h3>
+    </div>
+    <div class="info-grid">
+      <ul class="file-list">
+        @for (file of files; track $index) {
+        <li class="file-list__item">
+          <button
+            class="file-list__item_button"
+            (click)="descargafile(file.id)"
+          >
+            <div class="file-icon">
+              @switch (file.file_extension) { @case ("pdf") {
+              <app-pdf></app-pdf>
+              } @case ("docx") {
+              <app-doc></app-doc>
+              } @case ("xlsx") {
+              <app-xlsx></app-xlsx>
+              } @default {
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#F1C40F" d="M0 100V0h72l28 28v72z"/><path fill="#F39C12" d="M0 100V72L72 0l28 28l-72 72z"/><path fill="#FFF55B" d="M72 0h1l27 27v1H72z"/><path fill="#fff" d="M34.828 55.721v3.853H23.29v7.704h9.738v3.87H23.29V81.75h-4.878V55.721zm9.252 26.028h-4.86V55.721h4.86zm10.691-3.996h10.422v3.996H49.93V55.721h4.842zm30.187-22.032v3.853H73.42v7.218h9.09v3.726h-9.09v7.362h11.538v3.87H68.542V55.721z"/></svg>
+              }
+            }
+            </div>
+            {{ file.original_name }}
+            <span class="hover-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24m296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24m-124 88c0-11-9-20-20-20s-20 9-20 20s9 20 20 20s20-9 20-20m64 0c0-11-9-20-20-20s-20 9-20 20s9 20 20 20s20-9 20-20"/></svg>
+            </span>
+          </button>
+        </li>
+        }@empty {
+          Sin Archivos
+        }
+      </ul>
+    </div>
+    <br />
+    <hr />
+    <form class="form" [formGroup]="filesform" (ngSubmit)="onSubmit()">
+      <fieldset class="form-group description">
+        Adjuntar Documento (PDF, DOCX, XLSX)
+        <label for="files" class="file-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h5.175q.4 0 .763.15t.637.425L12 6h9q.425 0 .713.288T22 7t-.288.713T21 8h-9.825l-2-2H4v12l1.975-6.575q.2-.65.738-1.037T7.9 10h12.9q1.025 0 1.613.813t.312 1.762l-1.8 6q-.2.65-.737 1.038T19 20zm2.1-2H19l1.8-6H7.9zM4 11.45V6zM6.1 18l1.8-6z"
+            />
+          </svg>
+          Arraste el archivo aquí o haga clic para seleccionar
+          <input
+            type="file"
+            id="document_file"
+            name="document_file"
+            (change)="onFileArraySelected($event)"
+            accept=".pdf, .docx, .xlsx"
+            class="file-input"
+          />
+        </label>
+        <ul class="file-list">
+          @for (archivo of archivosSubidos; track $index) {
+          <li class="file-info">
+            <div class="file-icon">
+              @switch (archivo.tipo) { @case ("pdf") {
+              <app-pdf></app-pdf>
+              } @case ("docx") {
+              <app-doc></app-doc>
+              } @case ("xlsx") {
+              <app-xlsx></app-xlsx>
+              } }
+            </div>
+            <p>{{ archivo.nombre }}</p>
+            <button
+              type="button"
+              class="delete-file"
+              (click)="eliminarArchivo(archivo.id)"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                <g fill="currentColor">
+                  <path
+                    d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96"
+                    opacity=".2"
+                  />
+                  <path
+                    d="M165.66 101.66L139.31 128l26.35 26.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32M232 128A104 104 0 1 1 128 24a104.11 104.11 0 0 1 104 104m-16 0a88 88 0 1 0-88 88a88.1 88.1 0 0 0 88-88"
+                  />
+                </g>
+              </svg>
+            </button>
+          </li>
+          }
+        </ul>
+      </fieldset>
+      <button type="submit" class="btn-save">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 21H7m10 0h.803c1.118 0 1.677 0 2.104-.218c.377-.192.683-.498.875-.874c.218-.427.218-.987.218-2.105V9.22c0-.45 0-.675-.048-.889a2 2 0 0 0-.209-.545c-.106-.19-.256-.355-.55-.682l-2.755-3.062c-.341-.378-.514-.57-.721-.708a2 2 0 0 0-.61-.271C15.863 3 15.6 3 15.075 3H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C3 4.52 3 5.08 3 6.2v11.6c0 1.12 0 1.68.218 2.107c.192.377.497.683.874.875c.427.218.987.218 2.105.218H7m10 0v-3.803c0-1.118 0-1.678-.218-2.105a2 2 0 0 0-.875-.874C15.48 14 14.92 14 13.8 14h-3.6c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C7 15.52 7 16.08 7 17.2V21m8-14H9"
+          />
+        </svg>
+      </button>
+    </form>

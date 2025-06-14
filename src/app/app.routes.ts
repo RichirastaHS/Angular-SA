@@ -19,6 +19,7 @@ import { NoAuthGuard } from './core/guards/noauth.guard';
 import { EditMyUserComponent } from './layout/edit-my-user/edit-my-user.component';
 import { ChangestatusComponent } from './layout/changestatus/changestatus.component';
 import { DHistoryChangesComponent } from './layout/d-history-changes/d-history-changes.component';
+import { DFilesComponent } from './layout/d-files/d-files.component';
 
 export const routes: Routes = [
     {
@@ -31,7 +32,7 @@ export const routes: Routes = [
     },
     {
         path: 'a',
-        component: DHistoryChangesComponent,
+        component: DFilesComponent,
     },
     {
         path: 'main',
