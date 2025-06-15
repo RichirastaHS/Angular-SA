@@ -29,22 +29,9 @@ import { UdaService } from '../../service/uda.service';
 import { ChangestatusComponent } from '../changestatus/changestatus.component';
 import { DHistoryChangesComponent } from '../d-history-changes/d-history-changes.component';
 import { DFilesComponent } from '../d-files/d-files.component';
-export interface usuario {
-  id: number;
-  name: string;
-}
-export interface Comment {
-  id: number;
-  comment: string;
-  created_at: string;
-  updated_at: string;
-  parent_id: number | null;
-  document_id: string;
-  document: any | null;
-  user_id: number;
-  user: usuario;
-  replies: Comment[];
-}
+import { DocumentDataHistory } from '../../models/docdatahistory';
+import { Comment } from '../../models/comment';
+
 export interface FileData {
   id: number;
   document_id: string;
@@ -59,33 +46,6 @@ export interface FileData {
   uploaded_at: string;
   created_at: string;
   updated_at: string;
-}
-interface DocumentHistory {
-  id: number;
-  name: string;
-  key: string;
-  created_at: string;
-  updated_at: string | null;
-}
-
-interface DocumentDataHistory {
-  id: string;
-  title: string;
-  reference_number: string;
-  description: string;
-  created_by: number;
-  category_id: number;
-  status_id: number;
-  sender_department_id: number;
-  receiver_department_id: number;
-  issue_date: string;
-  received_date: string;
-  priority: string;
-  created_at: string;
-  updated_at: string | null;
-  parent_id: string | null;
-  status: DocumentHistory;
-  children: DocumentDataHistory[]; // Recursivo para hijos
 }
 
 @Component({
@@ -138,6 +98,7 @@ export class DocumentDetailsComponent {
     if (this.idDoc) {
       this.dataService.getDocumentbyId(this.idDoc).subscribe({
         next: (response) => {
+          console.log(response);
           const doc = response.document as Document;
           this.document = {
             ...doc,
@@ -209,6 +170,7 @@ export class DocumentDetailsComponent {
     }
   }
   changestatusopen = false;
+  
   changestatus() {
     this.changestatusopen = true;
   }
